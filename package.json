@@ -6,10 +6,14 @@
     "react-scripts": "^3.0.0"
   },
   "dependencies": {
+    "bootstrap": "^4.4.1",
     "daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2019.3.4012.tar.gz",
+    "material-ui": "^0.20.2",
+    "mdbreact": "^4.23.0",
     "node-sass": "^4.13.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.6",
+    "react-bootstrap": "^1.0.0-beta.16",
     "react-dom": "^16.8.6",
     "react-redux": "^7.0.2",
     "react-router": "^5.1.2",

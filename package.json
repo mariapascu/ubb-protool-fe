@@ -6,6 +6,7 @@
     "react-scripts": "^3.0.0"
   },
   "dependencies": {
+    "@material-ui/core": "^4.7.0",
     "bootstrap": "^4.4.1",
     "daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2019.3.4012.tar.gz",
     "material-ui": "^0.20.2",

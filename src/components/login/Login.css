@@ -15,17 +15,30 @@
 }
 
 .FormSide {
-    background: aqua;
+    background: #f9f9f9;
     float: left;
     width: 50%;
     height: 100%;
 }
 
+.MidDivider {
+    width: 10%;
+    height: 100%;
+    background: #f9f9f9 ;
+    float: right;
+}
+
 .HeroSide {
-    background: blueviolet;
+    background: #0d2d4c;
     float: left;
     width: 50%;
     height: 100%;
+}
+
+.HeroImage {
+    position: absolute;
+    height: 70%;
+    width: 50%;
 }
 
 .LoginForm {
@@ -34,3 +47,4 @@
     top: 30%;
     max-width: 45%;
 }
+

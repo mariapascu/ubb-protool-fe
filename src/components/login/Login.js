@@ -5,6 +5,9 @@ import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn} from 'mdbreact';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import '@material-ui/core'
+import TextField from '@material-ui/core/TextField';
+
 
 class Login extends React.Component {
 
@@ -88,7 +91,11 @@ class Login extends React.Component {
                 <div className="Login">
 
                     <div className="HeroSide">
-                        <h1>Ceva</h1>
+                        <img className="HeroImage"
+                             alt="hero"
+                             src="../../images/heroImageLogin.jpg"/>
+                        <div className="MidDivider">
+                        </div>
                     </div>
 
                     <div className="FormSide">
@@ -115,10 +122,31 @@ class Login extends React.Component {
                         {/*</form>*/}
 
                         <form onSubmit={this.login} className="LoginForm">
-                            <MDBInput label="Your e-mail" type="email" />
-                            <div className="form-group">
-                                <MDBInput label="Example label" name="password" onChange={this.handleInputChange} outline size="sm" />
-                            </div>
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="email"
+                                label="Email Address"
+                                autoComplete="email"
+                                autoFocus
+                                name="email"
+                                onChange={this.handleInputChange}
+                            />
+                            <TextField
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="password"
+                                label="Password"
+                                autoComplete="email"
+                                autoFocus
+                                onChange={this.handleInputChange}
+                                name="password"
+                                outline size="sm"
+                            />
                             <button type="submit" className="btn btn-light">Submit</button>
                         </form>
 

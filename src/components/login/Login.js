@@ -91,38 +91,27 @@ class Login extends React.Component {
                 <div className="Login">
 
                     <div className="HeroSide">
+                        <div className="MainTitle">
+                            <div className="TitleUbbTool">
+                                <span className="UBB">UBB</span>
+                                <span className="Tool">Tool</span>
+                            </div>
+                            <div className="TitlePro">
+                                PRO
+                            </div>
+                        </div>
+
                         <img className="HeroImage"
-                             alt="hero"
-                             src="../../images/heroImageLogin.jpg"/>
+                             alt="hero"/>
                         <div className="MidDivider">
                         </div>
                     </div>
 
                     <div className="FormSide">
-                        {/*<form onSubmit={this.login} className="LoginForm">*/}
-                        {/*    <form controlId="email"*/}
-                        {/*          validationState={formSubmitted ? (errors.email ? 'error' : 'success') : null}>*/}
-                        {/*        <label>Email</label>*/}
-                        {/*        <input type="text" name="email" placeholder="Enter your email"*/}
-                        {/*               onChange={this.handleInputChange}/>*/}
-                        {/*        {errors.email &&*/}
-                        {/*        <label>{errors.email}</label>*/}
-                        {/*        }*/}
-                        {/*    </form>*/}
-                        {/*    <form controlId="password"*/}
-                        {/*          validationState={formSubmitted ? (errors.password ? 'error' : 'success') : null}>*/}
-                        {/*        <label>Password</label>*/}
-                        {/*        <input type="password" name="password" placeholder="Enter your password"*/}
-                        {/*               onChange={this.handleInputChange}/>*/}
-                        {/*        {errors.password &&*/}
-                        {/*        <label>{errors.password}</label>*/}
-                        {/*        }*/}
-                        {/*    </form>*/}
-                        {/*    <button type="submit" className="btn btn-light">Sign-In</button>*/}
-                        {/*</form>*/}
-
                         <form onSubmit={this.login} className="LoginForm">
+                            <div className="SignIn">Sign in</div>
                             <TextField
+                                className="EmailTextField"
                                 variant="outlined"
                                 margin="normal"
                                 required
@@ -135,6 +124,7 @@ class Login extends React.Component {
                                 onChange={this.handleInputChange}
                             />
                             <TextField
+                                className="PasswordTextField"
                                 variant="outlined"
                                 margin="normal"
                                 required
@@ -147,11 +137,9 @@ class Login extends React.Component {
                                 name="password"
                                 outline size="sm"
                             />
-                            <button type="submit" className="btn btn-light">Submit</button>
+                            <button type="submit" className="btn btn-secondary myButton">Submit</button>
                         </form>
-
                     </div>
-
                 </div>
             </MuiThemeProvider>
         )

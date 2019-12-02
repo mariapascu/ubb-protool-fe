@@ -1,7 +1,8 @@
 import React from 'react'
 import './App.css';
 import Home from './Home'
-import Login from '../containers/Login'
+import Login from '../containers/Login';
+import Register from '../containers/Register';
 
 import {
   Route,
@@ -15,8 +16,9 @@ const App = () => (
     
     <div className="App-intro">
           <Switch>
-            <Route exact path="/"  component={Login} />
-            <Route exact path="/welcomeUser"  component={WelcomeUser} />
+              <Route exact path="/"  component={Login} />
+              <Route exact path="/welcomeUser"  component={WelcomeUser} />
+              <Route exact path="/register" component={Register}/>
           </Switch>
         </div>
   </div>

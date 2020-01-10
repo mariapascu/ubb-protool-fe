@@ -19,12 +19,25 @@
 .weekCalendar__overlay{
     background-color: white;
     border-bottom: 1px solid black;
-    width: 100%;
+    width: 20% !important;
 
 }
 
-.weekCalendar__overlay:hover{
-    background-color: rgb(211, 185, 219)
+.dayCell:hover{
+    background-color: white !important;
 
+}
+.class-cell{
+    background-color:black ;
+    height: 100%;
+    width: 100%;
+    color:white
+}
+
+.class-cell:hover{
+    background-color: #DF013A;
+    height: 100%;
+    width: 100%;
+    color:white
 }
 

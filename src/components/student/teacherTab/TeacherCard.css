@@ -1,0 +1,46 @@
+
+
+.bullet {
+    display: inline-block;
+    margin: 0 2px;
+    transform: scale(0.8);
+}
+
+.title {
+    font-size: 14px;
+}
+
+.pos {
+    margin-bottom: 12px;
+}
+
+
+.teacherAvatar {
+
+    width: 100%;
+}
+
+.MuiAvatar-root.new {
+    float: left;
+    margin: 1%;
+    height: 100px;
+    width: 100px;
+    content: url("../../../images/TeacherAvatar.png");
+}
+
+.MuiTypography-root.Name{
+    padding-left: 50px;
+}
+.MuiSvgIcon-root.Icon{
+    margin-right: 1%;
+}
+.ThesisAvailability{
+    font-size: small!important;
+}
+
+.MuiCard-root.card {
+    margin: 1.5%;
+}
+.pageContent {
+    margin-top: 4%;
+}

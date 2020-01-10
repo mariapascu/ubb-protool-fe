@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import NavBar from '../navbar/Navbar'
+import NavbarStudent from '../navbar/NavbarStudent'
+import NavBarTeacher from '../navbar/NavBarTeacher'
 
 const styles = {
 
@@ -25,7 +26,7 @@ class UserHome extends React.Component {
     render() {
         return (
             <div>
-                <NavBar/>
+                <NavbarStudent/>
             </div>
         )
     }

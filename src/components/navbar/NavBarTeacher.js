@@ -1,9 +1,9 @@
 import React from "react";
-import './Navbar.css';
+import './NavbarStudent.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink } from "react-router-dom";
 
-class NavBar extends React.Component {
+class NavBarTeacher extends React.Component {
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light stick">
@@ -40,7 +40,7 @@ class NavBar extends React.Component {
                                 to="/user"
                                 activeClassName="active"
                             >
-                                Teachers
+                                Messages
                             </NavLink>
                         </li>
                     </ul>
@@ -62,4 +62,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default NavBar;
+export default NavBarTeacher;

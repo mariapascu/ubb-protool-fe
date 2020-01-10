@@ -23,7 +23,7 @@ class TeacherCard extends React.Component {
         return (
             <Card className="card">
                 <div>
-                    <Avatar variant={"circle"} alt={this.teacher.firstName[0]} className="new"/>
+                    <Avatar variant={"circle"} alt={this.teacher.firstName} className="new"/>
                     <div>
                         <Typography variant="h5" className="Name">
                             {this.teacher.firstName} {this.teacher.lastName} <span className="ThesisAvailability"

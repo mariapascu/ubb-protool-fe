@@ -105,7 +105,8 @@ class Login extends React.Component {
                     </div>
 
                     <div className="FormSide">
-                        <form onSubmit={this.login} className="LoginForm">
+                        <div className="LoginForm">
+                        <form onSubmit={this.login}>
                             <div className="SignIn">Sign in</div>
                             <TextField
                                 className="EmailTextField"
@@ -132,10 +133,13 @@ class Login extends React.Component {
                                 autoFocus
                                 onChange={this.handleInputChange}
                                 name="password"
-                                outline size="sm"
                             />
-                            <button type="submit" className="btn btn-secondary myButton">Submit</button>
+                            <div>
+                                <div style={{float:"left"}}><button type="submit" className="btn btn-secondary myButton">Submit</button></div>
+                                <div style={{float:"left", marginTop: "7%", marginLeft: "5%"}}>Already have an account? <a href="/register">Register</a></div>
+                            </div>
                         </form>
+                        </div>
                     </div>
                 </div>
             </MuiThemeProvider>

@@ -3,7 +3,6 @@ import './Login.css';
 import {isEmail, isEmpty, isLength, isContainWhiteSpace} from '../../shared/validator';
 import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn} from 'mdbreact';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';

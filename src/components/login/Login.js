@@ -50,8 +50,6 @@ class Login extends React.Component {
             errors.password = "Password can't be blank";
         } else if (isContainWhiteSpace(formData.password)) {
             errors.password = "Password should not contain white spaces";
-        } else if (!isLength(formData.password, {gte: 6, lte: 16, trim: true})) {
-            errors.password = "Password's length must between 6 to 16";
         }
 
         if (isEmpty(errors)) {
@@ -107,7 +105,8 @@ class Login extends React.Component {
                     </div>
 
                     <div className="FormSide">
-                        <form onSubmit={this.login} className="LoginForm">
+                        <div className="LoginForm">
+                        <form onSubmit={this.login}>
                             <div className="SignIn">Sign in</div>
                             <TextField
                                 className="EmailTextField"
@@ -134,10 +133,13 @@ class Login extends React.Component {
                                 autoFocus
                                 onChange={this.handleInputChange}
                                 name="password"
-                                outline size="sm"
                             />
-                            <button type="submit" className="btn btn-secondary myButton">Submit</button>
+                            <div>
+                                <div style={{float:"left"}}><button type="submit" className="btn btn-secondary myButton">Submit</button></div>
+                                <div style={{float:"left", marginTop: "7%", marginLeft: "5%"}}>Already have an account? <a href="/register">Register</a></div>
+                            </div>
                         </form>
+                        </div>
                     </div>
                 </div>
             </MuiThemeProvider>

@@ -1,19 +1,18 @@
 import React from 'react';
-import { connect } from 'react-redux'
-import {Button, Typography} from '@material-ui/core';
-
-import MenuListComposition from './Menu'
-
-
-
+import {connect} from 'react-redux'
+import NavbarStudent from '../navbar/NavbarStudent'
+import NavBarTeacher from '../navbar/NavBarTeacher'
+import Message from "../message/Message";
+import './UserHome.css';
 
 const styles = {
 
     logoutButton: {
         float: "right",
-        top:0
+        top: 0
     }
 };
+
 class UserHome extends React.Component {
 
     constructor(props) {
@@ -26,20 +25,20 @@ class UserHome extends React.Component {
         this.props.history.push('/login')
     }
 
-
-
-    render(){
-        return(
+    render() {
+        return (
             <div>
-                <Button onClick={this.logout} style={styles.logoutButton} variant="contained" color="secondary">
-                    Logout
-                </Button>
-                <Typography variant="h4" gutterBottom>
-                    Welcome {this.props.email}!
-                </Typography>
+                <NavbarStudent/>
 
-                <MenuListComposition></MenuListComposition>
-
+                <div className="pageContent">
+                    <Message changeStatus={"Pending"}
+                             studentName={"Cezar Olteanu"}
+                             subjectName={"MPP"}
+                             fromDate={"Miercuri 16:00"}
+                             toChangedDate={"Joi 13:00"}
+                             subjectType={"Laboratory"}
+                             studentGroup={"935/2"}/>
+                </div>
             </div>
         )
     }

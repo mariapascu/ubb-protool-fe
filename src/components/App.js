@@ -9,6 +9,7 @@ import {
   Switch,
 } from 'react-router-dom';
 import UserHome from "./student/UserHome";
+import Register from "../containers/Register";
 import TeacherCard from "./student/teacherTab/TeacherCard";
 
 const App = () => (
@@ -19,6 +20,7 @@ const App = () => (
             <Route exact path="/"  component={TeacherCard} />
             <Route exact path="/login"  component={Login} />
             <Route exact path="/user"  component={UserHome} />
+            <Route exact path="/register" component={Register} />
           </Switch>
         </div>
   </div>

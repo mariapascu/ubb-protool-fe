@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import UserHome from "./student/UserHome";
 import Register from "../containers/Register";
+import Calendar from "./student/Calendar";
 
 const App = () => (
   <div>
@@ -20,6 +21,7 @@ const App = () => (
             <Route exact path="/login"  component={Login} />
             <Route exact path="/user"  component={UserHome} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/cal" component={Calendar} />
           </Switch>
         </div>
   </div>

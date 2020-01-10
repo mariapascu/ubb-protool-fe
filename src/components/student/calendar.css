@@ -1,0 +1,30 @@
+/* adjusting the built-in theme */
+
+/* calendar event */
+.calendar_default_event_inner {
+    background: pink;
+    color: #fff;
+    border: none;
+    font-size: 10pt;
+    padding: 5px;
+    opacity: 0.8;
+}
+
+.calendar_default_shadow_inner
+{
+    background-color: #863e3e;
+    opacity: 0.5;
+    height: 100%;
+}
+.weekCalendar__overlay{
+    background-color: white;
+    border-bottom: 1px solid black;
+    width: 100%;
+
+}
+
+.weekCalendar__overlay:hover{
+    background-color: rgb(211, 185, 219)
+
+}
+

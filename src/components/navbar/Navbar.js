@@ -1,10 +1,7 @@
 import React from "react";
 import './Navbar.css';
-import {isEmail, isEmpty, isLength, isContainWhiteSpace} from '../../shared/validator';
-import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {MDBContainer, MDBRow, MDBCol, MDBInput, MDBBtn} from 'mdbreact';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import { NavLink } from "react-router-dom";
 
 class NavBar extends React.Component {
     render() {
@@ -19,6 +16,7 @@ class NavBar extends React.Component {
                     data-toggle="collapse"
                     data-target="#navbarNav"
                     aria-controls="navbarNav"
+
                     aria-expanded="false"
                     aria-label="Toggle navigation"
                 >
@@ -29,7 +27,7 @@ class NavBar extends React.Component {
                         <li className="nav-item">
                             <NavLink
                                 className="nav-link"
-                                // to="/schedule"
+                                to="/user"
                                 activeClassName="active"
                             >
                                 Home
@@ -39,10 +37,22 @@ class NavBar extends React.Component {
                         <li className="nav-item">
                             <NavLink
                                 className="nav-link"
-                                // to="/teachers"
+                                to="/user"
                                 activeClassName="active"
                             >
                                 Teachers
+                            </NavLink>
+                        </li>
+                    </ul>
+
+                    <ul className="navbar-nav ml-auto">
+                        <li className="nav-item">
+                            <NavLink
+                                className="nav-link"
+                                to="/login"
+                                activeClassName="active"
+                            >
+                                Logout
                             </NavLink>
                         </li>
                     </ul>
@@ -52,4 +62,4 @@ class NavBar extends React.Component {
     }
 }
 
-export default Navbar;
+export default NavBar;

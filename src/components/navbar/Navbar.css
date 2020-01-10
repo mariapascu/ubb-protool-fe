@@ -8,3 +8,7 @@
 .user-box{
     cursor: pointer;
 }
+
+.logout {
+    float: right !important;
+}

@@ -8,7 +8,7 @@ import {
 
   Switch,
 } from 'react-router-dom';
-import WelcomeUser from '../containers/WelcomeUser';
+import UserHome from "./student/UserHome";
 
 const App = () => (
   <div>
@@ -17,7 +17,7 @@ const App = () => (
           <Switch>
             <Route exact path="/"  component={Home} />
             <Route exact path="/login"  component={Login} />
-            <Route exact path="/welcomeUser"  component={WelcomeUser} />
+            <Route exact path="/user"  component={UserHome} />
           </Switch>
         </div>
   </div>

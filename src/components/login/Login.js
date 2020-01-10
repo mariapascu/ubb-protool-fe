@@ -50,8 +50,6 @@ class Login extends React.Component {
             errors.password = "Password can't be blank";
         } else if (isContainWhiteSpace(formData.password)) {
             errors.password = "Password should not contain white spaces";
-        } else if (!isLength(formData.password, {gte: 6, lte: 16, trim: true})) {
-            errors.password = "Password's length must between 6 to 16";
         }
 
         if (isEmpty(errors)) {
@@ -71,7 +69,7 @@ class Login extends React.Component {
 
         if (errors === true) {
             this.props.addUser(formData.email, formData.password)
-            this.props.history.push('/welcomeUser')
+            this.props.history.push('/user')
 
         } else {
             this.setState({

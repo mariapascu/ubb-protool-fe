@@ -127,6 +127,7 @@ class Login extends React.Component {
                                 margin="normal"
                                 required
                                 fullWidth
+                                type="password"
                                 id="password"
                                 label="Password"
                                 autoComplete="email"

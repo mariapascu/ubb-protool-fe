@@ -12,10 +12,10 @@ export default class CourseClass{
     hour- int
     location - string
      */
-    constructor(classId,teacher,courseId,subgroup,classType,classDay,classWeek,classHour,classLocation,duration){
+    constructor(classId,teacher,course,subgroup,classType,classDay,classWeek,classHour,classLocation,duration){
         this.classId = classId;
         this.teacher = teacher;
-        this.courseId = courseId;
+        this.course = course;
         this.subgroup = subgroup;
         this.classType = classType;
         this.classDay = classDay;

@@ -71,7 +71,7 @@ class Login extends React.Component {
 
         if (errors === true) {
             this.props.addUser(formData.email, formData.password)
-            this.props.history.push('/welcomeUser')
+            this.props.history.push('/user')
 
         } else {
             this.setState({

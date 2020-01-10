@@ -71,8 +71,8 @@ class Login extends React.Component {
 
 
         if (errors === true) {
-            this.props.addUser(formData.email, formData.password)
-            this.props.history.push('/welcomeUser')
+            this.props.addUser(formData.email, formData.password);
+            this.props.history.push('/welcomeUser');
 
         } else {
             this.setState({
@@ -80,7 +80,7 @@ class Login extends React.Component {
                 formSubmitted: true
             });
         }
-    }
+    };
 
     render() {
 
@@ -101,7 +101,7 @@ class Login extends React.Component {
                             </div>
                         </div>
 
-                        <img className="HeroImage"
+                        <img className="HeroImageLogin"
                              alt="hero"/>
                         <div className="MidDivider">
                         </div>

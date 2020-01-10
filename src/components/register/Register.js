@@ -6,6 +6,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
+import './Register.css';
+import {withStyles} from '@material-ui/core/styles/withStyles';
+import createMuiTheme from "@material-ui/core/es/styles/createMuiTheme";
+import purple from "@material-ui/core/es/colors/purple";
+
 
 class Register extends React.Component {
     constructor(props) {
@@ -21,41 +26,84 @@ class Register extends React.Component {
     }
 
     setType = (event) => {
+        this.setState({typeSelected: true});
+        this.handleInputChange(event);
+    };
+
+
+    registerMe = (e) => {
+        console.log(this.state);
+        e.preventDefault();
+        const {formData} = this.state;
+        this.props.addUser(formData.email, formData.password);
+
+        this.props.history.push('/welcomeUser');
+
+    };
+
+    handleInputChange = (event) => {
+        console.log("handle input change " + event.target.name + " " + event.target.value);
         const target = event.target;
         const value = target.value;
         const name = target.name;
 
         let {formData} = this.state;
         formData[name] = value;
-        this.setState({typeSelected: true});
-    };
 
-    register = (e) => {
-        console.log("register");
-    };
+        this.setState({
+            formData: formData
+        });
+    }
 
     render() {
-        var a;
+        var studentOrTeacher;
         if (this.state.typeSelected) {
             if (this.state.formData['type'] === 'student') {
-                a = <TextField
+                studentOrTeacher = <div>
+                    <TextField
+                        className="GroupTextField"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id=""
+                        label="Specialization"
+                        autoFocus
+                        name="specialization"
+                        outline size="sm"
+                        onChange={this.handleInputChange}/>
+                    <TextField
                     className="GroupTextField"
                     variant="outlined"
                     margin="normal"
                     required
                     fullWidth
-                    id="password"
+                    id="group"
                     label="Group"
                     autoFocus
-                    name="password"
+                    name="group"
                     outline size="sm"
-                />;
+                    onChange={this.handleInputChange}
+                /></div>;
             } else {
-                a = <div>
-                    <div>Are you available?</div>
-                    <RadioGroup aria-label="gender" name="available" row>
-                        <FormControlLabel value="yes" control={<Radio/>} label="Yes"/>
-                        <FormControlLabel value="no" control={<Radio/>} label="No"/>
+                studentOrTeacher = <div>
+                    <TextField
+                        className="GroupTextField"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="department"
+                        label="Department"
+                        autoFocus
+                        name="department"
+                        outline size="sm"
+                        onChange={this.handleInputChange}
+                    />
+                    <div>Are you available for Bachelor's Thesis?</div>
+                    <RadioGroup aria-label="available" name="available" row  onChange={this.handleInputChange}>
+                        <FormControlLabel value="yes"  control={<Radio color="primary"/>} label="Yes"/>
+                        <FormControlLabel value="no"  control={<Radio color="primary"/>} label="No"/>
                     </RadioGroup>
                 </div>;
             }
@@ -63,10 +111,9 @@ class Register extends React.Component {
         }
         return (
             <MuiThemeProvider>
-                <div className="Login">
+                <div className="Register">
 
                     <div className="HeroSide">
-                        <h1>Ceva</h1>
                         <div className="MainTitle">
                             <div className="TitleUbbTool">
                                 <span className="UBB">UBB</span>
@@ -84,7 +131,8 @@ class Register extends React.Component {
                     </div>
 
                     <div className="FormSide">
-                        <form onSubmit={this.register} className="LoginForm">
+                        <form onSubmit={this.registerMe} className="RegisterForm">
+                            <div className="RegisterTitle">Register</div>
                             <TextField
                                 className="EmailTextField"
                                 variant="outlined"
@@ -96,6 +144,7 @@ class Register extends React.Component {
                                 autoComplete="email"
                                 autoFocus
                                 name="email"
+                                onChange={this.handleInputChange}
                             />
                             <TextField
                                 className="PasswordTextField"
@@ -109,6 +158,7 @@ class Register extends React.Component {
                                 autoFocus
                                 name="password"
                                 outline size="sm"
+                                onChange={this.handleInputChange}
                             />
                             <TextField
                                 className="PasswordTextField"
@@ -121,12 +171,42 @@ class Register extends React.Component {
                                 autoFocus
                                 name="password"
                                 outline size="sm"
+                                onChange={this.handleInputChange}
                             />
-                            <RadioGroup aria-label="gender" name="type" row onChange={this.setType}>
-                                <FormControlLabel value="student" control={<Radio/>} label="Student"/>
-                                <FormControlLabel value="teacher" control={<Radio/>} label="Teacher"/>
+                            <TextField
+                                className="GroupTextField"
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="university"
+                                label="University"
+                                autoFocus
+                                name="university"
+                                outline size="sm"
+                                onChange={this.handleInputChange}
+                            />
+                            <TextField
+                                className="GroupTextField"
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="faculty"
+                                label="Faculty"
+                                autoFocus
+                                name="faculty"
+                                outline size="sm"
+                                onChange={this.handleInputChange}
+                            />
+                            <RadioGroup className="radioGroup" aria-label="type" name="type" row
+                                        onChange={this.setType}>
+                                <FormControlLabel control={<Radio color="primary"/>}
+                                                  value="student"
+                                                  label="Student"/>
+                                <FormControlLabel value="teacher" control={<Radio color="primary"/>} label="Teacher"/>
                             </RadioGroup>
-                            {a}
+                            {studentOrTeacher}
                             <button type="submit" className="btn btn-secondary myButton">Submit</button>
                         </form>
 

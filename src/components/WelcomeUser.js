@@ -5,16 +5,16 @@ import Calendar from './Calendar';
 class WelcomeUser extends React.Component {
 
   constructor(props) {
-      super(props)
+      super(props);
       if (!this.props.email ){
         this.props.history.push('/')
       }
-  }
+  };
   
   logout = (e) => {
     this.props.logout();
-    this.props.history.push('/login')
-  }
+    this.props.history.push('/');
+  };
   render(){
     return(
       <div>

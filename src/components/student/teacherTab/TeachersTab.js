@@ -9,8 +9,6 @@ let tList = teachers
 class TeachersTab extends React.Component {
     constructor(props) {
         super(props);
-        this.tList = this.props.teachersList
-
     }
 
     render() {

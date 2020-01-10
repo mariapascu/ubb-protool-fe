@@ -37,7 +37,7 @@ class NavbarStudent extends React.Component {
                         <li className="nav-item">
                             <NavLink
                                 className="nav-link"
-                                to="/user"
+                                to="/teachersStudent"
                                 activeClassName="active"
                             >
                                 Teachers

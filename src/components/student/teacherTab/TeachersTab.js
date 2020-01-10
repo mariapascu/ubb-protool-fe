@@ -2,7 +2,9 @@ import * as React from "react";
 import TeacherCard from "./TeacherCard";
 import {teachers} from "../../../mockings/TeacherMock";
 import {connect} from "react-redux";
+import NavbarStudent from "../../navbar/NavbarStudent";
 
+let tList = teachers
 
 class TeachersTab extends React.Component {
     constructor(props) {
@@ -14,17 +16,14 @@ class TeachersTab extends React.Component {
     render() {
         return (
             <div>
-                {this.getForRenderArray()}
+                <NavbarStudent/>
+                <div className="pageContent">
+                    {tList.map((item, index) => (
+                        <TeacherCard teacher = {item}/>
+                    ))}
+                </div>
             </div>
         )
-    }
-
-    getForRenderArray() {
-        let array = [];
-        for (let i = 0; i < this.tList.length; i++) {
-            array.push(<TeacherCard teacher={teachers[i]}/>);
-        }
-        return array
     }
 }
 

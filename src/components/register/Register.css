@@ -10,11 +10,11 @@
     left: 0;
 }
 
-.FormSide {
+.RegisterFormSide {
     background: #f7f7f7;
     float: left;
     width: 50%;
-    height: 100%;
+    height:100%;
 }
 
 .MidDivider {
@@ -46,7 +46,6 @@
     left: 25%;
     top: 2%;
     max-width: 45%;
-    max-height: 10%;
 }
 
 .MainTitle {

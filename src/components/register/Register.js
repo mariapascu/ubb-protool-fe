@@ -73,18 +73,18 @@ class Register extends React.Component {
                         outline size="sm"
                         onChange={this.handleInputChange}/>
                     <TextField
-                    className="GroupTextField"
-                    variant="outlined"
-                    margin="normal"
-                    required
-                    fullWidth
-                    id="group"
-                    label="Group"
-                    autoFocus
-                    name="group"
-                    outline size="sm"
-                    onChange={this.handleInputChange}
-                /></div>;
+                        className="GroupTextField"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="group"
+                        label="Group"
+                        autoFocus
+                        name="group"
+                        outline size="sm"
+                        onChange={this.handleInputChange}
+                    /></div>;
             } else {
                 studentOrTeacher = <div>
                     <TextField
@@ -101,37 +101,37 @@ class Register extends React.Component {
                         onChange={this.handleInputChange}
                     />
                     <div>Are you available for Bachelor's Thesis?</div>
-                    <RadioGroup aria-label="available" name="available" row  onChange={this.handleInputChange}>
-                        <FormControlLabel value="yes"  control={<Radio color="primary"/>} label="Yes"/>
-                        <FormControlLabel value="no"  control={<Radio color="primary"/>} label="No"/>
+                    <RadioGroup aria-label="available" name="available" row onChange={this.handleInputChange}>
+                        <FormControlLabel value="yes" control={<Radio color="primary"/>} label="Yes"/>
+                        <FormControlLabel value="no" control={<Radio color="primary"/>} label="No"/>
                     </RadioGroup>
                 </div>;
             }
 
         }
-        return (
-            <MuiThemeProvider>
-                <div className="Register">
+        return <MuiThemeProvider>
+            <div className="Register">
 
-                    <div className="HeroSide">
-                        <div className="MainTitle">
-                            <div className="TitleUbbTool">
-                                <span className="UBB">UBB</span>
-                                <span className="Tool">Tool</span>
-                            </div>
-                            <div className="TitlePro">
-                                PRO
-                            </div>
+                <div className="HeroSide">
+                    <div className="MainTitle">
+                        <div className="TitleUbbTool">
+                            <span className="UBB">UBB</span>
+                            <span className="Tool">Tool</span>
                         </div>
-
-                        <img className="HeroImage"
-                             alt="hero"/>
-                        <div className="MidDivider">
+                        <div className="TitlePro">
+                            PRO
                         </div>
                     </div>
 
-                    <div className="FormSide">
-                        <form onSubmit={this.registerMe} className="RegisterForm">
+                    <img className="HeroImage"
+                         alt="hero"/>
+                    <div className="MidDivider">
+                    </div>
+                </div>
+
+                <div className="RegisterFormSide">
+                    <div className="RegisterForm">
+                        <form onSubmit={this.registerMe}>
                             <div className="RegisterTitle">Register</div>
                             <TextField
                                 className="EmailTextField"
@@ -204,17 +204,19 @@ class Register extends React.Component {
                                 <FormControlLabel control={<Radio color="primary"/>}
                                                   value="student"
                                                   label="Student"/>
-                                <FormControlLabel value="teacher" control={<Radio color="primary"/>} label="Teacher"/>
+                                <FormControlLabel value="teacher" control={<Radio color="primary"/>}
+                                                  label="Teacher"/>
                             </RadioGroup>
                             {studentOrTeacher}
-                            <button type="submit" className="btn btn-secondary myButton">Submit</button>
+                            <div>
+                                <button type="submit" className="btn btn-secondary myButton" style={{float:"left"}}>Submit</button>
+                                <div style={{float:"right", marginTop: "7%"}}>Already have an account? <a href="/login">Login </a></div>
+                            </div>
                         </form>
-
                     </div>
-
                 </div>
-            </MuiThemeProvider>
-        );
+            </div>
+        </MuiThemeProvider>;
     }
 }
 

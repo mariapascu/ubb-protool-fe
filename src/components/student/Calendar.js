@@ -84,6 +84,8 @@ class Evvent extends React.Component {
 
                 <div style={styles.contentForEvent}>
                     {this.props.title}
+                    <br/>
+                    {this.props.classType}
                 </div>
             );
         } else {
@@ -91,6 +93,8 @@ class Evvent extends React.Component {
 
                 <div>
                     {this.props.title}
+                    <br/>
+                    {this.props.classType}
                 </div>
             );
         }
@@ -127,7 +131,7 @@ class Calendar extends Component {
 
     event = (params) => {
 
-        return <Evvent title={params.title}></Evvent>
+        return <Evvent title={params.title} classType={params.classType}></Evvent>
     }
 
 

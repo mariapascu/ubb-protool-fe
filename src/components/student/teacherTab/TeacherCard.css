@@ -1,7 +1,4 @@
 
-.card {
-    min-width: 275px;
-}
 
 .bullet {
     display: inline-block;
@@ -25,8 +22,7 @@
 
 .MuiAvatar-root.new {
     float: left;
-    margin-top: 1.5%;
-    margin-right: 5%;
+    margin: 1%;
     height: 100px;
     width: 100px;
     content: url("../../../images/TeacherAvatar.png");
@@ -37,4 +33,11 @@
 }
 .MuiSvgIcon-root.Icon{
     margin-right: 1%;
+}
+.ThesisAvailability{
+    font-size: small!important;
+}
+
+.MuiCard-root.card {
+    margin: 1.5%;
 }

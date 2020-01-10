@@ -133,11 +133,10 @@ class Login extends React.Component {
                                 autoFocus
                                 onChange={this.handleInputChange}
                                 name="password"
-                                outline size="sm"
                             />
                             <div>
                                 <div style={{float:"left"}}><button type="submit" className="btn btn-secondary myButton">Submit</button></div>
-                                <div style={{float:"right", marginTop: "7%"}}>Already have an account? <a href="/register">Register</a></div>
+                                <div style={{float:"left", marginTop: "7%", marginLeft: "5%"}}>Already have an account? <a href="/register">Register</a></div>
                             </div>
                         </form>
                         </div>

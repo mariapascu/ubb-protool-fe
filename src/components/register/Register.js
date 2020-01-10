@@ -10,6 +10,7 @@ import './Register.css';
 import {withStyles} from '@material-ui/core/styles/withStyles';
 import createMuiTheme from "@material-ui/core/es/styles/createMuiTheme";
 import purple from "@material-ui/core/es/colors/purple";
+import {isEmpty} from "../../shared/validator";
 
 
 class Register extends React.Component {
@@ -30,14 +31,43 @@ class Register extends React.Component {
         this.handleInputChange(event);
     };
 
+    validateRegistration = (e) => {
+        let errors = {};
+        const {formData} = this.state;
+        console.log(formData);
+        if (formData.password.length < 6) {
+            errors.password = "Password must contain at least 6 characters!";
+        }
+        if (!(formData.password === formData.confirmPassword)) {
+            errors.password = "Passwords don't match!";
+        }
+        if (this.state.typeSelected === false) {
+            errors.type = "A type of user must be chosen!";
+        }
+        if (formData.type === "student") {
+            //isNan(n) returns true if n is not a number
+            if (isNaN(formData.group)) {
+                errors.group = "Group must be a number!";
+            }
+            if (isNaN(formData.subgroup)) {
+                errors.subgroup = "Subgroup must be a number!";
+            }
+        }
+        console.log(errors);
+        if (isEmpty(errors)) {
+            return true;
+        }
+        return errors;
+
+    };
 
     registerMe = (e) => {
         console.log(this.state);
         e.preventDefault();
-        const {formData} = this.state;
-        this.props.addUser(formData.email, formData.password);
-
-        this.props.history.push('/welcomeUser');
+        let errors = this.validateRegistration();
+        if (errors === true) {
+            this.props.history.push('/login');
+        }
 
     };
 
@@ -53,7 +83,7 @@ class Register extends React.Component {
         this.setState({
             formData: formData
         });
-    }
+    };
 
     render() {
         var studentOrTeacher;
@@ -70,7 +100,6 @@ class Register extends React.Component {
                         label="Specialization"
                         autoFocus
                         name="specialization"
-                        outline size="sm"
                         onChange={this.handleInputChange}/>
                     <TextField
                         className="GroupTextField"
@@ -82,9 +111,21 @@ class Register extends React.Component {
                         label="Group"
                         autoFocus
                         name="group"
-                        outline size="sm"
                         onChange={this.handleInputChange}
-                    /></div>;
+                    />
+                    <TextField
+                        className="GroupTextField"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="subgroup"
+                        label="Subgroup"
+                        autoFocus
+                        name="subgroup"
+                        onChange={this.handleInputChange}
+                    />
+                </div>;
             } else {
                 studentOrTeacher = <div>
                     <TextField
@@ -97,11 +138,10 @@ class Register extends React.Component {
                         label="Department"
                         autoFocus
                         name="department"
-                        outline size="sm"
                         onChange={this.handleInputChange}
                     />
                     <div>Are you available for Bachelor's Thesis?</div>
-                    <RadioGroup aria-label="available" name="available" row onChange={this.handleInputChange}>
+                    <RadioGroup aria-label="available" name="available" required row onChange={this.handleInputChange}>
                         <FormControlLabel value="yes" control={<Radio color="primary"/>} label="Yes"/>
                         <FormControlLabel value="no" control={<Radio color="primary"/>} label="No"/>
                     </RadioGroup>
@@ -130,9 +170,33 @@ class Register extends React.Component {
                 </div>
 
                 <div className="RegisterFormSide">
-                    <div className="RegisterForm">
+                    <div className="RegisterTitle">Register</div>
+                    <div className="RegisterForm" >
                         <form onSubmit={this.registerMe}>
-                            <div className="RegisterTitle">Register</div>
+                            <TextField
+                                className="GroupTextField"
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="firstName"
+                                label="First Name"
+                                autoFocus
+                                name="firstName"
+                                onChange={this.handleInputChange}
+                            />
+                            <TextField
+                                className="GroupTextField"
+                                variant="outlined"
+                                margin="normal"
+                                required
+                                fullWidth
+                                id="lastName"
+                                label="Last Name"
+                                autoFocus
+                                name="lastName"
+                                onChange={this.handleInputChange}
+                            />
                             <TextField
                                 className="EmailTextField"
                                 variant="outlined"
@@ -157,7 +221,6 @@ class Register extends React.Component {
                                 autoComplete="email"
                                 autoFocus
                                 name="password"
-                                outline size="sm"
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -166,11 +229,10 @@ class Register extends React.Component {
                                 margin="normal"
                                 required
                                 fullWidth
-                                id="password"
+                                id="confirmPassword"
                                 label="Confirm Password"
                                 autoFocus
-                                name="password"
-                                outline size="sm"
+                                name="confirmPassword"
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -183,7 +245,6 @@ class Register extends React.Component {
                                 label="University"
                                 autoFocus
                                 name="university"
-                                outline size="sm"
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -196,7 +257,6 @@ class Register extends React.Component {
                                 label="Faculty"
                                 autoFocus
                                 name="faculty"
-                                outline size="sm"
                                 onChange={this.handleInputChange}
                             />
                             <RadioGroup className="radioGroup" aria-label="type" name="type" row
@@ -210,7 +270,7 @@ class Register extends React.Component {
                             {studentOrTeacher}
                             <div>
                                 <button type="submit" className="btn btn-secondary myButton" style={{float:"left"}}>Submit</button>
-                                <div style={{float:"right", marginTop: "7%"}}>Already have an account? <a href="/login">Login </a></div>
+                                <div style={{float:"left", marginTop: "6%", marginLeft: "5%"}}>Already have an account? <a href="/login">Login </a></div>
                             </div>
                         </form>
                     </div>

@@ -1,11 +1,10 @@
-export default class Change{
-    constructor(changeId,studentId,classId,status,startDate,endDate){
-        this.changeId=changeId
-        this.studentId=studentId
-        this.classId= classId
-        this.messageStatus = status
-        this.startDate = startDate
-        this.endDate = endDate
-
+export default class Change {
+    constructor(changeId, student, courseClass, messageText, fromDate, toTheDate) {
+        this.changeId = changeId;
+        this.student = student;
+        this.courseClass = courseClass;
+        this.messageText = messageText;
+        this.fromTheDate = fromDate;
+        this.toTheDate = toTheDate;
     }
 }

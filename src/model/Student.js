@@ -1,13 +1,12 @@
 export class Student{
-    constructor(studentId,subgroupId,firstName,lastName,email,password,major,uni,fac){
-        this.studentId=studentId
-        this.subgroupId=subgroupId
-        this.firstName=firstName
-        this.lastName=lastName
+    constructor(studentId,subgroup,firstName,lastName,email,major,uni,fac){
+        this.studentId=studentId;
+        this.subgroup=subgroup;
+        this.firstName=firstName;
+        this.lastName=lastName;
         this.studentEmail = email;
-        this.studentPassword = password;
-        this.major = major
-        this.uni = uni
-        this.fac = fac
+        this.major = major;
+        this.uni = uni;
+        this.fac = fac;
     }
 }

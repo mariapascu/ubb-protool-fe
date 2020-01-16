@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import UserHome from "./student/UserHome";
 import Register from "../containers/Register";
+import MessagesPageTeacher from "./message/MessagesPageTeacher";
 import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
 import TeacherHome from "./teacher/TeacherHome";
@@ -27,6 +28,7 @@ const App = () => (
             <Route exact path="/register" component={Register} />
             <Route exact path="/teacher" component={TeacherHome} />
             <Route exact path="/cal" component={Calendar} />
+            <Route exact path="/messagesTeacher" component={MessagesPageTeacher} />
             <Route exact path="/changelist" component={Changelist}/>
           </Switch>
         </div>

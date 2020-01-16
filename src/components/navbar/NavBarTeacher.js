@@ -1,7 +1,7 @@
 import React from "react";
 import './NavbarStudent.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { NavLink } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 
 class NavBarTeacher extends React.Component {
     render() {
@@ -37,7 +37,7 @@ class NavBarTeacher extends React.Component {
                         <li className="nav-item">
                             <NavLink
                                 className="nav-link"
-                                to="/user"
+                                to="/messagesTeacher"
                                 activeClassName="active"
                             >
                                 Messages

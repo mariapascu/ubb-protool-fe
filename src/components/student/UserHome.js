@@ -29,7 +29,7 @@ class UserHome extends React.Component {
     render() {
         return (
             <div>
-                <NavbarStudent/>
+                <NavBarTeacher/>
 
                 <div className="pageContent">
 

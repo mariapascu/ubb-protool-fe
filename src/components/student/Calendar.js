@@ -18,7 +18,7 @@ import {classess} from "../../mockings/ClassMock"
 
 
 const classes = classess
-const days=[5,6,7,8,9]
+const days=[1,2,3,4,5]
 
 
 const styles = {
@@ -42,11 +42,17 @@ class Evvent extends React.Component {
         if (this.props.title != undefined) {
             return (
 
-                <div className={"class-cell"}>
-                    {this.props.title}
-                    <br/>
-                    {this.props.classType}
+                <div className={"class-cell"+" "+this.props.classType}>
+                    <div className={"title-box"}>{this.props.title}</div>
+
+                    <div className={"type-box"}>{this.props.classType}
+                        <img className={"image-"+this.props.classType}/>
+                    </div>
+
+
+
                 </div>
+
             );
         } else {
             return (
@@ -98,7 +104,7 @@ componentDidMount() {
 
     event = (params) => {
 
-        return <Evvent title={params.title} classType={params.classType}></Evvent>
+        return <Evvent title={params.title} classType={params.classType} ></Evvent>
     }
 
 
@@ -108,11 +114,11 @@ componentDidMount() {
             <div>
 
 
-                <div>
+                <div className={"calendar-wrapper"}>
                     <WeekCalendar
                         id="wk"
                         dayFormat="dddd"
-                        firstDay={moment({ month: 6, day: 5, year: 2019 })}
+                        firstDay={moment({ month: 6, day: 1, year: 2019 })}
                         startTime={moment({ h: 8 })}
                         endTime={moment({ h: 20 })}
                         numberOfDays={5}
@@ -227,12 +233,7 @@ componentDidMount() {
                             </Button>
                         </DialogActions>
                     </Dialog>
-
-
                 </div>
-
-
-
             </div>
         );
     }

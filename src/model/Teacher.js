@@ -3,8 +3,8 @@ export class Teacher{
         this.teacherId = teacherId
         this.department = department
         this.thesisAvailability=thesisAvailability
-        this.firstName=firstName
-        this.lastName=lastName
+        this.firstname=firstName
+        this.lastname=lastName
         this.teacherEmail = email;
         this.site = site
 

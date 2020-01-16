@@ -18,45 +18,10 @@ import {classess} from "../../mockings/ClassMock"
 import Changelist from "../schedule/changelist";
 
 
-
-// var intervals = [{ start: moment({ month: 6, day: 1, year: 2019, h: 8 }), end: moment({ month: 6, day: 1, year: 2019, h: 10 }) },
-//     { start: moment({ month: 6, day: 1, year: 2019, h: 10 }), end: moment({ month: 6, day: 1, year: 2019, h: 12 }) },
-//     { start: moment({ month: 6, day: 1, year: 2019, h: 12 }), end: moment({ month: 6, day: 1, year: 2019, h: 14 }) },
-//     { start: moment({ month: 6, day: 1, year: 2019, h: 14 }), end: moment({ month: 6, day: 1, year: 2019, h: 16 }) },
-//     { start: moment({ month: 6, day: 1, year: 2019, h: 16 }), end: moment({ month: 6, day: 1, year: 2019, h: 18 }) },
-//     { start: moment({ month: 6, day: 1, year: 2019, h: 18 }), end: moment({ month: 6, day: 1, year: 2019, h: 20 }) },
-//     { start: moment({ month: 6, day: 2, year: 2019, h: 8 }), end: moment({ month: 6, day: 2, year: 2019, h: 10 }) },
-//     { start: moment({ month: 6, day: 2, year: 2019, h: 10 }), end: moment({ month: 6, day: 2, year: 2019, h: 12 }) },
-//     { start: moment({ month: 6, day: 2, year: 2019, h: 12 }), end: moment({ month: 6, day: 2, year: 2019, h: 14 }) },
-//     { start: moment({ month: 6, day: 2, year: 2019, h: 14 }), end: moment({ month: 6, day: 2, year: 2019, h: 16 }) },
-//     { start: moment({ month: 6, day: 2, year: 2019, h: 16 }), end: moment({ month: 6, day: 2, year: 2019, h: 18 }) },
-//     { start: moment({ month: 6, day: 2, year: 2019, h: 18 }), end: moment({ month: 6, day: 2, year: 2019, h: 20 }) },
-//     { start: moment({ month: 6, day: 3, year: 2019, h: 8 }), end: moment({ month: 6, day: 3, year: 2019, h: 10 }) },
-//     { start: moment({ month: 6, day: 3, year: 2019, h: 10 }), end: moment({ month: 6, day: 3, year: 2019, h: 12 }) },
-//     { start: moment({ month: 6, day: 3, year: 2019, h: 12 }), end: moment({ month: 6, day: 3, year: 2019, h: 14 }) },
-//     { start: moment({ month: 6, day: 3, year: 2019, h: 14 }), end: moment({ month: 6, day: 3, year: 2019, h: 16 }) },
-//     { start: moment({ month: 6, day: 3, year: 2019, h: 16 }), end: moment({ month: 6, day: 3, year: 2019, h: 18 }) },
-//     { start: moment({ month: 6, day: 3, year: 2019, h: 18 }), end: moment({ month: 6, day: 3, year: 2019, h: 20 }) },
-//     { start: moment({ month: 6, day: 4, year: 2019, h: 8 }), end: moment({ month: 6, day: 4, year: 2019, h: 10 }) },
-//     { start: moment({ month: 6, day: 4, year: 2019, h: 10 }), end: moment({ month: 6, day: 4, year: 2019, h: 12 }) },
-//     { start: moment({ month: 6, day: 4, year: 2019, h: 12 }), end: moment({ month: 6, day: 4, year: 2019, h: 14 }) },
-//     { start: moment({ month: 6, day: 4, year: 2019, h: 14 }), end: moment({ month: 6, day: 4, year: 2019, h: 16 }) },
-//     { start: moment({ month: 6, day: 4, year: 2019, h: 16 }), end: moment({ month: 6, day: 4, year: 2019, h: 18 }) },
-//     { start: moment({ month: 6, day: 4, year: 2019, h: 18 }), end: moment({ month: 6, day: 4, year: 2019, h: 20 }) },
-//     { start: moment({ month: 6, day: 5, year: 2019, h: 8 }), end: moment({ month: 6, day: 5, year: 2019, h: 10 }) },
-//     { start: moment({ month: 6, day: 5, year: 2019, h: 10 }), end: moment({ month: 6, day: 5, year: 2019, h: 12 }) },
-//     { start: moment({ month: 6, day: 5, year: 2019, h: 12 }), end: moment({ month: 6, day: 5, year: 2019, h: 14 }) },
-//     { start: moment({ month: 6, day: 5, year: 2019, h: 14 }), end: moment({ month: 6, day: 5, year: 2019, h: 16 }) },
-//     { start: moment({ month: 6, day: 5, year: 2019, h: 16 }), end: moment({ month: 6, day: 5, year: 2019, h: 18 }) },
-//     { start: moment({ month: 6, day: 5, year: 2019, h: 18 }), end: moment({ month: 6, day: 5, year: 2019, h: 20 }) },
-//
-// ];
-
 const classes = classess
-const days=[6,7,8,9,10]
-var intervals=[{classType:classes[0].classType,start: moment({ month: 1, day: days[classes[0].classDay-1], year: 2020, h: classes[0].classHour }), end: moment({ month: 6, day:days[classes[0].classDay-1], year: 2219, h: classes[0].classHour+2}) }]
+const days=[5,6,7,8,9]
 
-console.log(intervals)
+
 const styles = {
     left: {
         float: "left",
@@ -67,12 +32,7 @@ const styles = {
         backColor: "black"
 
     },
-    contentForEvent: {
-        backgroundColor: "#7d76f7",
-        height: "100%",
-        width: "100%",
-        color:"white"
-    }
+
 };
 class Evvent extends React.Component {
 
@@ -83,8 +43,10 @@ class Evvent extends React.Component {
         if (this.props.title != undefined) {
             return (
 
-                <div style={styles.contentForEvent}>
+                <div className={"class-cell"}>
                     {this.props.title}
+                    <br/>
+                    {this.props.classType}
                 </div>
             );
         } else {
@@ -92,6 +54,8 @@ class Evvent extends React.Component {
 
                 <div>
                     {this.props.title}
+                    <br/>
+                    {this.props.classType}
                 </div>
             );
         }
@@ -104,14 +68,21 @@ class Calendar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            intervals: intervals,
+            intervals: null,
             showModal: false,
             selectedInterval: null
         };
 
     }
-    componentDidMount() {
 
+componentDidMount() {
+        var intv=[]
+    for (var i=0;i<classes.length;i++){
+        const c={title:classes[i].course.courseName,teacher:classes[i].teacher,classType:classes[i].classType,classLocation:classess[i].classLocation,classDuration:classes[i].classDuration,start: moment({ month: 6, day: days[classes[i].classDay-1], year: 2019, h: classes[i].classHour }), end: moment({ month: 6, day:days[classes[i].classDay-1], year: 2019, h: classes[i].classHour+classes[i].classDuration}) }
+        intv.push(c)
+        console.log(this.state.intervals);
+    }
+    this.setState({intervals: intv})
     }
 
     exitt = () => {
@@ -119,7 +90,7 @@ class Calendar extends Component {
         this.setState({ showModal: false })
     }
     eventClicked = (e) => {
-        this.setState({ selectedInterval: { start: e.start, end: e.end, title: e.title, prof: e.prof, type: e.type, location: e.location } })
+        this.setState({ selectedInterval:e } )
 
 
         this.setState({ showModal: true })
@@ -131,7 +102,7 @@ class Calendar extends Component {
 
     event = (params) => {
 
-        return <Evvent title={params.title}></Evvent>
+        return <Evvent title={params.title} classType={params.classType}></Evvent>
     }
 
 
@@ -145,11 +116,11 @@ class Calendar extends Component {
                     <WeekCalendar
                         id="wk"
                         dayFormat="dddd"
-                        firstDay={moment({ month: 1, day: 6, year: 2020 })}
+                        firstDay={moment({ month: 6, day: 5, year: 2019 })}
                         startTime={moment({ h: 8 })}
                         endTime={moment({ h: 20 })}
                         numberOfDays={5}
-                        scaleUnit={120}
+                        scaleUnit={60}
                         cellHeight={75}
                         selectedIntervals={this.state.intervals}
                         eventComponent={this.event}
@@ -182,13 +153,13 @@ class Calendar extends Component {
 
                             <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Professor:
+                                    Teacher:
                                 </Typography>
                             </Box>
                             <Box m={2}>
                                 <Typography variant="h8" component="h8">
                                     {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.prof : ""
+                                        this.state.selectedInterval.teacher.firstname + " "+this.state.selectedInterval.teacher.lastname: ""
                                     }
                                 </Typography>
                             </Box>
@@ -201,7 +172,7 @@ class Calendar extends Component {
                             <Box m={2}>
                                 <Typography variant="h8" component="h8">
                                     {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.type : ""
+                                        this.state.selectedInterval.classType : ""
                                     }
                                 </Typography>
                             </Box>
@@ -213,7 +184,7 @@ class Calendar extends Component {
                             <Box m={2}>
                                 <Typography variant="h8" component="h8">
                                     {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.location : ""
+                                        this.state.selectedInterval.classLocation : ""
                                     }
                                 </Typography>
                             </Box>
@@ -236,6 +207,19 @@ class Calendar extends Component {
                                     }
                                 </Typography>
 
+                            </Box>
+
+                            <Box fontWeight="fontWeightBold" >
+                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
+                                    Duration:
+                                </Typography>
+                            </Box>
+                            <Box m={2}>
+                                <Typography variant="h8" component="h8">
+                                    {this.state.selectedInterval != null ?
+                                        this.state.selectedInterval.classDuration : ""
+                                    }
+                                </Typography>
                             </Box>
                         </DialogContent>
                         <DialogActions>

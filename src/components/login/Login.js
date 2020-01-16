@@ -35,6 +35,14 @@ class Login extends React.Component {
         });
     }
 
+    isStudent(e) {
+        const {formData} = this.state;
+        if (formData.email.includes("scs")) {
+            return true;
+        }
+        return false;
+    }
+
     validateLoginForm = (e) => {
 
         let errors = {};
@@ -65,11 +73,15 @@ class Login extends React.Component {
 
         let errors = this.validateLoginForm();
         const {formData} = this.state;
-
+        let student = this.isStudent();
 
         if (errors === true) {
-            this.props.addUser(formData.email, formData.password)
-            this.props.history.push('/user')
+            if(student===false){
+                this.props.history.push('/teacher')
+            }else {
+                this.props.addUser(formData.email, formData.password)
+                this.props.history.push('/user')
+            }
 
         } else {
             this.setState({

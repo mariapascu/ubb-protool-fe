@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import "./calendar.css";
 
@@ -15,7 +15,6 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {classess} from "../../mockings/ClassMock"
-
 
 
 // var intervals = [{ start: moment({ month: 6, day: 1, year: 2019, h: 8 }), end: moment({ month: 6, day: 1, year: 2019, h: 10 }) },
@@ -52,8 +51,12 @@ import {classess} from "../../mockings/ClassMock"
 // ];
 
 const classes = classess
-const days=[6,7,8,9,10]
-var intervals=[{classType:classes[0].classType,start: moment({ month: 1, day: days[classes[0].classDay-1], year: 2020, h: classes[0].classHour }), end: moment({ month: 6, day:days[classes[0].classDay-1], year: 2219, h: classes[0].classHour+2}) }]
+const days = [6, 7, 8, 9, 10]
+var intervals = [{
+    classType: classes[0].classType,
+    start: moment({month: 1, day: days[classes[0].classDay - 1], year: 2020, h: classes[0].classHour}),
+    end: moment({month: 6, day: days[classes[0].classDay - 1], year: 2219, h: classes[0].classHour + 2})
+}]
 
 console.log(intervals)
 const styles = {
@@ -70,14 +73,16 @@ const styles = {
         backgroundColor: "#7d76f7",
         height: "100%",
         width: "100%",
-        color:"white"
+        color: "white"
     }
 };
+
 class Evvent extends React.Component {
 
     constructor(props) {
         super(props);
     }
+
     render() {
         if (this.props.title != undefined) {
             return (
@@ -109,19 +114,29 @@ class Calendar extends Component {
         };
 
     }
+
     componentDidMount() {
 
     }
 
     exitt = () => {
 
-        this.setState({ showModal: false })
+        this.setState({showModal: false})
     }
     eventClicked = (e) => {
-        this.setState({ selectedInterval: { start: e.start, end: e.end, title: e.title, prof: e.prof, type: e.type, location: e.location } })
+        this.setState({
+            selectedInterval: {
+                start: e.start,
+                end: e.end,
+                title: e.title,
+                prof: e.prof,
+                type: e.type,
+                location: e.location
+            }
+        })
 
 
-        this.setState({ showModal: true })
+        this.setState({showModal: true})
     }
 
 
@@ -132,7 +147,7 @@ class Calendar extends Component {
 
 
     render() {
-        var { ...config } = this.state;
+        var {...config} = this.state;
         return (
             <div>
 
@@ -141,9 +156,9 @@ class Calendar extends Component {
                     <WeekCalendar
                         id="wk"
                         dayFormat="dddd"
-                        firstDay={moment({ month: 1, day: 6, year: 2020 })}
-                        startTime={moment({ h: 8 })}
-                        endTime={moment({ h: 20 })}
+                        firstDay={moment({month: 1, day: 6, year: 2020})}
+                        startTime={moment({h: 8})}
+                        endTime={moment({h: 20})}
                         numberOfDays={5}
                         scaleUnit={120}
                         cellHeight={75}
@@ -159,11 +174,12 @@ class Calendar extends Component {
                         <DialogTitle id="form-dialog-title">Class</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Below you'll see information about the class. If seminar/laboratory, you can try to reschedule by
+                                Below you'll see information about the class. If seminar/laboratory, you can try to
+                                reschedule by
                                 clicking "Change".
                             </DialogContentText>
 
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Subject:
                                 </Typography>
@@ -189,7 +205,7 @@ class Calendar extends Component {
                                 </Typography>
                             </Box>
 
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Type:
                                 </Typography>
@@ -201,7 +217,7 @@ class Calendar extends Component {
                                     }
                                 </Typography>
                             </Box>
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Location:
                                 </Typography>
@@ -213,7 +229,7 @@ class Calendar extends Component {
                                     }
                                 </Typography>
                             </Box>
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Interval:
                                 </Typography>
@@ -246,7 +262,6 @@ class Calendar extends Component {
 
 
                 </div>
-
 
 
             </div>

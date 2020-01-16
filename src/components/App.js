@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import UserHome from "./student/UserHome";
 import Register from "../containers/Register";
+import MessagesPageTeacher from "./message/MessagesPageTeacher";
 
 const App = () => (
   <div>
@@ -20,6 +21,7 @@ const App = () => (
             <Route exact path="/login"  component={Login} />
             <Route exact path="/user"  component={UserHome} />
             <Route exact path="/register" component={Register} />
+            <Route exact path="/messagesTeacher" component={MessagesPageTeacher} />
           </Switch>
         </div>
   </div>

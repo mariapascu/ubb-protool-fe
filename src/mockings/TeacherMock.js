@@ -8,4 +8,4 @@ const t5=new Teacher(5,"",8,"Alexandru","Vancea","smot@cs.ubbcluj.ro","1111111",
 const t6=new Teacher(6,"",10,"Ioan","Badarinza","smot@cs.ubbcluj.ro","1111111","UBB","Matematica si Informatica")
 const t7=new Teacher(7,"",13,"Rares","Boian","smot@cs.ubbcluj.ro","1111111","UBB","Matematica si Informatica")
 
-export const teachers=[t1,t2,t3,t4,t5,t6,t7]
+export const teachers=[t1,t2,t3,t4,t5,t6,t7];

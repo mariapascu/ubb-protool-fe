@@ -7,7 +7,6 @@ export class Teacher{
         this.lastName=lastName
         this.teacherEmail = email;
         this.teacherPassword = password;
-
         this.uni = uni
         this.fac = fac
     }

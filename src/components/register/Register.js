@@ -216,6 +216,7 @@ class Register extends React.Component {
                                 margin="normal"
                                 required
                                 fullWidth
+                                type="password"
                                 id="password"
                                 label="Password"
                                 autoComplete="email"
@@ -229,6 +230,7 @@ class Register extends React.Component {
                                 margin="normal"
                                 required
                                 fullWidth
+                                type="password"
                                 id="confirmPassword"
                                 label="Confirm Password"
                                 autoFocus

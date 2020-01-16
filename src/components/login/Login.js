@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
+import {Teacher} from "../../model/Teacher";
 
 
 class Login extends React.Component {
@@ -68,18 +69,22 @@ class Login extends React.Component {
     }
 
     login = (e) => {
-        console.log(this.state);
+
         e.preventDefault();
 
         let errors = this.validateLoginForm();
         const {formData} = this.state;
         let student = this.isStudent();
+        let t=new Teacher(1,"fd","dfgdfsg","dsfd","efd","frgdg","gferg","efeg","ersgserhg")
 
         if (errors === true) {
             if(student===false){
+                this.props.addUser(t)
                 this.props.history.push('/teacher')
+
             }else {
-                this.props.addUser(formData.email, formData.password)
+                this.props.addUser(t)
+
                 this.props.history.push('/user')
             }
 

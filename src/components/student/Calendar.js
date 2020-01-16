@@ -15,6 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {classess} from "../../mockings/ClassMock"
+import Changelist from "../schedule/changelist";
 
 
 
@@ -124,6 +125,9 @@ class Calendar extends Component {
         this.setState({ showModal: true })
     }
 
+    showChangelist = (e) => {
+        return (<Changelist/>);
+    }
 
     event = (params) => {
 
@@ -235,7 +239,7 @@ class Calendar extends Component {
                             </Box>
                         </DialogContent>
                         <DialogActions>
-                            <Button onClick={this.exitt} color="primary">
+                            <Button onClick={this.showChangelist} color="primary">
                                 Back
                             </Button>
                             <Button onClick={this.exitt} color="primary">

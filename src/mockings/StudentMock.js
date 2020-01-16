@@ -2,7 +2,7 @@ import {Student} from "../model/Student";
 
 const s1 = new Student(
     1,
-    "935 / 2",
+    "935/2",
     "Cezar",
     "Olteanu",
     "cezar@scs.com",
@@ -13,7 +13,7 @@ const s1 = new Student(
 
 const s2 = new Student(
     2,
-    "933 / 2",
+    "933/2",
     "Ion",
     "Bula",
     "bula@scs.com",

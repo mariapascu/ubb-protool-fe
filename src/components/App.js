@@ -13,6 +13,7 @@ import Register from "../containers/Register";
 import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
 import TeacherHome from "./teacher/TeacherHome";
+import Changelist from "./schedule/Changelist";
 
 const App = () => (
   <div>
@@ -26,6 +27,7 @@ const App = () => (
             <Route exact path="/register" component={Register} />
             <Route exact path="/teacher" component={TeacherHome} />
             <Route exact path="/cal" component={Calendar} />
+            <Route exact path="/changelist" component={Changelist}/>
           </Switch>
         </div>
   </div>

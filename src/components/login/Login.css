@@ -99,4 +99,13 @@
     background-color: #0d2d4c !important;
     border: none !important;
     color: #f9f9f9 !important;
+    padding: 1px;
+}
+
+.myButton:hover {
+    margin-top: 20px;
+    font-family: 'Questrial', sans-serif;
+    background-color: #f9f9f9 !important;
+    border: 1px solid #0d2d4c!important;
+    color: #0d2d4c !important;
 }

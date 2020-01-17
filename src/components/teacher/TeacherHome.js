@@ -1,9 +1,11 @@
 import React from 'react';
 import {connect} from 'react-redux'
 
+
 import NavBarTeacher from '../navbar/NavBarTeacher'
 
 import './teacherHome.css';
+import TeacherCalendar from "./TeacherCalendar";
 
 
 const styles = {
@@ -18,7 +20,13 @@ class TeacherHome extends React.Component {
 
     constructor(props) {
         super(props)
+       console.log(this.props.loggedUser)
 
+    }
+    componentDidMount() {
+        if (this.props.loggedUser.firstname===undefined){
+            this.props.history.push('/login')
+        }
     }
 
     logout = (e) => {
@@ -29,7 +37,8 @@ class TeacherHome extends React.Component {
     render() {
         return (
             <div>
-                <NavBarTeacher/>
+                <NavBarTeacher logoutFct={this.logout}/>
+                <TeacherCalendar></TeacherCalendar>
 
             </div>
         )
@@ -37,6 +46,6 @@ class TeacherHome extends React.Component {
 
 }
 
-export default TeacherHome;
+export default connect()(TeacherHome);
 
 

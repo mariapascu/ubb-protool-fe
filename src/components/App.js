@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css';
-import Home from './Home'
 import Login from '../containers/Login'
 
 import {
@@ -8,13 +7,13 @@ import {
 
   Switch,
 } from 'react-router-dom';
-import UserHome from "./student/UserHome";
+import UserHomeC from "../containers/UserHomeC";
 import Register from "../containers/Register";
 import MessagesPageTeacher from "./message/MessagesPageTeacher";
 import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
-import TeacherHome from "./teacher/TeacherHome";
-import ChangelistModal from "./schedule_handling/ChangelistModal";
+import TeacherHome from "../containers/TeacherHomeC"
+import MessagesPageStudent from "./message/MessagesPageStudent";
 
 const App = () => (
   <div>
@@ -23,13 +22,13 @@ const App = () => (
           <Switch>
             <Route exact path="/"  component={Login} />
             <Route exact path="/login"  component={Login} />
-            <Route exact path="/user"  component={UserHome} />
+            <Route exact path="/user"  component={UserHomeC} />
             <Route exact path="/teachersStudent" component={TeachersTab}/>
             <Route exact path="/register" component={Register} />
             <Route exact path="/teacher" component={TeacherHome} />
             <Route exact path="/cal" component={Calendar} />
             <Route exact path="/messagesTeacher" component={MessagesPageTeacher} />
-            <Route exact path="/changelist" component={ChangelistModal}/>
+            <Route exact path="/messagesStudent" component={MessagesPageStudent} />
           </Switch>
         </div>
   </div>

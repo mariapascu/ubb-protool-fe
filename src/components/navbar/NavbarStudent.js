@@ -2,8 +2,16 @@ import React from "react";
 import './NavbarStudent.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { NavLink } from "react-router-dom";
+import {Button} from "@material-ui/core";
+
 
 class NavbarStudent extends React.Component {
+    constructor(props) {
+        super(props);
+    }
+    logout=() =>{
+        this.props.logoutFct();
+    }
     render() {
         return (
             <nav className="navbar navbar-expand-lg navbar-light bg-light stick">
@@ -43,17 +51,32 @@ class NavbarStudent extends React.Component {
                                 Teachers
                             </NavLink>
                         </li>
-                    </ul>
 
-                    <ul className="navbar-nav ml-auto">
                         <li className="nav-item">
                             <NavLink
                                 className="nav-link"
-                                to="/login"
+                                to="/messagesStudent"
                                 activeClassName="active"
                             >
-                                Logout
+                                Messages
                             </NavLink>
+                        </li>
+                    </ul>
+
+
+                    <ul className="navbar-nav ml-auto">
+
+                        <li className="nav-item">
+                            <Button onClick={this.logout}>Logout</Button>
+
+                            {/*<NavLink*/}
+                            {/*    className="nav-link"*/}
+                            {/*    to="./login"*/}
+
+                            {/*    activeClassName="active"*/}
+                            {/*>*/}
+                            {/*    Logout*/}
+                            {/*</NavLink>*/}
                         </li>
                     </ul>
                 </div>

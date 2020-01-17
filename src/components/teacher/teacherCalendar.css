@@ -1,0 +1,110 @@
+/* adjusting the built-in theme */
+
+/* calendar event */
+.calendar_default_event_inner {
+    background: pink;
+    color: #fff;
+    border: none;
+    font-size: 10pt;
+    padding: 5px;
+    opacity: 0.8;
+}
+
+.calendar_default_shadow_inner
+{
+    background-color: #863e3e;
+    opacity: 0.5;
+    height: 100%;
+}
+.weekCalendar__overlay{
+    background-color: white;
+    border-bottom: 1px solid black;
+    width: 20% !important;
+
+}
+
+.dayCell:hover{
+    background-color: white !important;
+
+}
+.class-cell{
+    background-color:mediumseagreen ;
+    height: 100%;
+    width: 100%;
+    color:white
+}
+
+.class-cell:hover{
+    background-color: black;
+    height: 100%;
+    width: 100%;
+    color:white
+}
+
+.weekCalendar{
+    margin-top:5%;
+    padding-right:3%;
+    margin-left: 3%;
+
+}
+.calendar-wrapper{
+    width: 97%;
+}
+
+.Course{
+    background-color:#9bbcc4;
+}
+.Seminar{
+    background-color:#6798c9;
+}
+.Laboratory{
+    background-color: #328fa8;
+}
+.title-box{
+    color:red;
+    font-size: 22px;
+}
+.image-Laboratory{
+    width:15%;
+    height: 15%;
+    content: url("../../images/laptop.png");
+
+
+}
+
+.image-Course{
+    width:20%;
+    height: 30%;
+    content: url("../../images/books.png");
+
+}
+
+.type-box{
+    font-size: 14px;
+}
+
+
+
+.image-Seminar{
+    width:10%;
+    heigth:10%;
+    content: url("../../images/notebook.png");
+}
+.weekCalendar__content::-webkit-scrollbar {
+    width: 10px;
+}
+.weekCalendar__content::-webkit-scrollbar-thumb{
+    background:black;
+}
+
+.weekCalendar__header{
+    height:34px !important;
+}
+
+.weekCalendar__scaleHeader{
+    height:34px !important;
+}
+
+
+
+

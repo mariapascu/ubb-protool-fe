@@ -42,17 +42,12 @@ class Evvent extends React.Component {
     }
 
     render() {
-        if (this.props.title != undefined) {
+        if (this.props.title !== undefined) {
             return (
 
                 <div className={"class-cell" + " " + this.props.classType}>
                     <div className={"title-box"}>{this.props.title}</div>
-
-                    <div className={"type-box"}>{this.props.classType}
-                        <img className={"image-" + this.props.classType}/>
-                    </div>
-
-
+                    <div className={"type-box"}>{this.props.classType}</div>
                 </div>
 
             );
@@ -91,7 +86,7 @@ class Calendar extends Component {
                 title: classes[i].course.courseName,
                 teacher: classes[i].teacher,
                 classType: classes[i].classType,
-                classLocation: classes[i].classLocation,
+                classLocation: classess[i].classLocation,
                 classDuration: classes[i].classDuration,
                 start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
                 end: moment({
@@ -113,6 +108,7 @@ class Calendar extends Component {
     eventClicked = (e) => {
         this.setState({selectedInterval: e})
         this.changelistDialog = null;
+
 
         this.setState({showModal: true})
     }

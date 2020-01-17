@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import "./calendar.css";
+import "./teacherCalendar.css";
 
 import WeekCalendar from 'react-week-calendar';
 
@@ -48,6 +48,8 @@ class Evvent extends React.Component {
                     <div className={"type-box"}>{this.props.classType}
                         <img className={"image-"+this.props.classType}/>
                     </div>
+                    <div>{this.props.subgroup.groupNumber} {this.props.subgroup.subgroupNumber}</div>
+                    <div>{this.props.classLocation}</div>
 
 
 
@@ -68,7 +70,7 @@ class Evvent extends React.Component {
 }
 
 
-class Calendar extends Component {
+class TeacherCalendar extends Component {
 
     constructor(props) {
         super(props);
@@ -80,13 +82,14 @@ class Calendar extends Component {
 
     }
 
-componentDidMount() {
+    componentDidMount() {
         var intv=[]
-    for (var i=0;i<classes.length;i++){
-        const c={title:classes[i].course.courseName,teacher:classes[i].teacher,classType:classes[i].classType,classLocation:classess[i].classLocation,classDuration:classes[i].classDuration,start: moment({ month: 6, day: days[classes[i].classDay-1], year: 2019, h: classes[i].classHour }), end: moment({ month: 6, day:days[classes[i].classDay-1], year: 2019, h: classes[i].classHour+classes[i].classDuration}) }
-        intv.push(c)
-    }
-    this.setState({intervals: intv})
+        for (var i=0;i<classes.length;i++){
+            const c={title:classes[i].course.courseName,subgroup:classes[i].subgroup,teacher:classes[i].teacher,classType:classes[i].classType,classLocation:classess[i].classLocation,classDuration:classes[i].classDuration,start: moment({ month: 6, day: days[classes[i].classDay-1], year: 2019, h: classes[i].classHour }), end: moment({ month: 6, day:days[classes[i].classDay-1], year: 2019, h: classes[i].classHour+classes[i].classDuration}) }
+            intv.push(c)
+            console.log(this.state.intervals);
+        }
+        this.setState({intervals: intv})
     }
 
     exitt = () => {
@@ -97,13 +100,13 @@ componentDidMount() {
         this.setState({ selectedInterval:e } )
 
 
-        this.setState({ showModal: true })
+        //this.setState({ showModal: true })
     }
 
 
     event = (params) => {
 
-        return <Evvent title={params.title} classType={params.classType} ></Evvent>
+        return <Evvent title={params.title} classType={params.classType} subgroup={params.subgroup} classLocation={params.classLocation} ></Evvent>
     }
 
 
@@ -238,5 +241,5 @@ componentDidMount() {
     }
 }
 
-export default Calendar;
+export default TeacherCalendar;
 

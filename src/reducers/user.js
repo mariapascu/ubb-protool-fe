@@ -1,19 +1,20 @@
+import {any} from "prop-types";
+
 let initialState  = {
-    email:String,
-    password: String
+    loggedUser:any
 }
 
 const userDetails = (state = initialState, action) => {
     switch (action.type) {
-      case 'ADD_USER':{
+      case 'LOGIN_USER':{
         return Object.assign({}, state, {
-            email: action.email, password: action.password
+            loggedUser: action.loggedUser
           })
-          
+
         }
       case 'LOGOUT_USER':{
         return Object.assign({}, state, {
-          email: null, password: null
+          loggedUser:null
         })
       }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import "./ChangelistModal.css";
 import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '@material-ui/core'
@@ -12,17 +13,28 @@ import DialogContent from "@material-ui/core/DialogContent";
 import Button from "@material-ui/core/Button";
 import Box from "@material-ui/core/Box";
 import MessageModal from "./MessageModal";
+import Card from "@material-ui/core/Card";
+import Typography from "@material-ui/core/Typography";
+import CardContent from "@material-ui/core/CardContent";
+import CardHeader from "@material-ui/core/CardHeader";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 let newClassesList = classess;
 
 class ChangelistModal extends React.Component {
-    courseClass;
     messageModal;
+    daysOfTheWeek;
+
     constructor(props) {
-        super(props)
-        this.courseClass = this.props.courseClass;
-        console.log(this.courseClass);
-        console.log(this.props);
+        super(props);
+
+        this.daysOfTheWeek = {
+            1: "Monday",
+            2: "Tuesday",
+            3: "Wednesday",
+            4: "Thursday",
+            5: "Friday"
+        }
         this.state = {
             student: this.props.student,
             oldClass: this.props.courseClass,
@@ -30,56 +42,74 @@ class ChangelistModal extends React.Component {
         }
     }
 
-    // /*this.teacher = teacher;
-    // this.course = course;
-    // this.subgroup = subgroup;
-    // this.classType = classType;
-    // this.classDay = classDay;
-    // this.classWeek = classWeek;
-    // this.classHour = classHour;
-    // this.classLocation = classLocation;
-    // this.classDuration = duration*/
-
     changelistItem = (item) => {
         return (
-            <div>{item.classId + " " + item.course.courseName + " " + item.subgroup + " " + item.classType + " " + item.classDay + " " + item.classWeek + " " + item.classHour + " " + item.classLocation + " " + item.classDuration}</div>);
+            <Card className="card" elevation={0} raised={true}>
+                <CardContent>
+                    <div>
+                        <Typography display="inline" className="leftside">Day: </Typography><Typography
+                        display="inline">{this.daysOfTheWeek[item.classDay]}</Typography>
+                    </div>
+                    <div>
+                        <Typography display="inline" className="leftside">Time: </Typography><Typography
+                        display="inline">{item.classHour + ":00"}</Typography>
+                    </div>
+                    <div>
+                        <Typography display="inline" className="leftside">Location: </Typography><Typography
+                        display="inline">{item.classLocation}</Typography>
+                    </div>
+                    <div>
+                        <Typography display="inline" className="leftside">Teacher: </Typography><Typography
+                        display="inline">{item.teacher.firstname + " " + item.teacher.lastname}</Typography>
+                    </div>
+                </CardContent>
+            </Card>
+        )
     }
     exitChangelist = () => {
 
         this.setState({showModal: false});
     }
 
-    showMessageModal = (index) => {
+    showMessageModal = (item) => {
         this.setState({showModal: false});
-        this.messageModal = <MessageModal/>;
+        this.messageModal = <MessageModal courseClass={item}/>;
+    }
+
+    getDialogTitle = () => {
+        return (this.state.oldClass.title + " - " + this.state.oldClass.classType);
     }
 
     render() {
 
         return (<div>
-            <Dialog open={this.state.showModal} onClose={this.exitChangelist} aria-labelledby="form-dialog-title">
-                <DialogTitle id="form-dialog-title">
-                    <div>
-                        {this.courseClass.classType}
-                    </div>
-                </DialogTitle>
-                <DialogContent>
-                    <div>
-                        {
-                            newClassesList.map((item, index) => (
-                                <Box onClick={() => this.showMessageModal(index)}>
-                                    {this.changelistItem(item)}
-                                </Box>
-                            ))}
-                    </div>
-                </DialogContent>
-                <DialogActions>
-                    <Button onClick={this.exitChangelist} color="primary">
-                        Back
-                    </Button>
-                </DialogActions>
-            </Dialog>
-            {this.messageModal}
+                <Dialog className="changelistDialog" fullWidth='true' maxWidth='xs' open={this.state.showModal}
+                        onClose={this.exitChangelist}>
+                    <DialogTitle id="form-dialog-title">
+                        <div>
+                            {this.getDialogTitle()}
+                        </div>
+                    </DialogTitle>
+                    <DialogContent>
+                        <DialogContentText>
+                            Choose what class you want to attend instead!
+                        </DialogContentText>
+                        <div>
+                            {
+                                newClassesList.map((item, index) => (
+                                    <div onClick={() => this.showMessageModal(item)}>
+                                        {this.changelistItem(item)}
+                                    </div>
+                                ))}
+                        </div>
+                    </DialogContent>
+                    <DialogActions>
+                        <Button onClick={this.exitChangelist} color="primary">
+                            Back
+                        </Button>
+                    </DialogActions>
+                </Dialog>
+                {this.messageModal}
             </div>
         );
     }

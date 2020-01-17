@@ -35,7 +35,7 @@
 }
 
 .class-cell:hover{
-    background-color: black;
+    background-color: #821402;
     height: 100%;
     width: 100%;
     color:white
@@ -94,7 +94,7 @@
     width: 10px;
 }
 .weekCalendar__content::-webkit-scrollbar-thumb{
-    background:black;
+    background: #7a1c00;
 }
 
 .weekCalendar__header{

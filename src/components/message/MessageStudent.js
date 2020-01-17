@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@material-ui/core'
 import './Message.css';
 
-class Message extends React.Component {
+class MessageStudent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -15,30 +15,26 @@ class Message extends React.Component {
         return (
             <div className="card myCardHolder">
                 <div className="card-header">
-                    {this.state.messageItem.status}
+                    {
+                        this.state.messageItem.status === "Declined" ? (
+                            <b><span className="statusChangeRed">{this.state.messageItem.status}</span></b>
+                        ) : (
+                            <b><span className="statusChangeGreen">{this.state.messageItem.status}</span></b>
+                        )
+                    }
                 </div>
                 <div className="card-body">
                     <h5 className="card-title">Change request
-                        from <i><b>{this.state.messageItem.change.student.firstName} {this.state.messageItem.change.student.lastName} group {this.state.messageItem.change.student.subgroup}</b></i>
+                        is {this.state.messageItem.status} by <i><b>{this.state.messageItem.change.courseClass.teacher.firstname} {this.state.messageItem.change.courseClass.teacher.lastname}</b></i>
                     </h5>
                     <p className="card-text">Subject: <b>{this.state.messageItem.change.courseClass.course.courseName} {this.state.messageItem.change.courseClass.classType}</b>
                     </p>
                     <p className="card-text">From: <b>{this.state.messageItem.change.fromTheDate}</b> To: <b>{this.state.messageItem.change.toTheDate}</b>
                     </p>
-                    <p className="card-text">" {this.state.messageItem.change.messageText} " </p>
-                    <div>
-                        {this.state.messageItem.status === "Pending" ? (
-                            <a href="#" className="btn btn-secondary myButtonAccept">Accept</a>
-                        ) : null}
-                        {this.state.messageItem.status === "Pending" ? (
-                            <a href="#" className="btn btn-secondary myButtonDecline">Decline</a>
-                        ) : null}
-                    </div>
                 </div>
             </div>
         );
     }
 }
 
-
-export default Message;
+export default MessageStudent;

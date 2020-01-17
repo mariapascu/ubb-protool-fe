@@ -5,7 +5,6 @@ import '@material-ui/core'
 import Message from "./Message";
 import {messagesTeachers} from "../../mockings/MessageTeacherMock";
 import NavBarTeacher from "../navbar/NavBarTeacher";
-import './MessagesPageTeacher.css';
 
 class MessagesPageTeacher extends React.Component {
 

@@ -51,6 +51,16 @@ class NavbarStudent extends React.Component {
                                 Teachers
                             </NavLink>
                         </li>
+
+                        <li className="nav-item">
+                            <NavLink
+                                className="nav-link"
+                                to="/messagesStudent"
+                                activeClassName="active"
+                            >
+                                Messages
+                            </NavLink>
+                        </li>
                     </ul>
 
 

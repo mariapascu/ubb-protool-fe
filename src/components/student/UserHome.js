@@ -4,7 +4,6 @@ import NavbarStudent from '../navbar/NavbarStudent'
 import './UserHome.css';
 import Calendar from "./Calendar";
 
-
 const styles = {
 
     logoutButton: {

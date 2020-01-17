@@ -13,6 +13,7 @@ import MessagesPageTeacher from "./message/MessagesPageTeacher";
 import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
 import TeacherHome from "../containers/TeacherHomeC"
+import MessagesPageStudent from "./message/MessagesPageStudent";
 
 const App = () => (
   <div>
@@ -27,6 +28,7 @@ const App = () => (
             <Route exact path="/teacher" component={TeacherHome} />
             <Route exact path="/cal" component={Calendar} />
             <Route exact path="/messagesTeacher" component={MessagesPageTeacher} />
+            <Route exact path="/messagesStudent" component={MessagesPageStudent} />
           </Switch>
         </div>
   </div>

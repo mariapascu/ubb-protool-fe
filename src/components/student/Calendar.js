@@ -130,7 +130,10 @@ class Calendar extends Component {
         return (
             <div>
 
-
+                <div className="arrowNavigator">
+                    <img className="calendarArrow" id="leftArrow"/>
+                    <img className="calendarArrow" id="rightArrow"/>
+                </div>
                 <div className={"calendar-wrapper"}>
                     <WeekCalendar
                         id="wk"

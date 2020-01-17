@@ -67,14 +67,20 @@ class Evvent extends React.Component {
 
 class Calendar extends Component {
     changelistDialog;
+    currentYear;
+    currentDay;
+    currentMonth;
 
     constructor(props) {
         super(props);
         this.state = {
+            currentDate: new Date(),
+
             intervals: null,
             showModal: false,
             selectedInterval: null
         };
+        console.log(this.currentDay + " " + this.currentMonth + " " + this.currentYear);
 
     }
 
@@ -124,6 +130,18 @@ class Calendar extends Component {
         return <Evvent title={params.title} classType={params.classType}></Evvent>
     }
 
+    getPreviousWeek = () => {
+        const newDate = this.state.currentDate;
+        newDate.setDate(newDate.getDate() - 7);
+        this.setState({currentDate: newDate});
+        console.log(this.state.currentDate);
+    };
+
+    getNextWeek = () => {
+        const newDate = this.state.currentDate;
+        newDate.setDate(newDate.getDate() + 7);
+        this.setState({currentDate: newDate});
+    };
 
     render() {
         var {...config} = this.state;
@@ -131,8 +149,8 @@ class Calendar extends Component {
             <div>
 
                 <div className="arrowNavigator">
-                    <img className="calendarArrow" id="leftArrow"/>
-                    <img className="calendarArrow" id="rightArrow"/>
+                    <img className="calendarArrow" id="leftArrow" onClick={this.getPreviousWeek}/>
+                    <img className="calendarArrow" id="rightArrow" onClick={this.getNextWeek}/>
                 </div>
                 <div className={"calendar-wrapper"}>
                     <WeekCalendar

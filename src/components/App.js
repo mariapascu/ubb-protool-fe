@@ -14,7 +14,7 @@ import MessagesPageTeacher from "./message/MessagesPageTeacher";
 import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
 import TeacherHome from "./teacher/TeacherHome";
-import Changelist from "./schedule/Changelist";
+import ChangelistModal from "./schedule_handling/ChangelistModal";
 
 const App = () => (
   <div>
@@ -29,7 +29,7 @@ const App = () => (
             <Route exact path="/teacher" component={TeacherHome} />
             <Route exact path="/cal" component={Calendar} />
             <Route exact path="/messagesTeacher" component={MessagesPageTeacher} />
-            <Route exact path="/changelist" component={Changelist}/>
+            <Route exact path="/changelist" component={ChangelistModal}/>
           </Switch>
         </div>
   </div>

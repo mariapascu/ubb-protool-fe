@@ -15,6 +15,7 @@ class TeachersTab extends React.Component {
         return (
             <div>
                 <NavbarStudent/>
+
                 <div className="pageContent">
                     {tList.map((item, index) => (
                         <TeacherCard teacher = {item}/>

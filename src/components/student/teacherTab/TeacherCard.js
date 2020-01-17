@@ -21,7 +21,7 @@ class TeacherCard extends React.Component {
 
     render() {
         return (
-            <Card className="card">
+            <Card className="card" elevation={0} raised={true}>
                 <div>
                     <Avatar variant={"circle"} alt={this.teacher.firstname} className="new"/>
                     <div>

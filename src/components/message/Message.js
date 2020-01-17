@@ -25,6 +25,12 @@ class Message extends React.Component {
                     </p>
                     <p className="card-text">From: <b>{this.state.messageItem.change.fromTheDate}</b> To: <b>{this.state.messageItem.change.toTheDate}</b>
                     </p>
+                    <p className="card-text">Type: {
+                        this.state.messageItem.change.permanentChange === true ? (
+                            <b>Permanent change</b>
+                        ) : <b>One time change</b>
+                    }
+                    </p>
                     <p className="card-text">" {this.state.messageItem.change.messageText} " </p>
                     <div>
                         {this.state.messageItem.status === "Pending" ? (

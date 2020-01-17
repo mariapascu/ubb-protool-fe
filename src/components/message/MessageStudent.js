@@ -29,6 +29,12 @@ class MessageStudent extends React.Component {
                     </h5>
                     <p className="card-text">Subject: <b>{this.state.messageItem.change.courseClass.course.courseName} {this.state.messageItem.change.courseClass.classType}</b>
                     </p>
+                    <p className="card-text">Type: {
+                        this.state.messageItem.change.permanentChange === true ? (
+                            <b>Permanent change</b>
+                        ) : <b>One time change</b>
+                    }
+                    </p>
                     <p className="card-text">From: <b>{this.state.messageItem.change.fromTheDate}</b> To: <b>{this.state.messageItem.change.toTheDate}</b>
                     </p>
                 </div>

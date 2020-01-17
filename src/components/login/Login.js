@@ -113,7 +113,7 @@ class Login extends React.Component {
                             </div>
                         </div>
 
-                        <img className="HeroImage"
+                        <img className="HeroImageLogin"
                              alt="hero"/>
                         <div className="MidDivider">
                         </div>

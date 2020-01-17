@@ -14,13 +14,14 @@ import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
 import TeacherHome from "../containers/TeacherHomeC"
 import MessagesPageStudent from "./message/MessagesPageStudent";
+import ProfileStudent from "./profile/profileStudent/ProfileStudent";
 
 const App = () => (
   <div>
     
     <div className="App-intro">
           <Switch>
-            <Route exact path="/"  component={Login} />
+            <Route exact path="/"  component={ProfileStudent} />
             <Route exact path="/login"  component={Login} />
             <Route exact path="/user"  component={UserHomeC} />
             <Route exact path="/teachersStudent" component={TeachersTab}/>

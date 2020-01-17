@@ -64,5 +64,5 @@ class TeacherCard extends React.Component {
         } else return "Thesis Unavailable"
     }
 }
+export default (TeacherCard)
 
-export default connect()(TeacherCard)

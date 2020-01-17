@@ -37,7 +37,7 @@
 }
 
 .calendar-wrapper {
-    width: 97% !important;
+    width: 95.95% !important;
 }
 
 .Course {
@@ -105,6 +105,20 @@
     height: 34px !important;
 }
 
+#leftArrow {
+    content: url("../../images/keyboard_arrow_left_black.png");
+    margin-left: 2.5%;
+}
 
+#rightArrow {
+    content: url("../../images/keyboard_arrow_right_black.png");
+}
 
+.calendarArrow {
+    width: 2%;
+    height: 2%;
+}
 
+.arrowNavigator {
+    margin-bottom: -4%;
+}

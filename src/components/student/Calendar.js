@@ -67,10 +67,6 @@ class Evvent extends React.Component {
 
 class Calendar extends Component {
     changelistDialog;
-    currentYear;
-    currentDay;
-    currentMonth;
-
     constructor(props) {
         super(props);
         this.state = {
@@ -80,7 +76,6 @@ class Calendar extends Component {
             showModal: false,
             selectedInterval: null
         };
-        console.log(this.currentDay + " " + this.currentMonth + " " + this.currentYear);
 
     }
 

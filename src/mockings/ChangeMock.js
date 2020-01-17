@@ -14,7 +14,8 @@ const c1 = new Change(
     classess[0],
     "Buna ziua vreau sa ma mut",
     "Joi 14:00",
-    "Vineri 12:00"
+    "Vineri 12:00",
+    true
 );
 
 const c2 =  new Change(
@@ -23,7 +24,8 @@ const c2 =  new Change(
     classess[1],
     "Buna ziua la revedere",
     "Luni 12:00",
-    "Vineri 16:00"
+    "Vineri 16:00",
+    false
 );
 
 export const changes = [c1, c2];

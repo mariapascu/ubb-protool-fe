@@ -15,6 +15,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {classess} from "../../mockings/ClassMock"
+import ChangelistModal from "../schedule_handling/ChangelistModal";
 
 
 const classes = classess
@@ -65,6 +66,7 @@ class Evvent extends React.Component {
 
 
 class Calendar extends Component {
+    changelistDialog;
 
     constructor(props) {
         super(props);
@@ -80,6 +82,7 @@ class Calendar extends Component {
         var intv = []
         for (var i = 0; i < classes.length; i++) {
             const c = {
+                classId: classes[i].classId,
                 title: classes[i].course.courseName,
                 teacher: classes[i].teacher,
                 classType: classes[i].classType,
@@ -104,11 +107,17 @@ class Calendar extends Component {
     }
     eventClicked = (e) => {
         this.setState({selectedInterval: e})
+        this.changelistDialog = null;
 
 
         this.setState({showModal: true})
     }
 
+    showChangelist = () => {
+        this.setState({showModal: false})
+        this.changelistDialog = null;
+        this.changelistDialog = <ChangelistModal courseClass={this.state.selectedInterval}/>;
+    };
 
     event = (params) => {
 
@@ -237,11 +246,12 @@ class Calendar extends Component {
                             <Button onClick={this.exitt} color="primary">
                                 Back
                             </Button>
-                            <Button onClick={this.exitt} color="primary">
+                            <Button onClick={this.showChangelist} color="primary">
                                 Change
                             </Button>
                         </DialogActions>
                     </Dialog>
+                    {this.changelistDialog}
                 </div>
             </div>
         );

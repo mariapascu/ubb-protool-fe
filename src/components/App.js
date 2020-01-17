@@ -1,6 +1,5 @@
 import React from 'react'
 import './App.css';
-import Home from './Home'
 import Login from '../containers/Login'
 
 import {
@@ -13,7 +12,7 @@ import Register from "../containers/Register";
 import MessagesPageTeacher from "./message/MessagesPageTeacher";
 import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
-import TeacherHome from "./teacher/TeacherHome";
+import TeacherHome from "../containers/TeacherHomeC"
 
 const App = () => (
   <div>

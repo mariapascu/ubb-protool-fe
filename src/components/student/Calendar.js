@@ -85,7 +85,6 @@ componentDidMount() {
     for (var i=0;i<classes.length;i++){
         const c={title:classes[i].course.courseName,teacher:classes[i].teacher,classType:classes[i].classType,classLocation:classess[i].classLocation,classDuration:classes[i].classDuration,start: moment({ month: 6, day: days[classes[i].classDay-1], year: 2019, h: classes[i].classHour }), end: moment({ month: 6, day:days[classes[i].classDay-1], year: 2019, h: classes[i].classHour+classes[i].classDuration}) }
         intv.push(c)
-        console.log(this.state.intervals);
     }
     this.setState({intervals: intv})
     }

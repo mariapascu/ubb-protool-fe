@@ -23,7 +23,6 @@ class Login extends React.Component {
     }
 
     handleInputChange = (event) => {
-        console.log("handle input change " + event.target.value);
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -84,7 +83,6 @@ class Login extends React.Component {
 
             }else {
                 this.props.addUser(t)
-
                 this.props.history.push('/user')
             }
 

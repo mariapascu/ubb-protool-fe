@@ -1,11 +1,10 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {mapStateToProps,mapDispatchToProps} from "../../containers/TeacherHomeC";
+
 
 import NavBarTeacher from '../navbar/NavBarTeacher'
 
 import './teacherHome.css';
-import Calendar from "../student/Calendar";
 import TeacherCalendar from "./TeacherCalendar";
 
 
@@ -24,6 +23,11 @@ class TeacherHome extends React.Component {
        console.log(this.props.loggedUser)
 
     }
+    componentDidMount() {
+        if (this.props.loggedUser.firstname===undefined){
+            this.props.history.push('/login')
+        }
+    }
 
     logout = (e) => {
         this.props.logout();
@@ -33,9 +37,9 @@ class TeacherHome extends React.Component {
     render() {
         return (
             <div>
-                <NavBarTeacher/>
+                <NavBarTeacher logoutFct={this.logout}/>
                 <TeacherCalendar></TeacherCalendar>
-                
+
             </div>
         )
     }

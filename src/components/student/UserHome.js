@@ -1,10 +1,9 @@
 import React from 'react';
 import {connect} from 'react-redux'
 import NavbarStudent from '../navbar/NavbarStudent'
-import NavBarTeacher from '../navbar/NavBarTeacher'
-import Message from "../message/Message";
 import './UserHome.css';
 import Calendar from "./Calendar";
+
 
 const styles = {
 
@@ -20,8 +19,15 @@ class UserHome extends React.Component {
         super(props)
 
     }
+    componentDidMount() {
+        //Uncomment line at the end
+    if (this.props.loggedUser.firstname===undefined){
+        //this.props.history.push('/login')
+    }
+    }
 
-    logout = (e) => {
+
+    logout = () => {
         this.props.logout();
         this.props.history.push('/login')
     }
@@ -29,7 +35,7 @@ class UserHome extends React.Component {
     render() {
         return (
             <div>
-                <NavBarTeacher/>
+                <NavbarStudent loggedUser={this.props.loggedUser} logoutFct={this.logout}/>
 
                 <div className="pageContent">
 

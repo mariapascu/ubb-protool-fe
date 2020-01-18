@@ -1,12 +1,9 @@
 import {Student} from "../model/Student";
-import {Subgroup} from "../model/Subgroup";
+import {subgroups} from "./SubgroupMock";
 
-
-let subgroup = new Subgroup(1,935,2);
-
-export const s1 = new Student(
+const s1 = new Student(
     1,
-    subgroup,
+    subgroups[0],
     "Cezar",
     "Olteanu",
     "cezar@scs.com",
@@ -17,7 +14,7 @@ export const s1 = new Student(
 
 const s2 = new Student(
     2,
-    "935/2",
+    subgroups[1],
     "Ion",
     "Bula",
     "bula@scs.com",

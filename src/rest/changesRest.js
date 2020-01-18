@@ -65,7 +65,7 @@ export function getMessagesForTeacher(teacherId) {
             function myFunction(item, index) {
                 let messageTeacher = new MessageTeacher();
 
-                messageTeacher.change = getChangeById(item.changeId);
+                //messageTeacher.change = getChangeById(item.changeId);
                 messageTeacher.messageId = item.messageId;
                 messageTeacher.status = messageTeacher.change.status;
                 messageTeacher.messageText = item.messageText;

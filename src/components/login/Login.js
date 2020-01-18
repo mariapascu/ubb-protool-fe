@@ -73,7 +73,7 @@ class Login extends React.Component {
             getUserByUsernameAndPassword(formData.email, formData.password).then((data) => {
                 console.log(data);
                 if (data == null) {
-                    // error
+                    return;
                 }
                 else if (data.studentId != null) {
                     this.setState({student: data});

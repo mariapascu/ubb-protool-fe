@@ -4,7 +4,7 @@ import {teachers} from "../../../mockings/TeacherMock";
 import {connect} from "react-redux";
 import NavbarStudent from "../../navbar/NavbarStudent";
 
-let tList = teachers
+let tList = teachers;
 
 class TeachersTab extends React.Component {
     constructor(props) {

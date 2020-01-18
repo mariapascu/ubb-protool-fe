@@ -4,7 +4,7 @@ export class Student{
         this.subgroup=subgroup;
         this.firstName=firstName;
         this.lastName=lastName;
-        this.studentEmail = email;
+        this.email = email;
         this.major = major;
         this.uni = uni;
         this.fac = fac;

@@ -7,10 +7,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
 import './Register.css';
-import {withStyles} from '@material-ui/core/styles/withStyles';
-import createMuiTheme from "@material-ui/core/es/styles/createMuiTheme";
-import purple from "@material-ui/core/es/colors/purple";
-import {isEmpty} from "../../shared/validator";
+import {isEmail, isEmpty, isContainWhiteSpace} from '../../shared/validator';
 
 
 class Register extends React.Component {
@@ -20,7 +17,7 @@ class Register extends React.Component {
         this.state = {
             formData: {}, // Contains register form data
             typeSelected: false, // Indicates if the user chose his type
-            errors: {}, // Contains login field errors
+            localErrors: {}, // Contains login field errors
             formSubmitted: false, // Indicates submit status of login form
             loading: false // Indicates in progress state of login form
         }
@@ -34,12 +31,18 @@ class Register extends React.Component {
     validateRegistration = (e) => {
         let errors = {};
         const {formData} = this.state;
-        console.log(formData);
+
+        if (!isEmail(formData.email)) {
+            errors.email = "Invalid email!";
+        }
         if (formData.password.length < 6) {
             errors.password = "Password must contain at least 6 characters!";
         }
+        else if (isContainWhiteSpace(formData.password)) {
+            errors.password = "Password can't contain white spaces!";
+        }
         if (!(formData.password === formData.confirmPassword)) {
-            errors.password = "Passwords don't match!";
+            errors.confirmPassword = "Passwords don't match!";
         }
         if (this.state.typeSelected === false) {
             errors.type = "A type of user must be chosen!";
@@ -68,11 +71,15 @@ class Register extends React.Component {
         if (errors === true) {
             this.props.history.push('/login');
         }
+        else {
+            this.setState({
+                localErrors: errors
+            });
+        }
 
     };
 
     handleInputChange = (event) => {
-        console.log("handle input change " + event.target.name + " " + event.target.value);
         const target = event.target;
         const value = target.value;
         const name = target.name;
@@ -111,6 +118,8 @@ class Register extends React.Component {
                         label="Group"
                         autoFocus
                         name="group"
+                        error = {!(this.state.localErrors.group == null)}
+                        helperText= {this.state.localErrors.group}
                         onChange={this.handleInputChange}
                     />
                     <TextField
@@ -123,6 +132,8 @@ class Register extends React.Component {
                         label="Subgroup"
                         autoFocus
                         name="subgroup"
+                        error = {!(this.state.localErrors.subgroup == null)}
+                        helperText= {this.state.localErrors.subgroup}
                         onChange={this.handleInputChange}
                     />
                 </div>;
@@ -141,7 +152,7 @@ class Register extends React.Component {
                         onChange={this.handleInputChange}
                     />
                     <div>Are you available for Bachelor's Thesis?</div>
-                    <RadioGroup aria-label="available" name="available" required row onChange={this.handleInputChange}>
+                    <RadioGroup aria-label="available" defaultValue="yes" name="available" required row onChange={this.handleInputChange}>
                         <FormControlLabel value="yes" control={<Radio color="primary"/>} label="Yes"/>
                         <FormControlLabel value="no" control={<Radio color="primary"/>} label="No"/>
                     </RadioGroup>
@@ -208,6 +219,8 @@ class Register extends React.Component {
                                 autoComplete="email"
                                 autoFocus
                                 name="email"
+                                error = {!(this.state.localErrors.email == null)}
+                                helperText= {this.state.localErrors.email}
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -222,6 +235,8 @@ class Register extends React.Component {
                                 autoComplete="email"
                                 autoFocus
                                 name="password"
+                                error = {!(this.state.localErrors.password == null)}
+                                helperText= {this.state.localErrors.password}
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -235,6 +250,8 @@ class Register extends React.Component {
                                 label="Confirm Password"
                                 autoFocus
                                 name="confirmPassword"
+                                error = {!(this.state.localErrors.confirmPassword == null)}
+                                helperText= {this.state.localErrors.confirmPassword}
                                 onChange={this.handleInputChange}
                             />
                             <TextField

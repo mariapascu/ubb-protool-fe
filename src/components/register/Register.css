@@ -16,6 +16,8 @@
     float: left;
     width: 50%;
     height: 100%;
+    padding-top: 7%;
+    padding-bottom: 5%;
 }
 
 .MidDivider {
@@ -36,7 +38,7 @@
     position: absolute;
     height: 60%;
     width: 40%;
-    content: url('../../images/heroImageRegister.jpg');
+    content: url('../../images/heroImageLogin.jpg');
     margin-left: 10%;
     margin-top: 12%;
     border: 2px solid  #f9f9f9;
@@ -98,7 +100,15 @@
     margin-top: 20px;
     font-family: 'Questrial', sans-serif;
     background-color: #0d2d4c !important;
-    border: none !important;
+    border: 1px solid #0d2d4c !important;
     color: #f9f9f9 !important;
+}
+
+.myButton:hover {
+    margin-top: 20px;
+    font-family: 'Questrial', sans-serif;
+    background-color: #f9f9f9 !important;
+    border: 1px solid #0d2d4c!important;
+    color: #0d2d4c !important;
 }
 

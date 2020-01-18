@@ -5,10 +5,9 @@ export const addTodo = text => ({
   text
 })
 
-export const addUser = (email, password) => ({
-  type: 'ADD_USER',
-  email:email,
-  password:password
+export const addUser = (loggedUser) => ({
+  type: 'LOGIN_USER',
+  loggedUser: loggedUser
 })
 
 export const logoutUser = () => ({

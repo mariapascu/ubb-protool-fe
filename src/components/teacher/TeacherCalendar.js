@@ -15,6 +15,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {classess} from "../../mockings/ClassMock"
+import CardContent from "@material-ui/core/CardContent";
+import {students} from "../../mockings/StudentMock";
+import Card from "@material-ui/core/Card";
 
 
 const classes = classess
@@ -46,7 +49,6 @@ class Evvent extends React.Component {
 
                 <div className={"class-cell" + " " + this.props.classType}>
                     <div className={"title-box"}>{this.props.title}</div>
-
                     <div className={"type-box"}><b>{this.props.classType}</b></div>
                     <div>
                         {this.props.classType === "Laboratory" ? (
@@ -86,7 +88,8 @@ class TeacherCalendar extends Component {
         this.state = {
             intervals: null,
             showModal: false,
-            selectedInterval: null
+            selectedInterval: null,
+            attendingStudentsList: null
         };
 
     }
@@ -118,20 +121,40 @@ class TeacherCalendar extends Component {
     exitt = () => {
 
         this.setState({showModal: false})
-    }
+    };
+
     eventClicked = (e) => {
-        this.setState({selectedInterval: e})
-
-
-        //this.setState({ showModal: true })
-    }
-
+        this.setState({selectedInterval: e});
+        this.setState({showModal: true});
+        this.setState({attendingStudentsList: students});
+    };
 
     event = (params) => {
 
         return <Evvent title={params.title} classType={params.classType} subgroup={params.subgroup}
-    classLocation={params.classLocation}/>
+                       classLocation={params.classLocation}/>
     };
+
+    studentItem = (item) => {
+        return (
+            <Card className="card" elevation={0} raised={true}>
+                <CardContent>
+                    <div>
+                        <Typography display="inline" className="leftside">Student name: </Typography>
+                        <Typography display="inline">{item.firstName} {item.lastName}</Typography>
+                    </div>
+                    <div>
+                        <Typography display="inline" className="leftside">Group: </Typography>
+                        <Typography display="inline">{item.subgroup}</Typography>
+                    </div>
+                    <div>
+                        <Typography display="inline" className="leftside">Email: </Typography>
+                        <Typography display="inline">{item.email}</Typography>
+                    </div>
+                </CardContent>
+            </Card>
+        )
+    }
 
 
     render() {
@@ -157,104 +180,28 @@ class TeacherCalendar extends Component {
 
                     {/* The dialog which opens when an interval is clicked*/}
                     <Dialog open={this.state.showModal} onClose={this.exitt} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">Class</DialogTitle>
+                        <DialogTitle id="form-dialog-title">
+                            {this.state.selectedInterval != null ?
+                                this.state.selectedInterval.title + " " : ""
+                            }
+                            {this.state.selectedInterval != null ?
+                                this.state.selectedInterval.classType : ""
+                            }
+                        </DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Below you'll see information about the class. If seminar/laboratory, you can try to
-                                reschedule by
-                                clicking "Change".
+                                Below you'll see information about the students attending this class
                             </DialogContentText>
 
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Subject:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.title : ""
-                                    }
-                                </Typography>
-                            </Box>
-
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Teacher:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.teacher.firstname + " " + this.state.selectedInterval.teacher.lastname : ""
-                                    }
-                                </Typography>
-                            </Box>
-
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Type:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.classType : ""
-                                    }
-                                </Typography>
-                            </Box>
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Location:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.classLocation : ""
-                                    }
-                                </Typography>
-                            </Box>
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Interval:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.start.format('hh:mm') : ""
-                                    }
-                                </Typography>
-
-                                -
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.end.format('hh:mm') : ""
-                                    }
-                                </Typography>
-
-                            </Box>
-
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Duration:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.classDuration : ""
-                                    }
-                                </Typography>
-                            </Box>
+                            <div>
+                                {students.map((item, index) => (
+                                    this.studentItem(item)
+                                ))}
+                            </div>
                         </DialogContent>
                         <DialogActions>
                             <Button onClick={this.exitt} color="primary">
                                 Back
-                            </Button>
-                            <Button onClick={this.exitt} color="primary">
-                                Change
                             </Button>
                         </DialogActions>
                     </Dialog>

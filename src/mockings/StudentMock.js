@@ -22,5 +22,5 @@ const s2 = new Student(
     "Mate info"
 );
 
-export const students = [s1, s2];
+export const students = [s1, s2, s1, s2, s1, s2, s1, s2, s1, s2];
 

@@ -8,8 +8,10 @@ import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
 import {Teacher} from "../../model/Teacher";
 import {s1} from "../../mockings/StudentMock"
+import {t1} from "../../mockings/TeacherMock"
 
 let stud = s1;
+let teach = t1;
 
 class Login extends React.Component {
 
@@ -76,7 +78,7 @@ class Login extends React.Component {
 
         if (errors === true) {
             let student = this.isStudent();
-            let t = stud;
+            let t = teach;
 
             if (student === false) {
                 this.props.addUser(t);

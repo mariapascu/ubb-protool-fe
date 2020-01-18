@@ -1,8 +1,7 @@
 import * as React from "react";
-import NavbarStudent from "../../navbar/NavbarStudent";
 import Container from "@material-ui/core/Container";
 import {connect} from "react-redux";
-import "./ProfileStudent.css"
+import "./ProfileTeacher.css"
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
@@ -12,33 +11,41 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import NavBarTeacher from "../../navbar/NavBarTeacher";
 
 
-class ProfileStudent extends React.Component {
+class ProfileTeacher extends React.Component {
 
     constructor(props) {
         super(props);
         this.state = {
             showFields: true,
             showEdit: false,
-            name: this.props.loggedUser.lastName,
-            group: this.props.loggedUser.subgroup.groupNumber,
-            subgroup: this.props.loggedUser.subgroup.subgroupNumber,
-            surname: this.props.loggedUser.firstName,
-            initialGroup: this.props.loggedUser.subgroup.groupNumber,
-            initialSubgroup: this.props.loggedUser.subgroup.subgroupNumber,
-            initialName: this.props.loggedUser.lastName,
-            initialSurname: this.props.loggedUser.firstName,
+            name: this.props.loggedUser.lastname,
+            surname: this.props.loggedUser.firstname,
+            initialName: this.props.loggedUser.lastname,
+            initialSurname: this.props.loggedUser.firstname,
             university: this.props.loggedUser.uni,
             faculty: this.props.loggedUser.fac,
-            speciality: this.props.loggedUser.major,
+            department: this.props.loggedUser.department,
+            thesisAvailability: this.props.loggedUser.thesisAvailability,
+            initialThesisAvailability: this.props.loggedUser.thesisAvailability,
+            site: this.props.loggedUser.site,
+            email: this.props.loggedUser.teacherEmail,
+            initialSite: this.props.loggedUser.site,
             errors: {
-                group: false,
                 name: false,
                 surname: false
             }
         }
     }
+
+    thesisAvailabilityText = (availability) => {
+        if (availability) {
+            return 1
+        } else return 0
+    };
+
 
     onEditButtonPressed = () => {
         console.log("I was pressed");
@@ -52,10 +59,9 @@ class ProfileStudent extends React.Component {
         this.setState({
             showFields: true,
             showEdit: false,
-            group: this.state.initialGroup,
-            subgroup: this.state.initialSubgroup,
             name: this.state.initialName,
-            surname: this.state.initialSurname
+            surname: this.state.initialSurname,
+            site: this.state.initialSite,
         })
     };
 
@@ -64,31 +70,25 @@ class ProfileStudent extends React.Component {
         this.setState({
             showFields: true,
             showEdit: false,
-            initialGroup: this.state.group,
-            initialSubgroup: this.state.subgroup,
             initialName: this.state.name,
-            initialSurname: this.state.surname
+            initialSurname: this.state.surname,
+            initialSite: this.state.site,
+            initialThesisAvailability: this.state.thesisAvailability
         })
     };
 
-    handleChangeGroup = event => {
-        if (event.target.value <= 100 || event.target.value >= 1000) {
+    handleChangeSite = event => {
+        if (!(event.target.value.includes("http://") || event.target.value.includes("http://"))) {
             this.setState({
                 errors: {
-                    group: true
+                    site: "Should have http:// or https://"
                 }
             })
         } else this.setState({
-            group: event.target.value,
+            site: event.target.value,
             errors: {
-                group: false
+                site: null
             }
-        });
-    };
-
-    handleChangeSubgroup = event => {
-        this.setState({
-            subgroup: event.target.value
         });
     };
 
@@ -126,23 +126,40 @@ class ProfileStudent extends React.Component {
             );
     };
 
+    handleChangeThesis = event => {
+        this.setState({
+                thesisAvailability: event.target.value,
+            }
+        );
+    };
+
+    getColorAvailability = (availability) => {
+        if (availability) {
+            return <text className="fontColorGreen">Available</text>
+        } else return <text className="fontColorRed">Unavailable</text>
+    };
+
+
     render() {
         let currentValues = {
             group: this.state.group
         };
         return (
             <div>
-                <NavbarStudent/>
+                <NavBarTeacher/>
                 <Container className="profileContainer">
                     <Paper className="profileCard" rounded={true} elevation={2}>
                         <Avatar className="Avatar">{this.state.initialName[0]}</Avatar>
                         <div className="FieldContainer" hidden={!this.state.showFields}>
                             <Typography variant={"h4"}
-                                        className="ContainerChild">{this.state.initialSurname} {this.state.initialName}</Typography>
+                                        className="ContainerChild">{this.state.initialSurname} {this.state.initialName} {this.getColorAvailability(this.state.initialThesisAvailability)}</Typography>
                             <Typography variant={"h5"}
                                         className="ContainerChild">{this.state.university} {this.state.faculty} {this.state.speciality}</Typography>
                             <Typography variant={"h5"}
-                                        className="ContainerChild">{this.state.initialGroup}/{this.state.initialSubgroup}</Typography>
+                                        className="ContainerChild">Email: {this.state.email}</Typography>
+                            <Typography variant={"h5"}
+                                        className="ContainerChild">Website: <a
+                                href={this.state.initialSite}>{this.state.initialSite}</a></Typography>
                             <Button className={"ContainerChild"} variant={"contained"} hidden={!this.state.showFields}
                                     onClick={this.onEditButtonPressed}>Edit</Button>
                         </div>
@@ -160,21 +177,23 @@ class ProfileStudent extends React.Component {
                                        id="outlined-basic"
                                        label="Name"
                                        onChange={this.handleChangeName}/>
+                            <TextField className="inputText"
+                                       error={this.state.errors.site}
+                                       defaultValue={this.state.site}
+                                       fullWidth={true}
+                                       id="outlined-basic"
+                                       label="WebSite"
+                                       onChange={this.handleChangeSite}/>
+
+
                             <div className="FormControlParent">
-                                <TextField className="FormControlChild"
-                                           error={this.state.errors.group}
-                                           id="outlined-basic"
-                                           label="Group"
-                                           type="number"
-                                           defaultValue={this.state.initialGroup}
-                                           onChange={this.handleChangeGroup}/>
                                 <FormControl className="FormControlChild">
-                                    <InputLabel>Subgroup</InputLabel>
+                                    <InputLabel>Thesis availability</InputLabel>
                                     <Select
-                                        value={this.state.subgroup}
-                                        onChange={this.handleChangeSubgroup}>
-                                        <MenuItem value={1}>1</MenuItem>
-                                        <MenuItem value={2}>2</MenuItem>
+                                        value={this.thesisAvailabilityText(this.state.thesisAvailability)}
+                                        onChange={this.handleChangeThesis}>
+                                        <MenuItem value={1}>Available</MenuItem>
+                                        <MenuItem value={0}>Unavailable</MenuItem>
                                     </Select>
                                 </FormControl>
                             </div>
@@ -190,4 +209,4 @@ class ProfileStudent extends React.Component {
     }
 }
 
-export default connect()(ProfileStudent)
+export default connect()(ProfileTeacher);

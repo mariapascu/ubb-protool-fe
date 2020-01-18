@@ -112,6 +112,34 @@ export function getStudentsForClass(classId){
         return data; //list of students
     })
 }
+export function getTeachersList(){
+    url = baseUrl + "/teacher/list";
+    return fetch(url, {
+        method: 'GET'
+    }).then((response) => {
+        if(response.status === 200){
+            return response.json();
+        }
+    }).then((data) => {
+        return data;
+    })
+}
+
+export function updateStudent(body){
+    url = baseUrl;
+    return fetch(url, {
+        method: 'UPDATE',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+        body: body
+    }).then((response) => {
+        if(response.status === 200){
+            return true
+        }
+    })
+}
+
 
 export function addChange(studentId,firstName,lastName,groupId,subgroupId){
     //post

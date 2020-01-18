@@ -12,6 +12,8 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
+import {Student} from "../../../model/Student";
+import {updateStudent} from "../../../rest/userRest";
 
 
 class ProfileStudent extends React.Component {
@@ -36,7 +38,8 @@ class ProfileStudent extends React.Component {
                 group: false,
                 name: false,
                 surname: false
-            }
+            },
+            loggedUser: this.props.loggedUser
         }
     }
 
@@ -68,8 +71,40 @@ class ProfileStudent extends React.Component {
             initialSubgroup: this.state.subgroup,
             initialName: this.state.name,
             initialSurname: this.state.surname
-        })
+        });
+        this.props.addUser(new Student(this.state.loggedUser.studentId,
+            this.state.subgroup,
+            this.state.surname,
+            this.state.name,
+            this.state.loggedUser.email,
+            this.state.speciality,
+            this.state.university,
+            this.state.faculty));
+        let updateJSON = JSON.stringify({
+            "studentId": this.state.loggedUser.studentId,
+            "firstName": this.state.surname,
+            "lastName": this.state.name,
+ //           "email": this.state.loggedUser.email,
+            //         "major": this.state.speciality,
+            //"university": this.state.university,
+            //"faculty": this.state.faculty,
+            "studentGroup": this.state.group,
+            "studentSubGroup": this.state.subgroup
+        });
+        updateStudent(updateJSON);
     };
+
+//     fetch('https://mywebsite.com/endpoint/', {
+//     method: 'POST',
+//     headers: {
+//         'Accept': 'application/json',
+//         'Content-Type': 'application/json',
+//     },
+//     body: JSON.stringify({
+//     firstParam: 'yourValue',
+//     secondParam: 'yourOtherValue',
+// })
+// })
 
     handleChangeGroup = event => {
         if (event.target.value <= 100 || event.target.value >= 1000) {

@@ -34,8 +34,14 @@
 .MuiSvgIcon-root.Icon{
     margin-right: 1%;
 }
-.ThesisAvailability{
+.ThesisAvailabilityGreen{
     font-size: small!important;
+    color: green;
+}
+
+.ThesisAvailabilityRed{
+    font-size: small!important;
+    color: red;
 }
 
 .MuiCard-root.card {

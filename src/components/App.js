@@ -18,12 +18,12 @@ import ProfileStudent from "./profile/profileStudent/ProfileStudent";
 
 const App = () => (
   <div>
-    
     <div className="App-intro">
           <Switch>
             <Route exact path="/"  component={ProfileStudent} />
             <Route exact path="/login"  component={Login} />
             <Route exact path="/user"  component={UserHomeC} />
+              <Route exact path="/profileStudent"  component={ProfileStudent} />
             <Route exact path="/teachersStudent" component={TeachersTab}/>
             <Route exact path="/register" component={Register} />
             <Route exact path="/teacher" component={TeacherHome} />

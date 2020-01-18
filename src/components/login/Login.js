@@ -75,19 +75,19 @@ class Login extends React.Component {
                 if (data == null) {
                     // error
                 }
-                else if (data.studentId != null) {
-                    this.setState({student: data});
-                    console.log(this.state.student.firstName);
-
-                    this.props.addUser(this.state.student);
-                    this.props.history.push('/user');
-                }
-                else {
+                // else if (data.studentId != null) {
+                //     this.setState({student: data});
+                //     console.log(this.state.student.firstName);
+                //
+                //     this.props.addUser(this.state.student);
+                //     this.props.history.push('/user');
+                // }
+                // else {
                     this.setState({teacher: data});
                     console.log(this.state.teacher);
                     this.props.addUser(t);
                     this.props.history.push('/teacher');
-                }
+                //}
 
             }).catch((err) => console.log(err));
         } else {

@@ -60,6 +60,7 @@ export function getClassesForStudent(userId) {
                             }
 
 
+
                     }
                     return cls
                 })
@@ -76,18 +77,20 @@ export function getClassesForStudent(userId) {
     var yyyy = today.getFullYear();
 
     //const weekDate = yyyy + '-' + mm + '-' + dd;
-    const weekDate="2019-11-12"
-    url = baseUrl + "class/getScheduleTeacher/"+teacherId + "/" + weekDate;
+    const weekDate = "2019-11-12"
+    url = baseUrl + "class/getScheduleTeacher/" + teacherId + "/" + weekDate;
 
-    return fetch(baseUrl+"course/list",{
-        method:'GET'
-    }).then((r)=>{return r.json()})
-        .then((data)=>{
+    return fetch(baseUrl + "course/list", {
+        method: 'GET'
+    }).then((r) => {
+        return r.json()
+    })
+        .then((data) => {
             console.log(data[0]["courseId"])
-            var courses=[];
-            for (var c in data){
+            var courses = [];
+            for (var c in data) {
 
-                var co=new Course(data[c]["courseId"],data[c]["courseName"],data[c]["courseSemester"],data[c]["courseUniversity"],data[c]["courseFaculty"],data[c]["courseStartDate"],data[c]["courseEndDate"])
+                var co = new Course(data[c]["courseId"], data[c]["courseName"], data[c]["courseSemester"], data[c]["courseUniversity"], data[c]["courseFaculty"], data[c]["courseStartDate"], data[c]["courseEndDate"])
 
                 courses.push(co)
             }
@@ -99,18 +102,18 @@ export function getClassesForStudent(userId) {
             })
                 .then((data) => {
 
-                    var cls=[]
-                    for (var i in data){
+                    var cls = []
+                    for (var i in data) {
 
-                            for (var i in courses){
-                                if (courses[i].courseId === data[i].courseId){
-                                    const dayNr = getDayNumber(data[i].classDay)
-                                    const hourr=Number(data[i].classHour.substring(0,2))
-                                    var c=new CourseClass(data[i].classId,classess[0].teacher,courses[i],classess[0].subgroup,"Laboratory",dayNr,data[i].classWeek,hourr,data[i].classLocation,data[i].classDuration)
+                        for (var i in courses) {
+                            if (courses[i].courseId === data[i].courseId) {
+                                const dayNr = getDayNumber(data[i].classDay)
+                                const hourr = Number(data[i].classHour.substring(0, 2))
+                                var c = new CourseClass(data[i].classId, classess[0].teacher, courses[i], classess[0].subgroup, "Laboratory", dayNr, data[i].classWeek, hourr, data[i].classLocation, data[i].classDuration)
 
-                                    cls.push(c)
-                                }
+                                cls.push(c)
                             }
+                        }
 
 
                     }
@@ -119,10 +122,9 @@ export function getClassesForStudent(userId) {
                 .catch((err) => {
                     console.log(err.message)
                 })
-
         })
-
 }
+
 
 function getAllCourses(){
     url = baseUrl+"course/list"
@@ -214,6 +216,22 @@ export function getStudentsForClass(classId) {
         return data; //list of students
     })
 }
+
+export function updateStudent(body){
+    url = baseUrl;
+    return fetch(url, {
+        method: 'UPDATE',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+        body: body
+    }).then((response) => {
+        if(response.status === 200){
+            return true
+        }
+    })
+}
+
 
 export function addChange(studentId, firstName, lastName, groupId, subgroupId) {
     //post

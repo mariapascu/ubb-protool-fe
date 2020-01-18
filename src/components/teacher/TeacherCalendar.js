@@ -96,7 +96,7 @@ class TeacherCalendar extends Component {
     }
 
     componentDidMount() {
-        getClassesForTeacher(4).then((classes)=>{
+        getClassesForTeacher(2).then((classes)=>{
             var intv = []
             for (var i = 0; i < classes.length; i++) {
                 const c = {

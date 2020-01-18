@@ -11,3 +11,16 @@ export class Teacher{
         this.fac = fac;
     }
 }
+// teacherBackend = {
+//     "teacherId": 6,
+//     "teacherDepartment": "dep gelu",
+//     "teacherAvailability": true,
+//     "teacherFirstName": "Gelu",
+//     "teacherLastName": "Gelian",
+//     "email": "gelian@cs.ubbcluj.ro",
+//     "password": "lapte1234",
+//     "teacherEnabled": true,
+//     "teacherUniversity": "ubb",
+//     "teacherFaculty": "fmi",
+//     "teacherWebSite": "cs.ubbcluj.ro/~gelu"
+// }

@@ -39,7 +39,7 @@ class Message extends React.Component {
                         ) : <b>One time change</b>
                     }
                     </p>
-                    <p className="card-text">" {this.state.messageItem.change.messageText} " </p>
+                    <p className="card-text">" {this.state.messageItem.messageText} " </p>
                     <div>
                         {this.state.messageItem.status === "Pending" ? (
                             <a href="#" className="btn btn-secondary myButtonAccept">Accept</a>

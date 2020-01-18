@@ -21,9 +21,9 @@ class ProfileStudent extends React.Component {
         this.state = {
             showFields: true,
             showEdit: false,
+            name: this.props.loggedUser.lastName,
             group: this.props.loggedUser.subgroup.groupNumber,
             subgroup: this.props.loggedUser.subgroup.subgroupNumber,
-            name: this.props.loggedUser.lastName,
             surname: this.props.loggedUser.firstName,
             initialGroup: this.props.loggedUser.subgroup.groupNumber,
             initialSubgroup: this.props.loggedUser.subgroup.subgroupNumber,

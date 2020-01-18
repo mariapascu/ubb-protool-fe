@@ -7,7 +7,9 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
 import {Teacher} from "../../model/Teacher";
+import {s1} from "../../mockings/StudentMock"
 
+let stud = s1;
 
 class Login extends React.Component {
 
@@ -74,7 +76,7 @@ class Login extends React.Component {
 
         if (errors === true) {
             let student = this.isStudent();
-            let t = new Teacher(1, "fd", "dfgdfsg", "dsfd", "efd", "frgdg", "gferg", "efeg", "ersgserhg");
+            let t = stud;
 
             if (student === false) {
                 this.props.addUser(t);

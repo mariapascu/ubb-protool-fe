@@ -1,8 +1,12 @@
 import {Student} from "../model/Student";
+import {Subgroup} from "../model/Subgroup";
 
-const s1 = new Student(
+
+let subgroup = new Subgroup(1,935,2);
+
+export const s1 = new Student(
     1,
-    "935/2",
+    subgroup,
     "Cezar",
     "Olteanu",
     "cezar@scs.com",
@@ -13,7 +17,7 @@ const s1 = new Student(
 
 const s2 = new Student(
     2,
-    "933/2",
+    "935/2",
     "Ion",
     "Bula",
     "bula@scs.com",

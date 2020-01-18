@@ -56,16 +56,16 @@ export function getAllTeachers(){
 
 }
 
-export function getClassesForWeek(courseId,classType,weekDate){
-    url=baseUrl+courseId+"/"+classType+"/"+weekDate
-    return fetch(url,{
-        method:'GET'
-    }).then((response)=>{
-        return response.json()
-    }).then((data)=>{
-        return data; //lista de clase de acel tip, de la acel curs, in acea saptamana
-    })
-}
+// export function getClassesForWeek2(courseId, classType, weekDate){
+//     url=baseUrl+courseId+"/"+classType+"/"+weekDate
+//     return fetch(url,{
+//         method:'GET'
+//     }).then((response)=>{
+//         return response.json()
+//     }).then((data)=>{
+//         return data; //lista de clase de acel tip, de la acel curs, in acea saptamana
+//     })
+// }
 
 
 export function getChangesOfCourse(courseId){

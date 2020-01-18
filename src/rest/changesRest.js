@@ -6,6 +6,7 @@ import Course from "../model/Course";
 import {Subgroup} from "../model/Subgroup";
 import {Teacher} from "../model/Teacher";
 import {Student} from "../model/Student";
+import {MessageTeacher} from "../model/MessageTeacher";
 
 const baseUrl = "http://localhost:8080/";
 let url = "";
@@ -42,6 +43,37 @@ export function getChangesForStudent(studentId) {
             }
 
             return messagesStudent
+        })
+        .catch((err) => {
+            console.log(err.message)
+        })
+}
+
+export function getMessagesForTeacher(teacherId) {
+    url = baseUrl + "teacher/get-messages" + teacherId;
+    return fetch(url, {
+        method: 'GET',
+    }).then((response) => {
+        return response.json();
+    })
+        .then((data) => {
+            const messages = data;
+            let messagesTeacher = [];
+
+            messages.forEach(myFunction);
+
+            function myFunction(item, index) {
+                let messageTeacher = new MessageTeacher();
+
+                messageTeacher.change = getChangeById(item.changeId);
+                messageTeacher.messageId = item.messageId;
+                messageTeacher.status = messageTeacher.change.status;
+                messageTeacher.messageText = item.messageText;
+
+                messagesTeacher.push(messageTeacher)
+            }
+
+            return messagesTeacher
         })
         .catch((err) => {
             console.log(err.message)

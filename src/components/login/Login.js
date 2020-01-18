@@ -1,6 +1,6 @@
 import React from "react";
 import './Login.css';
-import {isEmail, isEmpty, isLength, isContainWhiteSpace} from '../../shared/validator';
+import {isEmail, isEmpty} from '../../shared/validator';
 import {connect} from 'react-redux'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
@@ -16,7 +16,7 @@ class Login extends React.Component {
 
         this.state = {
             formData: {}, // Contains login form data
-            errors: {}, // Contains login field errors
+            localErrors: {}, // Contains login field errors
             formSubmitted: false, // Indicates submit status of login form
             loading: false // Indicates in progress state of login form
         }
@@ -33,7 +33,7 @@ class Login extends React.Component {
         this.setState({
             formData: formData
         });
-    }
+    };
 
     isStudent(e) {
         const {formData} = this.state;
@@ -49,15 +49,13 @@ class Login extends React.Component {
         const {formData} = this.state;
 
         if (isEmpty(formData.email)) {
-            errors.email = "Email can't be blank";
+            errors.email = "Email can't be blank!";
         } else if (!isEmail(formData.email)) {
-            errors.email = "Please enter a valid email";
+            errors.email = "Please enter a valid email!";
         }
 
         if (isEmpty(formData.password)) {
-            errors.password = "Password can't be blank";
-        } else if (isContainWhiteSpace(formData.password)) {
-            errors.password = "Password should not contain white spaces";
+            errors.password = "Password can't be blank!";
         }
 
         if (isEmpty(errors)) {
@@ -65,7 +63,7 @@ class Login extends React.Component {
         } else {
             return errors;
         }
-    }
+    };
 
     login = (e) => {
 
@@ -73,26 +71,28 @@ class Login extends React.Component {
 
         let errors = this.validateLoginForm();
         const {formData} = this.state;
-        let student = this.isStudent();
-        let t=new Teacher(1,"fd","dfgdfsg","dsfd","efd","frgdg","gferg","efeg","ersgserhg")
 
         if (errors === true) {
-            if(student===false){
-                this.props.addUser(t)
+            let student = this.isStudent();
+            let t = new Teacher(1, "fd", "dfgdfsg", "dsfd", "efd", "frgdg", "gferg", "efeg", "ersgserhg");
+
+            if (student === false) {
+                this.props.addUser(t);
                 this.props.history.push('/teacher')
 
-            }else {
-                this.props.addUser(t)
+            } else {
+                this.props.addUser(t);
                 this.props.history.push('/user')
             }
 
         } else {
             this.setState({
-                errors: errors,
+                localErrors: errors,
                 formSubmitted: true
             });
         }
-    }
+        console.log("errors " + this.state.localErrors);
+    };
 
     render() {
 
@@ -113,7 +113,7 @@ class Login extends React.Component {
                             </div>
                         </div>
 
-                        <img className="HeroImage"
+                        <img className="HeroImageLogin"
                              alt="hero"/>
                         <div className="MidDivider">
                         </div>
@@ -121,40 +121,47 @@ class Login extends React.Component {
 
                     <div className="FormSide">
                         <div className="LoginForm">
-                        <form onSubmit={this.login}>
-                            <div className="SignIn">Sign in</div>
-                            <TextField
-                                className="EmailTextField"
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                id="email"
-                                label="Email Address"
-                                autoComplete="email"
-                                autoFocus
-                                name="email"
-                                onChange={this.handleInputChange}
-                            />
-                            <TextField
-                                className="PasswordTextField"
-                                variant="outlined"
-                                margin="normal"
-                                required
-                                fullWidth
-                                type="password"
-                                id="password"
-                                label="Password"
-                                autoComplete="email"
-                                autoFocus
-                                onChange={this.handleInputChange}
-                                name="password"
-                            />
-                            <div>
-                                <div style={{float:"left"}}><button type="submit" className="btn btn-secondary myButton">Submit</button></div>
-                                <div style={{float:"left", marginTop: "7%", marginLeft: "5%"}}>Already have an account? <a href="/register">Register</a></div>
-                            </div>
-                        </form>
+                            <form onSubmit={this.login}>
+                                <div className="SignIn">Sign in</div>
+                                <TextField
+                                    className="ceva"
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    id="email"
+                                    label="Email Address"
+                                    autoComplete="email"
+                                    autoFocus
+                                    name="email"
+                                    onChange={this.handleInputChange}
+                                    error = {!(this.state.localErrors.email == null)}
+                                    helperText= {this.state.localErrors.email}
+                                />
+                                <TextField
+                                    className="PasswordTextField"
+                                    variant="outlined"
+                                    margin="normal"
+                                    required
+                                    fullWidth
+                                    type="password"
+                                    id="password"
+                                    label="Password"
+                                    autoComplete="email"
+                                    autoFocus
+                                    onChange={this.handleInputChange}
+                                    name="password"
+                                    error = {!(this.state.localErrors.password == null)}
+                                    helperText={this.state.localErrors.password}
+                                />
+                                <div>
+                                    <div style={{float: "left"}}>
+                                        <button type="submit" className="btn btn-secondary myButton">Submit</button>
+                                    </div>
+                                    <div style={{float: "left", marginTop: "7%", marginLeft: "5%"}}>Already have an
+                                        account? <a href="/register">Register</a></div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

@@ -51,45 +51,15 @@
     width: 97%;
 }
 
-.Course{
-    background-color:#9bbcc4;
-}
-.Seminar{
-    background-color:#6798c9;
-}
-.Laboratory{
-    background-color: #328fa8;
-}
-.title-box{
-    color:red;
-    font-size: 22px;
-}
-.image-Laboratory{
-    width:15%;
-    height: 15%;
-    content: url("../../images/laptop.png");
-
-
-}
-
-.image-Course{
-    width:20%;
-    height: 30%;
-    content: url("../../images/books.png");
-
+.eventDetail {
+    font-size: 14px;
+    padding-left: 20px;
 }
 
 .type-box{
     font-size: 14px;
 }
 
-
-
-.image-Seminar{
-    width:10%;
-    heigth:10%;
-    content: url("../../images/notebook.png");
-}
 .weekCalendar__content::-webkit-scrollbar {
     width: 10px;
 }
@@ -103,6 +73,10 @@
 
 .weekCalendar__scaleHeader{
     height:34px !important;
+}
+
+.MuiTypography-root.leftside {
+    color: #9e9e9e;
 }
 
 

@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 import "./calendar.css";
 
@@ -15,10 +15,11 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {classess} from "../../mockings/ClassMock"
+import ChangelistModal from "../schedule_handling/ChangelistModal";
 
 
 const classes = classess
-const days=[1,2,3,4,5]
+const days = [1, 2, 3, 4, 5]
 
 
 const styles = {
@@ -33,24 +34,20 @@ const styles = {
     },
 
 };
+
 class Evvent extends React.Component {
 
     constructor(props) {
         super(props);
     }
+
     render() {
-        if (this.props.title != undefined) {
+        if (this.props.title !== undefined) {
             return (
 
-                <div className={"class-cell"+" "+this.props.classType}>
+                <div className={"class-cell" + " " + this.props.classType}>
                     <div className={"title-box"}>{this.props.title}</div>
-
-                    <div className={"type-box"}>{this.props.classType}
-                        <img className={"image-"+this.props.classType}/>
-                    </div>
-
-
-
+                    <div className={"type-box"}>{this.props.classType}</div>
                 </div>
 
             );
@@ -69,10 +66,12 @@ class Evvent extends React.Component {
 
 
 class Calendar extends Component {
-
+    changelistDialog;
     constructor(props) {
         super(props);
         this.state = {
+            currentDate: new Date(),
+
             intervals: null,
             showModal: false,
             selectedInterval: null
@@ -80,46 +79,81 @@ class Calendar extends Component {
 
     }
 
-componentDidMount() {
-        var intv=[]
-    for (var i=0;i<classes.length;i++){
-        const c={title:classes[i].course.courseName,teacher:classes[i].teacher,classType:classes[i].classType,classLocation:classess[i].classLocation,classDuration:classes[i].classDuration,start: moment({ month: 6, day: days[classes[i].classDay-1], year: 2019, h: classes[i].classHour }), end: moment({ month: 6, day:days[classes[i].classDay-1], year: 2019, h: classes[i].classHour+classes[i].classDuration}) }
-        intv.push(c)
-    }
-    this.setState({intervals: intv})
+    componentDidMount() {
+        var intv = []
+        for (var i = 0; i < classes.length; i++) {
+            const c = {
+                classId: classes[i].classId,
+                title: classes[i].course.courseName,
+                teacher: classes[i].teacher,
+                classType: classes[i].classType,
+                classLocation: classess[i].classLocation,
+                classDuration: classes[i].classDuration,
+                start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
+                end: moment({
+                    month: 6,
+                    day: days[classes[i].classDay - 1],
+                    year: 2019,
+                    h: classes[i].classHour + classes[i].classDuration
+                })
+            }
+            intv.push(c)
+        }
+        this.setState({intervals: intv})
     }
 
     exitt = () => {
 
-        this.setState({ showModal: false })
+        this.setState({showModal: false})
     }
     eventClicked = (e) => {
-        this.setState({ selectedInterval:e } )
+        this.setState({selectedInterval: e})
+        this.changelistDialog = null;
 
 
-        this.setState({ showModal: true })
+        this.setState({showModal: true})
     }
 
+    showChangelist = () => {
+        this.setState({showModal: false})
+        this.changelistDialog = null;
+        this.changelistDialog = <ChangelistModal courseClass={this.state.selectedInterval}/>;
+    };
 
     event = (params) => {
 
-        return <Evvent title={params.title} classType={params.classType} ></Evvent>
+        return <Evvent title={params.title} classType={params.classType}></Evvent>
     }
 
+    getPreviousWeek = () => {
+        const newDate = this.state.currentDate;
+        newDate.setDate(newDate.getDate() - 7);
+        this.setState({currentDate: newDate});
+        console.log(this.state.currentDate);
+    };
+
+    getNextWeek = () => {
+        const newDate = this.state.currentDate;
+        newDate.setDate(newDate.getDate() + 7);
+        this.setState({currentDate: newDate});
+    };
 
     render() {
-        var { ...config } = this.state;
+        var {...config} = this.state;
         return (
             <div>
 
-
+                <div className="arrowNavigator">
+                    <img className="calendarArrow" id="leftArrow" onClick={this.getPreviousWeek}/>
+                    <img className="calendarArrow" id="rightArrow" onClick={this.getNextWeek}/>
+                </div>
                 <div className={"calendar-wrapper"}>
                     <WeekCalendar
                         id="wk"
                         dayFormat="dddd"
-                        firstDay={moment({ month: 6, day: 1, year: 2019 })}
-                        startTime={moment({ h: 8 })}
-                        endTime={moment({ h: 20 })}
+                        firstDay={moment({month: 6, day: 1, year: 2019})}
+                        startTime={moment({h: 8})}
+                        endTime={moment({h: 20})}
                         numberOfDays={5}
                         scaleUnit={60}
                         cellHeight={75}
@@ -135,11 +169,12 @@ componentDidMount() {
                         <DialogTitle id="form-dialog-title">Class</DialogTitle>
                         <DialogContent>
                             <DialogContentText>
-                                Below you'll see information about the class. If seminar/laboratory, you can try to reschedule by
+                                Below you'll see information about the class. If seminar/laboratory, you can try to
+                                reschedule by
                                 clicking "Change".
                             </DialogContentText>
 
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Subject:
                                 </Typography>
@@ -160,12 +195,12 @@ componentDidMount() {
                             <Box m={2}>
                                 <Typography variant="h8" component="h8">
                                     {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.teacher.firstname + " "+this.state.selectedInterval.teacher.lastname: ""
+                                        this.state.selectedInterval.teacher.firstname + " " + this.state.selectedInterval.teacher.lastname : ""
                                     }
                                 </Typography>
                             </Box>
 
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Type:
                                 </Typography>
@@ -177,7 +212,7 @@ componentDidMount() {
                                     }
                                 </Typography>
                             </Box>
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Location:
                                 </Typography>
@@ -189,7 +224,7 @@ componentDidMount() {
                                     }
                                 </Typography>
                             </Box>
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Interval:
                                 </Typography>
@@ -210,7 +245,7 @@ componentDidMount() {
 
                             </Box>
 
-                            <Box fontWeight="fontWeightBold" >
+                            <Box fontWeight="fontWeightBold">
                                 <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
                                     Duration:
                                 </Typography>
@@ -227,11 +262,12 @@ componentDidMount() {
                             <Button onClick={this.exitt} color="primary">
                                 Back
                             </Button>
-                            <Button onClick={this.exitt} color="primary">
+                            <Button onClick={this.showChangelist} color="primary">
                                 Change
                             </Button>
                         </DialogActions>
                     </Dialog>
+                    {this.changelistDialog}
                 </div>
             </div>
         );

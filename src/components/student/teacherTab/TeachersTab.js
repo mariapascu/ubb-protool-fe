@@ -3,7 +3,7 @@ import TeacherCard from "./TeacherCard";
 import {teachers} from "../../../mockings/TeacherMock";
 import {connect} from "react-redux";
 import NavbarStudent from "../../navbar/NavbarStudent";
-import {getTeachersList} from "../../../rest/userRest";
+import {getAllTeachers} from "../../../rest/userRest";
 import {Teacher} from "../../../model/Teacher";
 
 
@@ -12,7 +12,7 @@ class TeachersTab extends React.Component {
         super(props);
 
         this.state = {
-            teachersBackend: getTeachersList()
+            teachersBackend: getAllTeachers()
         }
 
     }

@@ -68,15 +68,6 @@ class NavbarStudent extends React.Component {
 
                         <li className="nav-item">
                             <Button onClick={this.logout}>Logout</Button>
-
-                            {/*<NavLink*/}
-                            {/*    className="nav-link"*/}
-                            {/*    to="./login"*/}
-
-                            {/*    activeClassName="active"*/}
-                            {/*>*/}
-                            {/*    Logout*/}
-                            {/*</NavLink>*/}
                         </li>
                     </ul>
                 </div>

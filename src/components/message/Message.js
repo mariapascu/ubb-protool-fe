@@ -27,7 +27,7 @@ class Message extends React.Component {
 
                 <div className="card-body">
                     <h5 className="card-title">Change request
-                        from <i><b>{this.state.messageItem.change.student.firstName} {this.state.messageItem.change.student.lastName} group {this.state.messageItem.change.student.subgroup}</b></i>
+                        from <i><b>{this.state.messageItem.change.student.firstName} {this.state.messageItem.change.student.lastName} group {this.state.messageItem.change.student.subgroup.groupNumber}/{this.state.messageItem.change.student.subgroup.subgroupNumber}</b></i>
                     </h5>
                     <p className="card-text">Subject: <b>{this.state.messageItem.change.courseClass.course.courseName} {this.state.messageItem.change.courseClass.classType}</b>
                     </p>

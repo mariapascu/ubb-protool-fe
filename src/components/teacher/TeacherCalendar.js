@@ -145,7 +145,7 @@ class TeacherCalendar extends Component {
                     </div>
                     <div>
                         <Typography display="inline" className="leftside">Group: </Typography>
-                        <Typography display="inline">{item.subgroup}</Typography>
+                        <Typography display="inline">{item.subgroup.groupNumber}/{item.subgroup.subgroupNumber}</Typography>
                     </div>
                     <div>
                         <Typography display="inline" className="leftside">Email: </Typography>

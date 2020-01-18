@@ -16,9 +16,10 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {classess} from "../../mockings/ClassMock"
 import ChangelistModal from "../schedule_handling/ChangelistModal";
+import {getClassesForWeek} from "../../rest/userRest";
 
 
-const classes = classess
+
 const days = [1, 2, 3, 4, 5]
 
 
@@ -80,26 +81,30 @@ class Calendar extends Component {
     }
 
     componentDidMount() {
-        var intv = []
-        for (var i = 0; i < classes.length; i++) {
-            const c = {
-                classId: classes[i].classId,
-                title: classes[i].course.courseName,
-                teacher: classes[i].teacher,
-                classType: classes[i].classType,
-                classLocation: classess[i].classLocation,
-                classDuration: classes[i].classDuration,
-                start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
-                end: moment({
-                    month: 6,
-                    day: days[classes[i].classDay - 1],
-                    year: 2019,
-                    h: classes[i].classHour + classes[i].classDuration
-                })
+        getClassesForWeek("1","1").then((classes)=>{
+            console.log("here")
+            var intv = []
+            for (var i = 0; i < classes.length; i++) {
+                const c = {
+                    classId: classes[i].classId,
+                    title: classes[i].course.courseName,
+                    teacher: classes[i].teacher,
+                    classType: classes[i].classType,
+                    classLocation: classess[i].classLocation,
+                    classDuration: classes[i].classDuration,
+                    start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
+                    end: moment({
+                        month: 6,
+                        day: days[classes[i].classDay - 1],
+                        year: 2019,
+                        h: classes[i].classHour + classes[i].classDuration
+                    })
+                }
+                intv.push(c)
             }
-            intv.push(c)
-        }
-        this.setState({intervals: intv})
+            this.setState({intervals: intv})
+        }).catch((err)=>{console.log("Something went wrong")})
+
     }
 
     exitt = () => {
@@ -140,6 +145,7 @@ class Calendar extends Component {
 
     render() {
         var {...config} = this.state;
+        if (this.state.intervals!=null){
         return (
             <div>
 
@@ -270,7 +276,9 @@ class Calendar extends Component {
                     {this.changelistDialog}
                 </div>
             </div>
-        );
+        );}else{
+            return null;
+        }
     }
 }
 

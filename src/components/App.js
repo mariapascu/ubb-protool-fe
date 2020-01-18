@@ -15,6 +15,7 @@ import Calendar from "./student/Calendar";
 import TeacherHome from "../containers/TeacherHomeC"
 import MessagesPageStudent from "./message/MessagesPageStudent";
 import ProfileStudent from "./profile/profileStudent/ProfileStudent";
+import ProfileStudentC from "../containers/ProfileStudentC";
 
 const App = () => (
     <div>
@@ -23,7 +24,7 @@ const App = () => (
                 <Route exact path="/" component={Login}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/user" component={UserHomeC}/>
-                <Route exact path="/profileStudent" component={ProfileStudent}/>
+                <Route exact path="/profileStudent" component={ProfileStudentC}/>
                 <Route exact path="/teachersStudent" component={TeachersTab}/>
                 <Route exact path="/register" component={Register}/>
                 <Route exact path="/teacher" component={TeacherHome}/>

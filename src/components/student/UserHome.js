@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import NavbarStudent from '../navbar/NavbarStudent'
 import './UserHome.css';
 import Calendar from "./Calendar";
+import {getAll} from "../../rest/userRest"
 
 const styles = {
 
@@ -16,8 +17,6 @@ class UserHome extends React.Component {
 
     constructor(props) {
         super(props)
-        console.log(props);
-
     }
     componentDidMount() {
         //Uncomment line at the end

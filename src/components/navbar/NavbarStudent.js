@@ -61,6 +61,15 @@ class NavbarStudent extends React.Component {
                                 Notifications
                             </NavLink>
                         </li>
+                        <li className="nav-item">
+                            <NavLink
+                                className="nav-link"
+                                to="/profileStudent"
+                                activeClassName="active"
+                            >
+                                Profile
+                            </NavLink>
+                        </li>
                     </ul>
 
 

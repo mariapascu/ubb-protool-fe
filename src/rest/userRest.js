@@ -1,8 +1,8 @@
 import {classess} from "../mockings/ClassMock"
 import {Teacher} from "../model/Teacher";
 
-const baseUrl = "http://localhost:8080/"
-var url
+const baseUrl = "http://localhost:8080/";
+var url;
 
 export function getClassesForWeek(userId, weekDate) {
     url = baseUrl + userId + "/" + weekDate;
@@ -22,7 +22,7 @@ export function getClassesForWeek(userId, weekDate) {
 }
 
 export function getAllTeachers() {
-    url = baseUrl + "teacher/list"
+    url = baseUrl + "teacher/list";
     return fetch(url, {
         method: 'GET',
     }).then((response) => {
@@ -93,6 +93,22 @@ export function getStudentsForClass(classId) {
         return data; //list of students
     })
 }
+
+export function updateStudent(body){
+    url = baseUrl;
+    return fetch(url, {
+        method: 'UPDATE',
+        headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'},
+        body: body
+    }).then((response) => {
+        if(response.status === 200){
+            return true
+        }
+    })
+}
+
 
 export function addChange(studentId, firstName, lastName, groupId, subgroupId) {
     //post

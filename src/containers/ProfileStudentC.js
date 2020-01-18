@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { logoutUser } from '../actions';
+import {addUser, logoutUser} from '../actions';
 import ProfileStudent from "../components/profile/profileStudent/ProfileStudent";
 
 export function mapStateToProps(state) {
@@ -9,6 +9,10 @@ export function mapStateToProps(state) {
 export const mapDispatchToProps = dispatch => ({
     logout: () => {
         dispatch(logoutUser());
+    },
+    addUser: (user) => {
+        dispatch(addUser(user));
+        //dispatch(navigateTo({ routeName: 'messagesList' }));
     },
 });
 

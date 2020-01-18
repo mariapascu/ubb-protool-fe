@@ -34,13 +34,24 @@
 .MuiSvgIcon-root.Icon{
     margin-right: 1%;
 }
-.ThesisAvailability{
+.ThesisAvailabilityGreen{
     font-size: small!important;
+    color: green;
+}
+
+.ThesisAvailabilityRed{
+    font-size: small!important;
+    color: red;
 }
 
 .MuiCard-root.card {
-    margin: 1.5%;
+    margin: 1%;
+    width: 48%;
+    float: left;
 }
-.pageContent {
-    margin-top: 4%;
+
+.MuiCard-root.card:hover{
+    box-shadow: 0 3px 3px -2px rgba(0,0,0,0.2), 0 3px 4px 0 rgba(0,0,0,0.14), 0 1px 8px 0 rgba(0,0,0,0.12);
 }
+
+

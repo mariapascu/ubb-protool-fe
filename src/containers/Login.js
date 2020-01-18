@@ -1,12 +1,13 @@
 import { connect } from 'react-redux';
-import Login from '../components/Login';
-import { addUser } from '../actions';
+import Login from '../components/login/Login';
+import {addUser} from '../actions';
 
 const mapDispatchToProps = dispatch => ({
- addUser: (e,p) => {
- dispatch(addUser(e,p));
+ addUser: (user) => {
+ dispatch(addUser(user));
  //dispatch(navigateTo({ routeName: 'messagesList' }));
  },
+
 });
 
 export default connect(null, mapDispatchToProps)(Login);

@@ -1,0 +1,124 @@
+/* adjusting the built-in theme */
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+/* calendar event */
+.calendar_default_event_inner {
+    background: pink;
+    color: #fff;
+    border: none;
+    font-size: 10pt;
+    padding: 5px;
+    opacity: 0.8;
+}
+
+.calendar_default_shadow_inner {
+    background-color: #863e3e;
+    opacity: 0.5;
+    height: 100%;
+}
+
+.weekCalendar__overlay {
+    background-color: white;
+    border-bottom: 1px solid black;
+    width: 20% !important;
+
+}
+
+.dayCell:hover {
+    background-color: white !important;
+
+}
+
+.weekCalendar {
+    margin-top: 5%;
+    padding-right: 3%;
+    margin-left: 3%;
+}
+
+.calendar-wrapper {
+    width: 95.95% !important;
+}
+
+.Course {
+    /*background-image: linear-gradient(to top right, #0d2d4c, #16769f) !important;*/
+    background-image: linear-gradient(to top right, #0d2d4c, #7d80ce) !important;
+    border-radius: 20px;
+}
+
+.Course:hover {
+    /*background-image: linear-gradient(to top right, #0a1b31, #1688b6) !important;*/
+    background-image: linear-gradient(to top right, #0a1b31, #7d80ce) !important;
+}
+
+.Seminar {
+    /*background-color: rgb(179, 81, 79) !important;*/
+    background-image: linear-gradient(to top right, #fb7ca4, #fbc691) !important;
+    border-radius: 20px;
+}
+
+.Seminar:hover {
+    /*background-color: rgb(179, 81, 79) !important;*/
+    background-image: linear-gradient(to top right, #f76f97, #fbc691) !important;
+    margin-bottom: 10px;
+}
+
+.Laboratory {
+    /*background-color: #5fc3b7 !important;*/
+    background-image: linear-gradient(to top right, #4cbeb7, #affffb) !important;
+    border-radius: 20px;
+}
+
+.Laboratory:hover {
+    /*background-color: #5fc3b7 !important;*/
+    background-image: linear-gradient(to top right, #29b3ac, #c8fff8) !important;
+}
+
+
+.title-box {
+    padding-top: 10px;
+    padding-left: 20px;
+    font-weight: bold;
+    font-size: 27px !important;
+    color: white !important;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.type-box {
+    font-size: 16px !important;
+    padding-left: 20px;
+}
+
+.weekCalendar__content::-webkit-scrollbar {
+    width: 10px;
+}
+
+.weekCalendar__content::-webkit-scrollbar-thumb {
+    background: black;
+}
+
+.weekCalendar__header {
+    height: 34px !important;
+}
+
+.weekCalendar__scaleHeader {
+    height: 34px !important;
+}
+
+#leftArrow {
+    content: url("../../images/keyboard_arrow_left_black.png");
+    margin-left: 2.5%;
+}
+
+#rightArrow {
+    content: url("../../images/keyboard_arrow_right_black.png");
+}
+
+.calendarArrow {
+    width: 2%;
+    height: 2%;
+}
+
+.arrowNavigator {
+    margin-bottom: -4%;
+}

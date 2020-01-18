@@ -15,8 +15,16 @@ class Message extends React.Component {
         return (
             <div className="card myCardHolder">
                 <div className="card-header">
-                    {this.state.messageItem.status}
+
+                    {this.state.messageItem.status === "Declined" ? (
+                        <b><span className="statusChangeRed">{this.state.messageItem.status}</span></b>
+                    ) : this.state.messageItem.status === "Accepted" ? (
+                        <b><span className="statusChangeGreen">{this.state.messageItem.status}</span></b>
+                    ) : <b>{this.state.messageItem.status}</b>
+                    }
+
                 </div>
+
                 <div className="card-body">
                     <h5 className="card-title">Change request
                         from <i><b>{this.state.messageItem.change.student.firstName} {this.state.messageItem.change.student.lastName} group {this.state.messageItem.change.student.subgroup}</b></i>

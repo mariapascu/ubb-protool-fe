@@ -58,7 +58,7 @@ class NavbarStudent extends React.Component {
                                 to="/messagesStudent"
                                 activeClassName="active"
                             >
-                                Messages
+                                Notifications
                             </NavLink>
                         </li>
                     </ul>

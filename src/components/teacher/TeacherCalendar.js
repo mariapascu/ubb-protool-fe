@@ -49,7 +49,15 @@ class Evvent extends React.Component {
 
                     <div className={"type-box"}><b>{this.props.classType}</b></div>
                     <div>
-                        <span className="eventDetail">group: {this.props.subgroup.groupNumber}/{this.props.subgroup.subgroupNumber} </span>
+                        {this.props.classType === "Laboratory" ? (
+                            <span className="eventDetail">
+                            subgroup: {this.props.subgroup.groupNumber}/{this.props.subgroup.subgroupNumber}
+                            </span>
+                        ) : this.props.classType === "Seminar" ? (
+                            <span className="eventDetail">
+                            group: {this.props.subgroup.groupNumber}
+                            </span>
+                        ) : null}
                     </div>
                     <div>
                         <span className="eventDetail">room: {this.props.classLocation} </span>
@@ -122,16 +130,14 @@ class TeacherCalendar extends Component {
     event = (params) => {
 
         return <Evvent title={params.title} classType={params.classType} subgroup={params.subgroup}
-                       classLocation={params.classLocation}></Evvent>
-    }
+    classLocation={params.classLocation}/>
+    };
 
 
     render() {
         var {...config} = this.state;
         return (
             <div>
-
-
                 <div className={"calendar-wrapper"}>
                     <WeekCalendar
                         id="wk"

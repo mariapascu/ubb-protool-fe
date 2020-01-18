@@ -1,58 +1,39 @@
 import {classess} from "../mockings/ClassMock"
-const baseUrl="http://localhost:8080/"
+import {Teacher} from "../model/Teacher";
+
+const baseUrl = "http://localhost:8080/"
 var url
-export function getClassesForWeek(userId,weekDate) {
-    url=baseUrl+userId+"/"+weekDate;
-    return fetch('http://localhost:8080/api/recipes',{
+
+export function getClassesForWeek(userId, weekDate) {
+    url = baseUrl + userId + "/" + weekDate;
+    return fetch('http://localhost:8080/api/recipes', {
         method: 'GET',
     }).then((response) => {
         return response.json();
     })
-        .then((data)=>{
+        .then((data) => {
             return classess
             console.log(classess)
-           // return data; //array of classes
+            // return data; //array of classes
         })
-        .catch((err)=>{ console.log(err.message)})
+        .catch((err) => {
+            console.log(err.message)
+        })
 }
 
-export function getStudentById(studentId) {
-    url=baseUrl+"student/get-by-id/"+studentId
-    return fetch(url,{
+export function getAllTeachers() {
+    url = baseUrl + "teacher/list"
+    return fetch(url, {
         method: 'GET',
     }).then((response) => {
         return response.json();
     })
-        .then((data)=>{
-            return data; //user
-        })
-        .catch((err)=>{ console.log(err.message)})
-}
-
-export function getTeacherById(teacherId) {
-    url=baseUrl+"teacher/get-by-id/"+teacherId
-    return fetch(url,{
-        method: 'GET',
-    }).then((response) => {
-        return response.json();
-    })
-        .then((data)=>{
-            return data; //user
-        })
-        .catch((err)=>{ console.log(err.message)})
-}
-
-export function getAllTeachers(){
-    url=baseUrl+"teacher/list"
-    return fetch(url,{
-        method: 'GET',
-    }).then((response) => {
-        return response.json();
-    })
-        .then((data)=>{
+        .then((data) => {
             return data; //list of teachers
         })
-        .catch((err)=>{ console.log(err.message)})
+        .catch((err) => {
+            console.log(err.message)
+        })
 
 }
 
@@ -68,47 +49,47 @@ export function getAllTeachers(){
 // }
 
 
-export function getChangesOfCourse(courseId){
-    url=baseUrl+courseId
-    return fetch(url,{
-        method:'GET'
-    }).then((response)=>{
+export function getChangesOfCourse(courseId) {
+    url = baseUrl + courseId
+    return fetch(url, {
+        method: 'GET'
+    }).then((response) => {
         return response.json()
-    }).then((data)=>{
+    }).then((data) => {
         return data; //lista de change-uri
     })
 }
 
-export function getChangesOfUser(userId){
-    url=baseUrl+userId
-    return fetch(url,{
-        method:'GET'
-    }).then((response)=>{
+export function getChangesOfUser(userId) {
+    url = baseUrl + userId
+    return fetch(url, {
+        method: 'GET'
+    }).then((response) => {
         return response.json()
-    }).then((data)=>{
+    }).then((data) => {
         return data; //lista de change-uri
     })
 
 }
 
-export function getClassesWithChanges(userId,subgroupId,weekDate){
-    url=baseUrl+userId+"/"+subgroupId+"/"+weekDate
-    return fetch(url,{
-        method:'GET'
-    }).then((response)=>{
+export function getClassesWithChanges(userId, subgroupId, weekDate) {
+    url = baseUrl + userId + "/" + subgroupId + "/" + weekDate
+    return fetch(url, {
+        method: 'GET'
+    }).then((response) => {
         return response.json()
-    }).then((data)=>{
+    }).then((data) => {
         return data; //lista de classes
     })
 }
 
-export function getStudentsForClass(classId){
-    url=baseUrl+classId
-    return fetch(url,{
-        method:'GET'
-    }).then((response)=>{
+export function getStudentsForClass(classId) {
+    url = baseUrl + classId
+    return fetch(url, {
+        method: 'GET'
+    }).then((response) => {
         return response.json()
-    }).then((data)=>{
+    }).then((data) => {
         return data; //list of students
     })
 }
@@ -141,11 +122,11 @@ export function updateStudent(body){
 }
 
 
-export function addChange(studentId,firstName,lastName,groupId,subgroupId){
+export function addChange(studentId, firstName, lastName, groupId, subgroupId) {
     //post
 }
 
-export function registerStudent(firstName,lastName,email,password,uni,fac,spec,group,subgroup){
+export function registerStudent(firstName, lastName, email, password, uni, fac, spec, group, subgroup) {
     //post
 }
 

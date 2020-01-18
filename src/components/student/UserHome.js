@@ -40,7 +40,6 @@ class UserHome extends React.Component {
 
                       <Calendar></Calendar>
 
-
                 </div>
             </div>
         )

@@ -8,7 +8,7 @@ export class MessageStudent {
     }
 }
 
-const m1 = new MessageStudent(1, "Accepted", changes[0]);
+const m1 = new MessageStudent(1, "Not", changes[0]);
 const m2 = new MessageStudent(2, "Declined", changes[1]);
 
 export const messagesStudent = [m1, m2];

@@ -3,7 +3,6 @@ import NavbarStudent from "../../navbar/NavbarStudent";
 import Container from "@material-ui/core/Container";
 import {connect} from "react-redux";
 import "./ProfileStudent.css"
-import Card from "@material-ui/core/Card";
 import Typography from "@material-ui/core/Typography";
 import Paper from "@material-ui/core/Paper";
 import Avatar from "@material-ui/core/Avatar";
@@ -13,7 +12,6 @@ import InputLabel from "@material-ui/core/InputLabel";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
-import {subgroups} from "../../../mockings/SubgroupMock";
 
 
 class ProfileStudent extends React.Component {
@@ -30,7 +28,15 @@ class ProfileStudent extends React.Component {
             initialGroup: 935,
             initialSubgroup: 1,
             initialName: "Nicoara",
-            initialSurname: "Stefania"
+            initialSurname: "Stefania",
+            university: "UBB",
+            faculty: "Informatics",
+            speciality: "English",
+            errors: {
+                group: false,
+                name: false,
+                surname: false
+            }
         }
     }
 
@@ -66,8 +72,17 @@ class ProfileStudent extends React.Component {
     };
 
     handleChangeGroup = event => {
-        this.setState({
-            group: event.target.value
+        if (event.target.value <= 100 || event.target.value >= 1000) {
+            this.setState({
+                errors: {
+                    group: true
+                }
+            })
+        } else this.setState({
+            group: event.target.value,
+            errors: {
+                group: false
+            }
         });
     };
 
@@ -78,17 +93,37 @@ class ProfileStudent extends React.Component {
     };
 
     handleChangeName = event => {
-        this.setState({
-                name: event.target.value
-            }
-        );
+        if (event.target.value === "") {
+            this.setState({
+                errors: {
+                    name: true
+                }
+            })
+        } else
+            this.setState({
+                    name: event.target.value,
+                    errors: {
+                        name: false
+                    }
+                }
+            );
     };
 
     handleChangeSurname = event => {
-        this.setState({
-                surname: event.target.value
-            }
-        );
+        if (event.target.value === "") {
+            this.setState({
+                errors: {
+                    surname: true
+                }
+            })
+        } else
+            this.setState({
+                    surname: event.target.value,
+                    errors: {
+                        surname: false
+                    }
+                }
+            );
     };
 
     render() {
@@ -100,10 +135,12 @@ class ProfileStudent extends React.Component {
                 <NavbarStudent/>
                 <Container className="profileContainer">
                     <Paper className="profileCard" rounded={true} elevation={2}>
-                        <Avatar className="Avatar">S</Avatar>
+                        <Avatar className="Avatar">{this.state.initialName[0]}</Avatar>
                         <div className="FieldContainer" hidden={!this.state.showFields}>
                             <Typography variant={"h4"}
                                         className="ContainerChild">{this.state.initialSurname} {this.state.initialName}</Typography>
+                            <Typography variant={"h5"}
+                                        className="ContainerChild">{this.state.university} {this.state.faculty} {this.state.speciality}</Typography>
                             <Typography variant={"h5"}
                                         className="ContainerChild">{this.state.initialGroup}/{this.state.initialSubgroup}</Typography>
                             <Button className={"ContainerChild"} variant={"contained"} hidden={!this.state.showFields}
@@ -111,25 +148,29 @@ class ProfileStudent extends React.Component {
                         </div>
 
                         <div className="FieldContainerEdit" hidden={!this.state.showEdit}>
-                            <TextField className="inputText" defaultValue={this.state.surname} id="outlined-basic"
-                                       label="Surename" onChange={this.handleChangeSurname}/>
-                            <TextField className="inputText" defaultValue={this.state.name} id="outlined-basic"
-                                       label="Name" onChange={this.handleChangeName}/>
+                            <TextField className="inputText"
+                                       error={this.state.errors.surname}
+                                       defaultValue={this.state.surname}
+                                       id="outlined-basic"
+                                       required={true}
+                                       label="Surename"
+                                       onChange={this.handleChangeSurname}/>
+                            <TextField className="inputText"
+                                       error={this.state.errors.name}
+                                       defaultValue={this.state.name}
+                                       id="outlined-basic"
+                                       required={true}
+                                       label="Name"
+                                       onChange={this.handleChangeName}/>
                             <div className="FormControlParent">
-                                <FormControl className="FormControlChild">
-                                    <InputLabel>Group</InputLabel>
-                                    <Select
-                                        value={this.state.group}
-                                        onChange={this.handleChangeGroup}>
-                                        <MenuItem value={931}>931</MenuItem>
-                                        <MenuItem value={932}>932</MenuItem>
-                                        <MenuItem value={933}>933</MenuItem>
-                                        <MenuItem value={934}>934</MenuItem>
-                                        <MenuItem value={935}>935</MenuItem>
-                                        <MenuItem value={936}>936</MenuItem>
-                                        <MenuItem value={937}>937</MenuItem>
-                                    </Select>
-                                </FormControl>
+                                <TextField className="FormControlChild"
+                                           error={this.state.errors.group}
+                                           id="outlined-basic"
+                                           label="Group"
+                                           type="number"
+                                           required={true}
+                                           defaultValue={this.state.initialGroup}
+                                           onChange={this.handleChangeGroup}/>
                                 <FormControl className="FormControlChild">
                                     <InputLabel>Subgroup</InputLabel>
                                     <Select

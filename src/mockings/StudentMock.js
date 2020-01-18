@@ -1,7 +1,7 @@
 import {Student} from "../model/Student";
 import {subgroups} from "./SubgroupMock";
 
-const s1 = new Student(
+export const s1 = new Student(
     1,
     subgroups[0],
     "Cezar",

@@ -5,12 +5,9 @@ const baseUrl = "http://localhost:8080/"
 
 export function getUserByUsernameAndPassword(username, password) {
     //const url = baseUrl + "login/username+password;
-    const url = "http://api.plos.org/search?q=title:DNA";
+    const url = "http://httpbin.org/post";
     return fetch(url, {
-        method: 'GET',
-        headers: {
-            'Content-Type': 'application/json'
-        },
+        method: 'POST',
         body: JSON.stringify({
             email: username,
             password: password

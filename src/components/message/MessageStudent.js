@@ -18,9 +18,9 @@ class MessageStudent extends React.Component {
                     {
                         this.state.messageItem.status === "Declined" ? (
                             <b><span className="statusChangeRed">{this.state.messageItem.status}</span></b>
-                        ) : (
+                        ) : this.state.messageItem.status === "Accepted" ? (
                             <b><span className="statusChangeGreen">{this.state.messageItem.status}</span></b>
-                        )
+                        ) : <b><span className="statusChangeGreen">{this.state.messageItem.status}</span></b>
                     }
                 </div>
                 <div className="card-body">

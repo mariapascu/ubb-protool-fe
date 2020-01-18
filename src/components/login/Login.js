@@ -7,11 +7,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
 import {Teacher} from "../../model/Teacher";
-import {s1} from "../../mockings/StudentMock"
-import {t1} from "../../mockings/TeacherMock"
-
-let stud = s1;
-let teach = t1;
+import {getUserByUsernameAndPassword} from "../../rest/loginRest";
+import {Student} from "../../model/Student";
 
 class Login extends React.Component {
 
@@ -22,7 +19,9 @@ class Login extends React.Component {
             formData: {}, // Contains login form data
             localErrors: {}, // Contains login field errors
             formSubmitted: false, // Indicates submit status of login form
-            loading: false // Indicates in progress state of login form
+            loading: false, // Indicates in progress state of login form
+            student: null,
+            teacher: null
         }
     }
 
@@ -38,14 +37,6 @@ class Login extends React.Component {
             formData: formData
         });
     };
-
-    isStudent(e) {
-        const {formData} = this.state;
-        if (formData.email.includes("scs")) {
-            return true;
-        }
-        return false;
-    }
 
     validateLoginForm = (e) => {
 
@@ -77,18 +68,28 @@ class Login extends React.Component {
         const {formData} = this.state;
 
         if (errors === true) {
-            let student = this.isStudent();
-            let t = teach;
+            let t = new Teacher(1, "fd", "dfgdfsg", "dsfd", "efd", "frgdg", "gferg", "efeg", "ersgserhg");
 
-            if (student === false) {
-                this.props.addUser(t);
-                this.props.history.push('/teacher')
+            getUserByUsernameAndPassword(formData.email, formData.password).then((data) => {
+                console.log(data);
+                if (data == null) {
+                    // error
+                }
+                else if (data.studentId != null) {
+                    this.setState({student: data});
+                    console.log(this.state.student.firstName);
 
-            } else {
-                this.props.addUser(t);
-                this.props.history.push('/user')
-            }
+                    this.props.addUser(this.state.student);
+                    this.props.history.push('/user');
+                }
+                else {
+                    this.setState({teacher: data});
+                    console.log(this.state.teacher);
+                    this.props.addUser(t);
+                    this.props.history.push('/teacher');
+                }
 
+            }).catch((err) => console.log(err));
         } else {
             this.setState({
                 localErrors: errors,
@@ -139,8 +140,8 @@ class Login extends React.Component {
                                     autoFocus
                                     name="email"
                                     onChange={this.handleInputChange}
-                                    error = {!(this.state.localErrors.email == null)}
-                                    helperText= {this.state.localErrors.email}
+                                    error={!(this.state.localErrors.email == null)}
+                                    helperText={this.state.localErrors.email}
                                 />
                                 <TextField
                                     className="PasswordTextField"
@@ -155,7 +156,7 @@ class Login extends React.Component {
                                     autoFocus
                                     onChange={this.handleInputChange}
                                     name="password"
-                                    error = {!(this.state.localErrors.password == null)}
+                                    error={!(this.state.localErrors.password == null)}
                                     helperText={this.state.localErrors.password}
                                 />
                                 <div>

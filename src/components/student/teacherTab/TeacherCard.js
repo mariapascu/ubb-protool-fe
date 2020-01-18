@@ -21,13 +21,12 @@ class TeacherCard extends React.Component {
 
     render() {
         return (
-            <Card className="card">
+            <Card className="card" elevation={0} raised={true}>
                 <div>
                     <Avatar variant={"circle"} alt={this.teacher.firstname} className="new"/>
                     <div>
                         <Typography variant="h5" className="Name">
-                            {this.teacher.firstname} {this.teacher.lastname} <span className="ThesisAvailability"
-                                                                                   color="lime">{this.isAvailableText(this.teacher.thesisAvailability)}</span>
+                            {this.teacher.firstname} {this.teacher.lastname} {this.isAvailableText(this.teacher.thesisAvailability)}
                         </Typography>
 
                         <Typography variant={"body2"}>
@@ -58,10 +57,10 @@ class TeacherCard extends React.Component {
         }
     }
 
-    isAvailableText(availability) {
+    isAvailableText = (availability) => {
         if (availability) {
-            return "Thesis Available"
-        } else return "Thesis Unavailable"
+            return <span className="ThesisAvailabilityGreen">Thesis Available</span>
+        } else return <span className="ThesisAvailabilityGreen">Thesis Unavailable</span>
     }
 }
 export default (TeacherCard)

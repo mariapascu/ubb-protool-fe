@@ -14,13 +14,14 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
-import {classess} from "../../mockings/ClassMock"
+
 import CardContent from "@material-ui/core/CardContent";
 import {students} from "../../mockings/StudentMock";
 import Card from "@material-ui/core/Card";
+import {getClassesForTeacher} from "../../rest/userRest";
 
 
-const classes = classess
+
 const days = [1, 2, 3, 4, 5]
 
 
@@ -95,27 +96,30 @@ class TeacherCalendar extends Component {
     }
 
     componentDidMount() {
-        var intv = []
-        for (var i = 0; i < classes.length; i++) {
-            const c = {
-                title: classes[i].course.courseName,
-                subgroup: classes[i].subgroup,
-                teacher: classes[i].teacher,
-                classType: classes[i].classType,
-                classLocation: classess[i].classLocation,
-                classDuration: classes[i].classDuration,
-                start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
-                end: moment({
-                    month: 6,
-                    day: days[classes[i].classDay - 1],
-                    year: 2019,
-                    h: classes[i].classHour + classes[i].classDuration
-                })
+        getClassesForTeacher(2).then((classes)=>{
+            var intv = []
+            for (var i = 0; i < classes.length; i++) {
+                const c = {
+                    title: classes[i].course.courseName,
+                    subgroup: classes[i].subgroup,
+                    teacher: classes[i].teacher,
+                    classType: classes[i].classType,
+                    classLocation: classes[i].classLocation,
+                    classDuration: classes[i].classDuration,
+                    start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
+                    end: moment({
+                        month: 6,
+                        day: days[classes[i].classDay - 1],
+                        year: 2019,
+                        h: classes[i].classHour + classes[i].classDuration
+                    })
+                }
+                intv.push(c)
+                console.log(this.state.intervals);
             }
-            intv.push(c)
-            console.log(this.state.intervals);
-        }
-        this.setState({intervals: intv})
+            this.setState({intervals: intv})
+        })
+
     }
 
     exitt = () => {
@@ -159,55 +163,59 @@ class TeacherCalendar extends Component {
 
     render() {
         var {...config} = this.state;
-        return (
-            <div>
-                <div className={"calendar-wrapper"}>
-                    <WeekCalendar
-                        id="wk"
-                        dayFormat="dddd"
-                        firstDay={moment({month: 6, day: 1, year: 2019})}
-                        startTime={moment({h: 8})}
-                        endTime={moment({h: 20})}
-                        numberOfDays={5}
-                        scaleUnit={60}
-                        cellHeight={75}
-                        selectedIntervals={this.state.intervals}
-                        eventComponent={this.event}
-                        useModal={false}
+        if (this.state.intervals!=null) {
+            return (
+                <div>
+                    <div className={"calendar-wrapper"}>
+                        <WeekCalendar
+                            id="wk"
+                            dayFormat="dddd"
+                            firstDay={moment({month: 6, day: 1, year: 2019})}
+                            startTime={moment({h: 8})}
+                            endTime={moment({h: 20})}
+                            numberOfDays={5}
+                            scaleUnit={60}
+                            cellHeight={75}
+                            selectedIntervals={this.state.intervals}
+                            eventComponent={this.event}
+                            useModal={false}
 
-                        onEventClick={this.eventClicked}
-                    />
+                            onEventClick={this.eventClicked}
+                        />
 
-                    {/* The dialog which opens when an interval is clicked*/}
-                    <Dialog open={this.state.showModal} onClose={this.exitt} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">
-                            {this.state.selectedInterval != null ?
-                                this.state.selectedInterval.title + " " : ""
-                            }
-                            {this.state.selectedInterval != null ?
-                                this.state.selectedInterval.classType : ""
-                            }
-                        </DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                Below you'll see information about the students attending this class
-                            </DialogContentText>
+                        {/* The dialog which opens when an interval is clicked*/}
+                        <Dialog open={this.state.showModal} onClose={this.exitt} aria-labelledby="form-dialog-title">
+                            <DialogTitle id="form-dialog-title">
+                                {this.state.selectedInterval != null ?
+                                    this.state.selectedInterval.title + " " : ""
+                                }
+                                {this.state.selectedInterval != null ?
+                                    this.state.selectedInterval.classType : ""
+                                }
+                            </DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Below you'll see information about the students attending this class
+                                </DialogContentText>
 
-                            <div>
-                                {students.map((item, index) => (
-                                    this.studentItem(item)
-                                ))}
-                            </div>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.exitt} color="primary">
-                                Back
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
+                                <div>
+                                    {students.map((item, index) => (
+                                        this.studentItem(item)
+                                    ))}
+                                </div>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.exitt} color="primary">
+                                    Back
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    </div>
                 </div>
-            </div>
-        );
+            );
+        }else{
+            return null;
+        }
     }
 }
 

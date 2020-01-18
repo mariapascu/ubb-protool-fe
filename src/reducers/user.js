@@ -18,10 +18,10 @@ const userDetails = (state = initialState, action) => {
         })
       }
 
+
       default:
         return state
     }
   }
   
   export default userDetails
-  

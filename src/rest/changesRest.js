@@ -12,7 +12,8 @@ const baseUrl = "http://localhost:8080/";
 let url = "";
 
 export function getChangesForStudent(studentId) {
-    url = baseUrl + "student/get-changes" + studentId;
+    url = baseUrl + "change/get-changes-by-student-id" + studentId;
+
     return fetch(url, {
         method: 'GET',
     }).then((response) => {
@@ -27,17 +28,18 @@ export function getChangesForStudent(studentId) {
 
             function myFunction(item, index) {
                 let change = new Change();
-                change.permanentChange = item.toDate - item.fromDate > 7;
 
-                change.courseClass = getCourseClassById(item.courseClassId);
+                change.permanentChange = Date.parse(item.endDate) - Date.parse(item.startDate) > 518400000;
+
+                change.courseClass = getCourseClassById(item.universityClassId);
                 change.toTheDate = change.courseClass.classDay + change.courseClass.classHour;
                 change.fromTheDate = ""; //ramane gol deocamdata, nu stim cum sa luam from date-ul.
                 change.student = getStudentById(studentId);
                 change.messageText = "";
-                change.changeId = item.id;
+                change.changeId = item.changeId;
 
-                messageStudent.status = item.status;
-                messageStudent.messageId = item.id;
+                messageStudent.status = item.changeStatus;
+                messageStudent.messageId = item.changeId;
                 messageStudent.change = change;
                 messagesStudent.push(messageStudent)
             }
@@ -195,7 +197,7 @@ export function getStudentById(studentId) {
 
             student.studentId = data.studentId;
             student.firstName = data.firstName;
-            student.subgroup = getStudentById(data.subgroupId);
+            student.subgroup = getSubgroupById(data.subgroupId);
             student.lastName = data.lastName;
             student.email = data.email;
             student.fac = data.faculty;
@@ -208,9 +210,4 @@ export function getStudentById(studentId) {
             console.log(err.message)
         })
 }
-
-
-
-
-
 

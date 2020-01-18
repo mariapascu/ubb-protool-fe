@@ -152,14 +152,12 @@ class ProfileStudent extends React.Component {
                                        error={this.state.errors.surname}
                                        defaultValue={this.state.surname}
                                        id="outlined-basic"
-                                       required={true}
                                        label="Surename"
                                        onChange={this.handleChangeSurname}/>
                             <TextField className="inputText"
                                        error={this.state.errors.name}
                                        defaultValue={this.state.name}
                                        id="outlined-basic"
-                                       required={true}
                                        label="Name"
                                        onChange={this.handleChangeName}/>
                             <div className="FormControlParent">
@@ -168,7 +166,6 @@ class ProfileStudent extends React.Component {
                                            id="outlined-basic"
                                            label="Group"
                                            type="number"
-                                           required={true}
                                            defaultValue={this.state.initialGroup}
                                            onChange={this.handleChangeGroup}/>
                                 <FormControl className="FormControlChild">

@@ -3,9 +3,9 @@ import './App.css';
 import Login from '../containers/Login'
 
 import {
-  Route,
+    Route,
 
-  Switch,
+    Switch,
 } from 'react-router-dom';
 import UserHomeC from "../containers/UserHomeC";
 import Register from "../containers/Register";
@@ -17,22 +17,22 @@ import MessagesPageStudent from "./message/MessagesPageStudent";
 import ProfileStudent from "./profile/profileStudent/ProfileStudent";
 
 const App = () => (
-  <div>
-    <div className="App-intro">
-          <Switch>
-            <Route exact path="/"  component={ProfileStudent} />
-            <Route exact path="/login"  component={Login} />
-            <Route exact path="/user"  component={UserHomeC} />
-              <Route exact path="/profileStudent"  component={ProfileStudent} />
-            <Route exact path="/teachersStudent" component={TeachersTab}/>
-            <Route exact path="/register" component={Register} />
-            <Route exact path="/teacher" component={TeacherHome} />
-            <Route exact path="/cal" component={Calendar} />
-            <Route exact path="/messagesTeacher" component={MessagesPageTeacher} />
-            <Route exact path="/messagesStudent" component={MessagesPageStudent} />
-          </Switch>
+    <div>
+        <div className="App-intro">
+            <Switch>
+                <Route exact path="/" component={Login}/>
+                <Route exact path="/login" component={Login}/>
+                <Route exact path="/user" component={UserHomeC}/>
+                <Route exact path="/profileStudent" component={ProfileStudent}/>
+                <Route exact path="/teachersStudent" component={TeachersTab}/>
+                <Route exact path="/register" component={Register}/>
+                <Route exact path="/teacher" component={TeacherHome}/>
+                <Route exact path="/cal" component={Calendar}/>
+                <Route exact path="/messagesTeacher" component={MessagesPageTeacher}/>
+                <Route exact path="/messagesStudent" component={MessagesPageStudent}/>
+            </Switch>
         </div>
-  </div>
+    </div>
 )
 
 export default App

@@ -1,0 +1,60 @@
+
+.profileContainer {
+    padding-top: 65px;
+    margin: 5%;
+    padding-bottom: 5%;
+}
+
+.profileCard {
+    height: 100%;
+    width: 100%;
+    padding: 5%;
+    display: flex;
+    justify-content: center;
+}
+
+.MuiAvatar-root.Avatar {
+    height: 100px;
+    width: 100px;
+    font-size: 3rem;
+    margin-right: 2%;
+    margin-left: 2%;
+}
+
+.FieldContainer {
+    order: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.FieldContainerEdit {
+    order: 1;
+    margin: 2%;
+    width: max-content;
+    display: flex;
+    flex-direction: column;
+}
+
+.FormControlParent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.FormControlChild {
+    flex-grow: 1;
+}
+
+.inputText {
+    margin: 1%;
+}
+
+.MuiTypography-root.ContainerChild {
+}
+
+.fontColorGreen {
+    color: green;
+}
+.fontColorRed {
+    color: red;
+}

@@ -50,6 +50,16 @@ class NavBarTeacher extends React.Component {
                                 Messages
                             </NavLink>
                         </li>
+
+                        <li className="nav-item">
+                            <NavLink
+                                className="nav-link"
+                                to="/profileTeacher"
+                                activeClassName="active"
+                            >
+                                Profile
+                            </NavLink>
+                        </li>
                     </ul>
 
                     <ul className="navbar-nav ml-auto">

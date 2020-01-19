@@ -36,7 +36,7 @@ class TeacherCard extends React.Component {
                         <Typography variant={"body2"}>
                             <div>
                                 <LanguageRounded className="Icon"/>
-                                <a href={this.teacher.site}>{this.teacher.site}</a><br/>
+                                <a href={this.teacher.site} target="_blank">{this.teacher.site}</a><br/>
                             </div>
                             <div>
                                 <EmailRounded className="Icon"/>
@@ -49,18 +49,11 @@ class TeacherCard extends React.Component {
         )
     }
 
-    isAvailable(availability) {
-        if (availability) {
-            return "green"
-        } else {
-            return "red"
-        }
-    }
 
     isAvailableText = (availability) => {
-        if (availability) {
+        if (availability === true) {
             return <span className="ThesisAvailabilityGreen">Thesis Available</span>
-        } else return <span className="ThesisAvailabilityGreen">Thesis Unavailable</span>
+        } else return <span className="ThesisAvailabilityRed">Thesis Unavailable</span>
     }
 }
 export default (TeacherCard)

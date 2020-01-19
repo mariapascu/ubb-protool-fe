@@ -196,7 +196,7 @@ class ProfileTeacher extends React.Component {
                                         className="ContainerChild">Email: {this.state.email}</Typography>
                             <Typography variant={"h5"}
                                         className="ContainerChild">Website: <a
-                                href={this.state.initialSite}>{this.state.initialSite}</a></Typography>
+                                href={this.state.initialSite} target="_blank">{this.state.initialSite}</a></Typography>
                             <Button className={"ContainerChild"} variant={"contained"} hidden={!this.state.showFields}
                                     onClick={this.onEditButtonPressed}>Edit</Button>
                         </div>

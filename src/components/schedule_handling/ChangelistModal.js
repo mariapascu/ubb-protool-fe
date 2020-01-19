@@ -72,12 +72,17 @@ class ChangelistModal extends React.Component {
     }
 
     changelistItem = (item) => {
+        console.log(item);
         return (
             <Card className="card" elevation={0} raised={true}>
                 <CardContent>
                     <div>
                         <Typography display="inline" className="leftside">Day: </Typography><Typography
                         display="inline">{this.daysOfTheWeek[item.classDay]}</Typography>
+                    </div>
+                    <div>
+                        <Typography display="inline" className="leftside">Week: </Typography><Typography
+                        display="inline">{item.classWeek == "0" ? "weekly" : item.classWeek}</Typography>
                     </div>
                     <div>
                         <Typography display="inline" className="leftside">Time: </Typography><Typography

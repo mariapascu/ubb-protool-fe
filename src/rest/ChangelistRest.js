@@ -7,7 +7,7 @@ import {Subgroup} from "../model/Subgroup";
 let baseUrl = baseUrlServer;
 
 function getDayNumber(dayString) {
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
     for (var i = 1; i < 6; i++) {
         if (days[i - 1] === dayString) {
             return i;

@@ -92,6 +92,7 @@ class MessageModal extends React.Component {
         console.log(changeStatus + " " + startDateFormat + " " + endDateFormat + " " + this.state.newClass.classId + " " + this.state.student.studentId);
         createChange(changeStatus, startDateFormat, endDateFormat, this.state.newClass.classId, this.state.student.studentId)
             .then((changeId) => {
+                console.log("changeID" + changeId);
                 this.sendMessage(changeId)
             }).catch((err) => console.log(err));
 

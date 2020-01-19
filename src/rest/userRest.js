@@ -4,31 +4,32 @@ import {Class} from "@material-ui/icons";
 import CourseClass from "../model/CourseClass";
 import Course from "../model/Course";
 import {Subgroup} from "../model/Subgroup";
+import {baseHeader, baseUrlServer} from "../shared/NetworkSettings";
 
-const baseUrl = "http://192.168.3.4:8080/"
+const baseUrl = baseUrlServer;
 var url;
 
-function getTeacherById(tList,tId){
-    for (var i in tList){
-        if (tList[i].teacherId===tId){
-            return new Teacher(tList[i].teacherId,tList[i].teacherDepartment,tList[i].teacherAvailability,tList[i].teacherFirstName,tList[i].teacherLastName,
-                tList[i].email,tList[i].teacherUniversity,tList[i].teacherFaculty,tList[i].teacherWebSite)
+function getTeacherById(tList, tId) {
+    for (const i in tList) {
+        if (tList[i].teacherId === tId) {
+            return new Teacher(tList[i].teacherId, tList[i].teacherDepartment, tList[i].teacherAvailability, tList[i].teacherFirstName, tList[i].teacherLastName,
+                tList[i].email, tList[i].teacherUniversity, tList[i].teacherFaculty, tList[i].teacherWebSite)
         }
     }
 }
 
-function getSubgroupById(lista,id){
-    for (var i in lista){
-        if (lista[i].subgroupId===id){
-            return new Subgroup(lista[i].subgroupId,lista[i].groupNumber,lista[i].groupNumber)
+function getSubgroupById(lista, id) {
+    for (var i in lista) {
+        if (lista[i].subgroupId === id) {
+            return new Subgroup(lista[i].subgroupId, lista[i].groupNumber, lista[i].groupNumber)
         }
     }
 }
 
-function getDayNumber(dayString){
-    const days=["monday","tuesday","wednesday","thursday","friday"]
-    for (var i=1;i<6;i++ ){
-        if (days[i-1]===dayString){
+function getDayNumber(dayString) {
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
+    for (var i = 1; i < 6; i++) {
+        if (days[i - 1] === dayString) {
             return i;
         }
     }
@@ -41,71 +42,78 @@ export function getClassesForStudent(userId) {
     var yyyy = today.getFullYear();
 
     //const weekDate = yyyy + '-' + mm + '-' + dd;
-    const weekDate="2019-11-12"
-    url = baseUrl + "class/getScheduleStudent/"+userId + "/" + weekDate;
+    const weekDate = "2019-11-12"
+    url = baseUrl + "class/getScheduleStudent/" + userId + "/" + weekDate;
 
-    return fetch(baseUrl+"course/list",{
-        method:'GET'
-    }).then((r)=>{return r.json()})
-        .then((data)=>{
-            var courses=[]
-            for (var c in data){
+    return fetch(baseUrl + "course/list", {
+        method: 'GET'
+    }).then((r) => {
+        return r.json()
+    })
+        .then((data) => {
+            var courses = []
+            for (var c in data) {
 
-                var co=new Course(data[c]["courseId"],data[c]["courseName"],data[c]["courseSemester"],data[c]["courseUniversity"],data[c]["courseFaculty"],data[c]["courseStartDate"],data[c]["courseEndDate"])
+                var co = new Course(data[c]["courseId"], data[c]["courseName"], data[c]["courseSemester"], data[c]["courseUniversity"], data[c]["courseFaculty"], data[c]["courseStartDate"], data[c]["courseEndDate"])
 
                 courses.push(co)
             }
-            return fetch(baseUrl+"teacher/list",{
-                method:'GET'
+            return fetch(baseUrl + "teacher/list", {
+                method: 'GET'
 
-            }).then((r)=>{return r.json()})
-                .then((teachers)=>{
-                return fetch(baseUrl+"subgroup/list",{
-                    method:'GET'
-                }).then((r)=>{return r.json()})
-                    .then((subgroups)=>{
-                    return fetch(url, {
-                        method: 'POST',
-                    }).then((response) => {
-                        return response.json();
-                    })
-                        .then((data) => {
-                            console.log(data)
-                            var cls=[]
-                            for (var i in data){
-
-                                for (var j in courses){
-                                    if (courses[j].courseId === data[i].courseId){
-                                        console.log("add")
-                                        const dayNr = getDayNumber(data[i].classDay)
-                                        const teacher=getTeacherById(teachers,data[i].teacherId)
-                                        const subgroup=getSubgroupById(subgroups,data[i].subgroupId)
-
-                                        const hourr=Number(data[i].classHour.substring(0,2))
-                                        var c=new CourseClass(data[i].classId,teacher,courses[j],subgroup,data[i].classType,dayNr,data[i].classWeek,hourr,data[i].classLocation,data[i].classDuration)
-
-                                        cls.push(c)
-                                    }
-                                }
-
-
-
-                            }
-                            console.log(cls)
-                            return cls
-                        })
-                        .catch((err) => {
-                            console.log(err.message)
-                        })
-                })
-
-
+            }).then((r) => {
+                return r.json()
             })
+                .then((teachers) => {
+                    return fetch(baseUrl + "subgroup/list", {
+                        method: 'GET'
+                    }).then((r) => {
+                        return r.json()
+                    })
+                        .then((subgroups) => {
+                            return fetch(url, {
+                                method: 'POST',
+                            }).then((response) => {
+                                return response.json();
+                            })
+                                .then((data) => {
+                                    console.log(data)
+                                    var cls = []
+                                    for (var i in data) {
+
+                                        for (var j in courses) {
+                                            if (courses[j].courseId === data[i].courseId) {
+                                                console.log("add")
+                                                const dayNr = getDayNumber(data[i].classDay)
+                                                const teacher = getTeacherById(teachers, data[i].teacherId)
+                                                const subgroup = getSubgroupById(subgroups, data[i].subgroupId)
+
+                                                const hourr = Number(data[i].classHour.substring(0, 2))
+                                                var c = new CourseClass(data[i].classId, teacher, courses[j], subgroup, data[i].classType, dayNr, data[i].classWeek, hourr, data[i].classLocation, data[i].classDuration)
+
+                                                cls.push(c)
+                                            }
+                                        }
+
+
+                                    }
+                                    console.log(cls)
+                                    return cls
+                                })
+                                .catch((err) => {
+                                    console.log(err.message)
+                                })
+                        })
+
+
+                })
 
 
         })
 
-}export function getClassesForTeacher(teacherId) {
+}
+
+export function getClassesForTeacher(teacherId) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
@@ -161,22 +169,24 @@ export function getClassesForStudent(userId) {
 }
 
 
-function getAllCourses(){
-    url = baseUrl+"course/list"
-    return fetch(url,{
-        method:'GET'
-    }).then((r)=>{return r.json()})
-    .then((data)=>{
-        console.log(data[0]["courseId"])
-        var courses=[];
-        for (var c in data){
-
-            var co=new Course(data[c]["courseId"],data[c]["courseName"],data[c]["courseSemester"],data[c]["courseUniversity"],data[c]["courseFaculty"],data[c]["courseStartDate"],data[c]["courseEndDate"])
-
-            courses.push(co)
-        }
-        return courses;
+function getAllCourses() {
+    url = baseUrl + "course/list"
+    return fetch(url, {
+        method: 'GET'
+    }).then((r) => {
+        return r.json()
     })
+        .then((data) => {
+            console.log(data[0]["courseId"])
+            var courses = [];
+            for (var c in data) {
+
+                var co = new Course(data[c]["courseId"], data[c]["courseName"], data[c]["courseSemester"], data[c]["courseUniversity"], data[c]["courseFaculty"], data[c]["courseStartDate"], data[c]["courseEndDate"])
+
+                courses.push(co)
+            }
+            return courses;
+        })
 }
 
 export function getAllTeachers() {
@@ -242,7 +252,7 @@ export function getClassesWithChanges(userId, subgroupId, weekDate) {
 }
 
 export function getStudentsForClass(classId) {
-    url = baseUrl + classId
+    url = baseUrl + classId;
     return fetch(url, {
         method: 'GET'
     }).then((response) => {
@@ -252,33 +262,34 @@ export function getStudentsForClass(classId) {
     })
 }
 
-export function updateStudent(body){
-    url = baseUrl;
+export function updateStudent(body) {
+    url = baseUrl + "student/updateStudent";
     return fetch(url, {
-        method: 'UPDATE',
-        headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'},
+        method: 'POST',
+        headers: baseHeader,
         body: body
     }).then((response) => {
-        if(response.status === 200){
-            return true
-        }
+        if (response.status === 200 || response.status === 302) {
+            return 1
+        } else
+            return 0
+    }).then((data) => {
+        return data
     })
 }
 
-export function updateTeacher(body){
-    url = baseUrl;
+export function updateTeacher(body) {
+    url = baseUrl + "/teacher/updateTeacher";
     return fetch(url, {
-        method: 'UPDATE',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'},
+        method: 'POST',
+        headers: baseHeader,
         body: body
     }).then((response) => {
-        if(response.status === 200){
-            return true
-        }
+        if (response.status === 200 || response.status === 302) {
+            return 1
+        } else return 0
+    }).then((data) => {
+        return data
     })
 }
 

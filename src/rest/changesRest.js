@@ -7,8 +7,10 @@ import {Subgroup} from "../model/Subgroup";
 import {Teacher} from "../model/Teacher";
 import {Student} from "../model/Student";
 import {MessageTeacher} from "../model/MessageTeacher";
+import {baseUrlServer} from "../shared/NetworkSettings";
 
-const baseUrl = "http://192.168.3.4:8080/";
+
+const baseUrl = baseUrlServer;
 let url = "";
 
 export function getChangesForStudent(studentId) {

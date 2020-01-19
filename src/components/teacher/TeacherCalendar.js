@@ -90,14 +90,15 @@ class TeacherCalendar extends Component {
             intervals: null,
             showModal: false,
             selectedInterval: null,
-            attendingStudentsList: null
+            attendingStudentsList: null,
+            loggedUser: this.props.loggedUser
         };
 
     }
 
     componentDidMount() {
-        getClassesForTeacher(2).then((classes)=>{
-            var intv = []
+        getClassesForTeacher(this.state.loggedUser.teacherId).then((classes)=>{
+            var intv = [];
             for (var i = 0; i < classes.length; i++) {
                 const c = {
                     title: classes[i].course.courseName,

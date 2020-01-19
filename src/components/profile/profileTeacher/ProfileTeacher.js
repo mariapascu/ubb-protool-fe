@@ -21,6 +21,7 @@ class ProfileTeacher extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.loggedUser);
         this.state = {
             showFields: true,
             showEdit: false,
@@ -72,31 +73,37 @@ class ProfileTeacher extends React.Component {
 
     onSaveButtonPressed = () => {
         console.log("I was pressed");
-        this.setState({
-            showFields: true,
-            showEdit: false,
-            initialName: this.state.name,
-            initialSurname: this.state.surname,
-            initialSite: this.state.site,
-            initialThesisAvailability: this.state.thesisAvailability
-        });
-        this.props.addUser(new Teacher(this.state.loggedUser.teacherId,
-            this.state.loggedUser.department,
-            this.state.thesisAvailability,
-            this.state.surname, this.state.name,
-            this.state.loggedUser.teacherEmail,
-            this.state.loggedUser.uni,
-            this.state.loggedUser.fac,
-            this.state.site));
         let updateJSON = JSON.stringify({
-            "teacherId": this.state.loggedUser.studentId,
-            "firstName": this.state.surname,
-            "lastName": this.state.name,
+            "teacherId": this.state.loggedUser.teacherId,
+            "teacherFirstName": this.state.surname,
+            "teacherLastName": this.state.name,
             "teacherAvailability": this.state.thesisAvailability,
             "teacherWebSite": this.state.site
         });
-        updateTeacher(updateJSON).then(r => {
-        });
+        let updateStatus = updateTeacher(updateJSON);
+        if (updateStatus) {
+            this.setState({
+                showFields: true,
+                showEdit: false,
+                initialName: this.state.name,
+                initialSurname: this.state.surname,
+                initialSite: this.state.site,
+                initialThesisAvailability: this.state.thesisAvailability
+            });
+            this.props.addUser(new Teacher(this.state.loggedUser.teacherId,
+                this.state.loggedUser.department,
+                this.state.thesisAvailability,
+                this.state.surname, this.state.name,
+                this.state.loggedUser.teacherEmail,
+                this.state.loggedUser.uni,
+                this.state.loggedUser.fac,
+                this.state.site));
+        } else {
+            this.setState({
+                showFields: false,
+                showEdit: true
+            })
+        }
     };
 
     handleChangeSite = event => {
@@ -176,7 +183,7 @@ class ProfileTeacher extends React.Component {
                             <Typography variant={"h4"}
                                         className="ContainerChild">{this.state.initialSurname} {this.state.initialName} {this.getColorAvailability(this.state.initialThesisAvailability)}</Typography>
                             <Typography variant={"h5"}
-                                        className="ContainerChild">{this.state.university} {this.state.faculty} {this.state.speciality}</Typography>
+                                        className="ContainerChild">{this.state.university} {this.state.faculty} {this.state.department}</Typography>
                             <Typography variant={"h5"}
                                         className="ContainerChild">Email: {this.state.email}</Typography>
                             <Typography variant={"h5"}

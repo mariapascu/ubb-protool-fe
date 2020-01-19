@@ -1,14 +1,13 @@
-const baseUrl = "http://localhost:8080/"
+import {baseHeader, baseUrlServer} from "../shared/NetworkSettings";
+
+const baseUrl = baseUrlServer;
 
 export function createStudent(firstName, lastName, email, password, major, university,
                               faculty, studentGroup, studentSubGroup) {
     const url = baseUrl + "student/saveStudent";
     return fetch(url, {
         method: 'POST',
-        headers: {
-            'Access-Control-Allow-Origin' : '*',
-            'Content-Type': 'application/json',
-        },
+        headers: baseHeader,
         body: JSON.stringify({
             firstName: firstName,
             lastName: lastName,
@@ -33,9 +32,10 @@ export function createStudent(firstName, lastName, email, password, major, unive
 }
 
 export function createTeacher(teacherDepartment, teacherAvailability, teacherFirstName, teacherLastName, email, password, teacherUniversity, teacherFaculty, teacherWebSite) {
-    const url = baseUrl + "teacher/saveTeacher";
+    const url = baseUrl + "teacher/activateTeacher";
     return fetch(url, {
         method: 'POST',
+        headers: baseHeader,
         body: JSON.stringify({
             teacherDepartment: teacherDepartment,
             teacherAvailability: teacherAvailability,

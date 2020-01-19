@@ -6,45 +6,42 @@ import NavBarTeacher from '../navbar/NavBarTeacher'
 
 import './teacherHome.css';
 import TeacherCalendar from "./TeacherCalendar";
-
-
-const styles = {
-
-    logoutButton: {
-        float: "right",
-        top: 0
-    }
-};
+import Container from "@material-ui/core/Container";
 
 class TeacherHome extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
+        this.state = {
+            loggedUser: props.loggedUser
+        };
        console.log(this.props.loggedUser)
 
     }
-    componentDidMount() {
-        if (this.props.loggedUser.firstname===undefined){
-            this.props.history.push('/login')
-        }
-    }
+    // componentDidMount() {
+    //     console.log(this.state.loggedUser.firstname + "SUNT IN TEACHER COMPONENT");
+    //     if (this.state.loggedUser.firstname === undefined){
+    //         this.props.history.push('/login')
+    //     }
+    // }
 
     logout = (e) => {
         this.props.logout();
         this.props.history.push('/login')
-    }
+    };
 
     render() {
         return (
             <div>
                 <NavBarTeacher logoutFct={this.logout}/>
-                <TeacherCalendar></TeacherCalendar>
-
+                <Container>
+                </Container>
             </div>
         )
     }
 
 }
+//<TeacherCalendar loggedUser = {this.state.loggedUser}></TeacherCalendar>
 
 export default connect()(TeacherHome);
 

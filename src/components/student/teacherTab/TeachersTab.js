@@ -5,36 +5,55 @@ import {connect} from "react-redux";
 import NavbarStudent from "../../navbar/NavbarStudent";
 import {getAllTeachers} from "../../../rest/userRest";
 import {Teacher} from "../../../model/Teacher";
+import Typography from "@material-ui/core/Typography"
+import "./TeacherTab.css"
 
 
 class TeachersTab extends React.Component {
     constructor(props) {
         super(props);
-
+        this.makeListFromJson();
         this.state = {
-            teachersBackend: getAllTeachers()
+            teachersBackend: null
         }
 
     }
+
+    makeListFromJson = () => {
+        let lst = [];
+        getAllTeachers().then((data) => {
+            if (data !== null) {
+                for (let i in data) {
+                    lst.push(new Teacher(data[i]["teacherId"],
+                        data[i]["teacherDepartment"],
+                        data[i]["teacherAvailability"],
+                        data[i]["teacherFirstName"],
+                        data[i]["teacherLastName"],
+                        data[i]["email"],
+                        data[i]["teacherUniversity"],
+                        data[i]["teacherFaculty"],
+                        data[i]["teacherWebSite"]
+                    ));
+                }
+                this.setState({
+                    teachersBackend: lst
+                })
+            } else this.setState({
+                teachersBackend: null
+            })
+        })
+    };
 
     render() {
         console.log(this.state.teachersBackend);
         return (
             <div>
                 <NavbarStudent/>
-                <div className="pageContent">
-                    {this.state.teachersBackend.map((teacherBackend, index) => (
-                        <TeacherCard teacher={new Teacher(teacherBackend["teacherId"],
-                            teacherBackend["teacherDepartment"],
-                            teacherBackend["teacherAvailability"],
-                            teacherBackend["teacherFirstName"],
-                            teacherBackend["teacherLastName"],
-                            teacherBackend["email"],
-                            teacherBackend["teacherUniversity"],
-                            teacherBackend["teacherFaculty"],
-                            teacherBackend["teacherWebSite"]
-                        )}/>
-                    ))}
+                <div className="listTeachers">
+                    {this.state.teachersBackend === null ? (<Typography variant={"h4"}>Fetching ...</Typography>
+                    ) : (this.state.teachersBackend.map((item, index) => (
+                        <TeacherCard teacher={item}/>)))
+                    }
                 </div>
             </div>
         )

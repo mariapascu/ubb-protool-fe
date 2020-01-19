@@ -1,7 +1,8 @@
 import {Student} from "../model/Student";
 import {Subgroup} from "../model/Subgroup";
+import {baseUrlServer} from "../shared/NetworkSettings";
 
-const baseUrl = "http://localhost:8080/";
+const baseUrl = baseUrlServer;
 
 export function getStudentsListForClass(classId) {
     let url = baseUrl + "class/get-all-students-by-class-id/" + classId;

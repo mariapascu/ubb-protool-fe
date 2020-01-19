@@ -1,10 +1,11 @@
 import CourseClass from "../model/CourseClass";
 import {getCourseById, getSubgroupById, getTeacherById} from "./changesRest";
+import {baseUrlServer} from "../shared/NetworkSettings";
 
-const baseUrl = "http://localhost:8080/";
+let baseUrl = baseUrlServer;
 
 export function getChangelistFromClass(classId, date) {
-    const url = url + "class/getPosiibleClassesForChanged/" + classId + "/" + date;
+    const url = baseUrl + "class/getPosiibleClassesForChanged/" + classId + "/" + date;
     return fetch(url, {
         method: 'GET'
     }).then((response) => {return response.json()})

@@ -1,14 +1,13 @@
-const baseUrl = "http://localhost:8080/"
+import {baseHeader, baseUrlServer} from "../shared/NetworkSettings";
+
+const baseUrl = baseUrlServer;
 
 export function createStudent(firstName, lastName, email, password, major, university,
                               faculty, studentGroup, studentSubGroup) {
     const url = baseUrl + "student/saveStudent";
     return fetch(url, {
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type' : 'application/json'
-        },
+        headers: baseHeader,
         body: JSON.stringify({
             firstName: firstName,
             lastName: lastName,
@@ -22,26 +21,21 @@ export function createStudent(firstName, lastName, email, password, major, unive
         })
 
     }).then((response) => {
-        console.log(response.status);
-        return response.status;
+        return response.json()
     })
         .then((data) => {
-            console.log(data);
             return data;
         })
         .catch((err) => {
-            console.log(err.toString());
+            console.log(err)
         });
 }
 
 export function createTeacher(teacherDepartment, teacherAvailability, teacherFirstName, teacherLastName, email, password, teacherUniversity, teacherFaculty, teacherWebSite) {
-    const url = baseUrl + "teacher/saveTeacher";
+    const url = baseUrl + "teacher/activateTeacher";
     return fetch(url, {
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type' : 'application/json'
-        },
+        headers: baseHeader,
         body: JSON.stringify({
             teacherDepartment: teacherDepartment,
             teacherAvailability: teacherAvailability,
@@ -55,7 +49,6 @@ export function createTeacher(teacherDepartment, teacherAvailability, teacherFir
             teacherWebSite: teacherWebSite
         })
     }).then((response) => {
-        console.log(response);
         return response.json();
     })
         .then((data) => {

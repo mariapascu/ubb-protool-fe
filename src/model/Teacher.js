@@ -11,16 +11,17 @@ export class Teacher{
         this.fac = fac;
     }
 }
-// teacherBackend = {
-//     "teacherId": 6,
-//     "teacherDepartment": "dep gelu",
-//     "teacherAvailability": true,
-//     "teacherFirstName": "Gelu",
-//     "teacherLastName": "Gelian",
-//     "email": "gelian@cs.ubbcluj.ro",
-//     "password": "lapte1234",
-//     "teacherEnabled": true,
-//     "teacherUniversity": "ubb",
-//     "teacherFaculty": "fmi",
-//     "teacherWebSite": "cs.ubbcluj.ro/~gelu"
+// public class TeacherDTO {
+//     private int teacherId;
+//     private String teacherDepartment;
+//     private boolean teacherAvailability;
+//     private String teacherFirstName;
+//     private String teacherLastName;
+//     private String email;
+//     private String password;
+//     private boolean teacherEnabled;
+//     private String teacherUniversity;
+//     private String teacherFaculty;
+//     private String teacherWebSite;
 // }
+

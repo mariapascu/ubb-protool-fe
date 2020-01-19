@@ -35,14 +35,14 @@ export function getDayNumber(dayString) {
     }
 }
 
-export function getClassesForStudent(userId) {
-    var today = new Date();
+export function getClassesForStudent(userId,today) {
+
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
-    //const weekDate = yyyy + '-' + mm + '-' + dd;
-    const weekDate = "2019-10-02"
+    const weekDate = yyyy + '-' + mm + '-' + dd;
+    console.log(weekDate)
     url = baseUrl + "class/getScheduleStudent/" + userId + "/" + weekDate;
 
     return fetch(baseUrl + "course/list", {
@@ -212,16 +212,14 @@ function getAllCourses() {
 }
 
 export function getAllTeachers() {
-    url = baseUrl + "teacher/list"
+    url = baseUrl + "teacher/list";
     return fetch(url, {
         method: 'GET',
     }).then((response) => {
         return response.json();
-    })
-        .then((data) => {
+    }).then((data) => {
             return data; //list of teachers
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.log(err.message)
         })
 

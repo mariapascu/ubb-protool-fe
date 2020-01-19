@@ -1,5 +1,5 @@
 import {students} from "../mockings/StudentMock";
-import {baseUrlServer} from "../shared/NetworkSettings";
+import {baseHeader, baseUrlServer} from "../shared/NetworkSettings";
 
 
 const baseUrl = baseUrlServer;
@@ -8,10 +8,7 @@ export function getUserByUsernameAndPassword(username, password) {
     const url = baseUrl + "login/email-and-password";
     return fetch(url, {
         method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type' : 'application/json'
-        },
+        headers: baseHeader,
         body: JSON.stringify({
             email: username,
             password: password,
@@ -24,16 +21,6 @@ export function getUserByUsernameAndPassword(username, password) {
             return null;
         }
     }).then((data) => {
-        console.log(data["studentId"]);
-         // if (data.studentId == null) {
-         //     //transform data in teacher
-         //
-         //     let teacher = new Teacher();
-         //     return teacher;
-         // }
-         // else {
-         //     //transform data in student
-         // }
         return data;
     }).catch((err) => {
         console.log(err.message)

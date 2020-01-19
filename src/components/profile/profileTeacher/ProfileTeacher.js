@@ -15,6 +15,7 @@ import NavBarTeacher from "../../navbar/NavBarTeacher";
 import {Student} from "../../../model/Student";
 import {updateTeacher} from "../../../rest/userRest";
 import {Teacher} from "../../../model/Teacher";
+import NavbarStudent from "../../navbar/NavbarStudent";
 
 
 class ProfileTeacher extends React.Component {
@@ -70,6 +71,11 @@ class ProfileTeacher extends React.Component {
             thesisAvailability: this.state.initialThesisAvailability
         })
     };
+
+    logout = () => {
+        this.props.logout();
+        this.props.history.push('/login')
+    }
 
     onSaveButtonPressed = () => {
         console.log("I was pressed");
@@ -177,7 +183,7 @@ class ProfileTeacher extends React.Component {
         };
         return (
             <div>
-                <NavBarTeacher/>
+                <NavBarTeacher loggedUser={this.props.loggedUser} logoutFct={this.logout}/>
                 <Container className="profileContainer">
                     <Paper className="profileCard" rounded={true} elevation={2}>
                         <Avatar className="Avatar">{this.state.initialName[0]}</Avatar>

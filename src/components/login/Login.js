@@ -10,6 +10,9 @@ import {Teacher} from "../../model/Teacher";
 import {getUserByUsernameAndPassword} from "../../rest/loginRest";
 import {Student} from "../../model/Student";
 import {Subgroup} from "../../model/Subgroup";
+import Snackbar from "@material-ui/core/Snackbar";
+import Alert from "@material-ui/lab/Alert";
+import Typography from "@material-ui/core/Typography";
 
 class Login extends React.Component {
 
@@ -22,7 +25,8 @@ class Login extends React.Component {
             formSubmitted: false, // Indicates submit status of login form
             loading: false, // Indicates in progress state of login form
             student: null,
-            teacher: null
+            teacher: null,
+            errorSnackBar: true
         }
     }
 
@@ -71,16 +75,20 @@ class Login extends React.Component {
         if (errors === true) {
             getUserByUsernameAndPassword(formData.email, formData.password).then((data) => {
                 console.log(data + "Data from login");
-                if (data == null) {
-
+                if (data === null) {
+                    console.log("Failed 404");
+                    this.setState({
+                        errorSnackBar: false
+                    })
                 } else if (data.studentId != null) {
                     console.log(data + "I am a student");
                     this.setState({student: data});
                     console.log(this.state.student.firstName);
                     this.setState({
+                        errorSnackBar: true,
                         student: new Student(data.studentId,
-                            new Subgroup(0,data.studentGroup,data.studentSubGroup),
-                            data.firstName,data.lastName,data.email,data.major,data.university,data.faculty)
+                            new Subgroup(0, data.studentGroup, data.studentSubGroup),
+                            data.firstName, data.lastName, data.email, data.major, data.university, data.faculty)
                     });
                     this.props.addUser(this.state.student);
                     this.props.history.push('/user');
@@ -88,10 +96,13 @@ class Login extends React.Component {
                     console.log(data + "I am a teacher");
                     this.setState({teacher: data});
                     console.log(this.state.teacher);
-                    this.setState({teacher: new Teacher(data.teacherId,data.teacherDepartment,
-                        data.teacherAvailability,data.teacherFirstName,
-                        data.teacherLastName,data.email,data.teacherUniversity,
-                        data.teacherFaculty,data.teacherWebSite)});
+                    this.setState({
+                        errorSnackBar: false,
+                        teacher: new Teacher(data.teacherId, data.teacherDepartment,
+                            data.teacherAvailability, data.teacherFirstName,
+                            data.teacherLastName, data.email, data.teacherUniversity,
+                            data.teacherFaculty, data.teacherWebSite)
+                    });
                     this.props.addUser(this.state.teacher);
                     this.props.history.push('/teacher');
                 }
@@ -166,9 +177,12 @@ class Login extends React.Component {
                                     error={!(this.state.localErrors.password == null)}
                                     helperText={this.state.localErrors.password}
                                 />
-                                <div>
-                                    <div style={{float: "left"}}>
+                                <div >
+                                    <div className="buttonWithErrorOnTheSide">
                                         <button type="submit" className="btn btn-secondary myButton">Submit</button>
+                                        <Typography className="snack" hidden={this.state.errorSnackBar} variant={"subtitle1"}>
+                                            Invalid email or password!
+                                        </Typography>
                                     </div>
                                     <div style={{float: "left", marginTop: "7%", marginLeft: "5%"}}>Already have an
                                         account? <a href="/register">Register</a></div>

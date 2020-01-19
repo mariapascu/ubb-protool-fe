@@ -62,6 +62,11 @@ class ProfileStudent extends React.Component {
         })
     };
 
+    logout = () => {
+        this.props.logout();
+        this.props.history.push('/login')
+    }
+
     onSaveButtonPressed = () => {
         console.log("I was pressed");
         let updateJSON = JSON.stringify({
@@ -177,7 +182,7 @@ class ProfileStudent extends React.Component {
         };
         return (
             <div>
-                <NavbarStudent/>
+                <NavbarStudent loggedUser={this.props.loggedUser} logoutFct={this.logout}/>
                 <Container className="profileContainer">
                     <Paper className="profileCard" rounded={true} elevation={2}>
                         <Avatar className="Avatar">{this.state.initialName[0]}</Avatar>

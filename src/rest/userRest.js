@@ -8,7 +8,7 @@ const baseUrl = "http://localhost:8080/"
 var url;
 
 function getDayNumber(dayString){
-    const days=["monday","tuesday","wednesday","thursday","friday"]
+    const days=["Monday","Tuesday","Wednesday","Thursday","Friday"]
     for (var i=1;i<6;i++ ){
         if (days[i-1]===dayString){
             return i;
@@ -51,7 +51,7 @@ export function getClassesForStudent(userId) {
 
                             for (var j in courses){
                                 if (courses[j].courseId === data[i].courseId){
-                                    console.log("add")
+                                    console.log("add  " + data[i]);
                                     const dayNr = getDayNumber(data[i].classDay)
 
                                     const hourr=Number(data[i].classHour.substring(0,2))
@@ -112,6 +112,7 @@ export function getClassesForTeacher(teacher) {
 
                         for (var j in courses) {
                             if (courses[j].courseId === data[i].courseId) {
+                                console.log("add " + JSON.stringify(data));
                                 const dayNr = getDayNumber(data[i].classDay)
                                 const hourr = Number(data[i].classHour.substring(0, 2))
                                 var c = new CourseClass(data[i].classId, teacher, courses[j], classess[0].subgroup, data[i].classType, dayNr, data[i].classWeek, hourr, data[i].classLocation, data[i].classDuration)

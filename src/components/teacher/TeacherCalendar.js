@@ -82,23 +82,23 @@ class Evvent extends React.Component {
     }
 }
 
-function convertDayToNumber(day) {
-    if (day === "Monday") {
-        return 1;
-    }
-    else if (day === "Tuesday") {
-        return 2;
-    }
-    else if (day === "Wednesday") {
-        return 3;
-    }
-    else if (day === "Thursday") {
-        return 4;
-    }
-    else if (day === "Friday") {
-        return 5;
-    }
-}
+// function convertDayToNumber(day) {
+//     if (day === "Monday") {
+//         return 1;
+//     }
+//     else if (day === "Tuesday") {
+//         return 2;
+//     }
+//     else if (day === "Wednesday") {
+//         return 3;
+//     }
+//     else if (day === "Thursday") {
+//         return 4;
+//     }
+//     else if (day === "Friday") {
+//         return 5;
+//     }
+// }
 
 class TeacherCalendar extends Component {
 
@@ -129,7 +129,7 @@ class TeacherCalendar extends Component {
                     classType: classes[i].classType,
                     classLocation: classes[i].classLocation,
                     classDuration: classes[i].classDuration,
-                    start: moment({month: 6, day: days[convertDayToNumber(classes[i].classDay) - 1], year: 2019, h: classes[i].classHour}),
+                    start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
                     end: moment({
                         month: 6,
                         day: days[classes[i].classDay - 1],

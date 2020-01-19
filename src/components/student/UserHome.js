@@ -39,7 +39,7 @@ class UserHome extends React.Component {
 
                 <div className="pageContent">
 
-                      <Calendar></Calendar>
+                      <Calendar loggedUser={this.props.loggedUser}></Calendar>
 
                 </div>
             </div>

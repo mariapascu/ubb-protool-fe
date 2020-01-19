@@ -42,7 +42,7 @@ export function getClassesForStudent(userId) {
     var yyyy = today.getFullYear();
 
     //const weekDate = yyyy + '-' + mm + '-' + dd;
-    const weekDate = "2019-11-12"
+    const weekDate = "2019-10-02"
     url = baseUrl + "class/getScheduleStudent/" + userId + "/" + weekDate;
 
     return fetch(baseUrl + "course/list", {
@@ -72,7 +72,7 @@ export function getClassesForStudent(userId) {
                     })
                         .then((subgroups) => {
                             return fetch(url, {
-                                method: 'POST',
+                                method: 'GET',
                             }).then((response) => {
                                 return response.json();
                             })

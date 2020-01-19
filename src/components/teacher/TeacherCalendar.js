@@ -236,7 +236,7 @@ class TeacherCalendar extends Component {
                         />
 
                         {/* The dialog which opens when an interval is clicked*/}
-                        <Dialog open={this.state.showModal} onClose={this.exitt} aria-labelledby="form-dialog-title">
+                        <Dialog open={this.state.showModal} onClose={this.exitt} aria-labelledby="form-dialog-title" fullWidth='true' maxWidth='md'>
                             <DialogTitle id="form-dialog-title">
                                 {this.state.selectedInterval != null ?
                                     this.state.selectedInterval.title + " " : ""

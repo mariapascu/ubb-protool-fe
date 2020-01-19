@@ -5,7 +5,7 @@ import {connect} from 'react-redux'
 import NavBarTeacher from '../navbar/NavBarTeacher'
 
 import './teacherHome.css';
-import TeacherCalendar from "./TeacherCalendar";
+import TeacherCalendar from "../../containers/TeacherCalendar";
 import Container from "@material-ui/core/Container";
 
 class TeacherHome extends React.Component {

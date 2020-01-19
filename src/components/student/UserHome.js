@@ -17,6 +17,7 @@ class UserHome extends React.Component {
 
     constructor(props) {
         super(props)
+        console.log(this.props.loggedUser)
     }
     componentDidMount() {
         //Uncomment line at the end

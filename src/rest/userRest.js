@@ -10,7 +10,7 @@ const baseUrl = baseUrlServer;
 var url;
 
 function getTeacherById(tList, tId) {
-    for (const i in tList) {
+    for (var i in tList) {
         if (tList[i].teacherId === tId) {
             return new Teacher(tList[i].teacherId, tList[i].teacherDepartment, tList[i].teacherAvailability, tList[i].teacherFirstName, tList[i].teacherLastName,
                 tList[i].email, tList[i].teacherUniversity, tList[i].teacherFaculty, tList[i].teacherWebSite)
@@ -27,7 +27,7 @@ function getSubgroupById(lista, id) {
 }
 
 function getDayNumber(dayString) {
-    const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
     for (var i = 1; i < 6; i++) {
         if (days[i - 1] === dayString) {
             return i;
@@ -113,15 +113,15 @@ export function getClassesForStudent(userId) {
 
 }
 
-export function getClassesForTeacher(teacherId) {
+export function getClassesForTeacher(teacher) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
     //const weekDate = yyyy + '-' + mm + '-' + dd;
-    const weekDate = "2019-11-12"
-    url = baseUrl + "class/getScheduleTeacher/" + teacherId + "/" + weekDate;
+    const weekDate = "2019-10-02"
+    url = baseUrl + "class/getScheduleTeacher/" + teacher.teacherId + "/" + weekDate;
 
     return fetch(baseUrl + "course/list", {
         method: 'GET'
@@ -129,43 +129,65 @@ export function getClassesForTeacher(teacherId) {
         return r.json()
     })
         .then((data) => {
-            console.log(data[0]["courseId"])
-            var courses = [];
+            var courses = []
             for (var c in data) {
 
                 var co = new Course(data[c]["courseId"], data[c]["courseName"], data[c]["courseSemester"], data[c]["courseUniversity"], data[c]["courseFaculty"], data[c]["courseStartDate"], data[c]["courseEndDate"])
 
                 courses.push(co)
             }
+            return fetch(baseUrl + "teacher/list", {
+                method: 'GET'
 
-            return fetch(url, {
-                method: 'POST',
-            }).then((response) => {
-                return response.json();
+            }).then((r) => {
+                return r.json()
             })
-                .then((data) => {
+                .then((teachers) => {
+                    return fetch(baseUrl + "subgroup/list", {
+                        method: 'GET'
+                    }).then((r) => {
+                        return r.json()
+                    })
+                        .then((subgroups) => {
+                            return fetch(url, {
+                                method: 'POST',
+                            }).then((response) => {
+                                return response.json();
+                            })
+                                .then((data) => {
+                                    console.log(data)
+                                    var cls = []
+                                    for (var i in data) {
 
-                    var cls = []
-                    for (var i in data) {
+                                        for (var j in courses) {
+                                            if (courses[j].courseId === data[i].courseId) {
+                                                console.log("add")
+                                                const dayNr = getDayNumber(data[i].classDay)
+                                                const subgroup = getSubgroupById(subgroups, data[i].subgroupId)
 
-                        for (var i in courses) {
-                            if (courses[i].courseId === data[i].courseId) {
-                                const dayNr = getDayNumber(data[i].classDay)
-                                const hourr = Number(data[i].classHour.substring(0, 2))
-                                var c = new CourseClass(data[i].classId, classess[0].teacher, courses[i], classess[0].subgroup, "Laboratory", dayNr, data[i].classWeek, hourr, data[i].classLocation, data[i].classDuration)
+                                                const hourr = Number(data[i].classHour.substring(0, 2))
+                                                var c = new CourseClass(data[i].classId, teacher, courses[j], subgroup, data[i].classType, dayNr, data[i].classWeek, hourr, data[i].classLocation, data[i].classDuration)
 
-                                cls.push(c)
-                            }
-                        }
+                                                cls.push(c)
+                                            }
+                                        }
 
 
-                    }
-                    return cls
+                                    }
+                                    console.log(cls)
+                                    return cls
+                                })
+                                .catch((err) => {
+                                    console.log(err.message)
+                                })
+                        })
+
+
                 })
-                .catch((err) => {
-                    console.log(err.message)
-                })
+
+
         })
+
 }
 
 

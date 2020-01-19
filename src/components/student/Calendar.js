@@ -40,6 +40,7 @@ class Evvent extends React.Component {
 
     constructor(props) {
         super(props);
+
     }
 
     render() {
@@ -77,6 +78,7 @@ class Calendar extends Component {
             showModal: false,
             selectedInterval: null
         };
+        console.log(this.props.loggedUser);
 
     }
 

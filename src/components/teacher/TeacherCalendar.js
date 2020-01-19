@@ -155,15 +155,15 @@ class TeacherCalendar extends Component {
 
     getStudentsByClassId = (classId) => {
         return getStudentsListForClass(classId).then((students) => {
-            return students
-        });
+            this.setState({students: students})
+        }).catch((err) => console.log(err));
 
     }
 
     eventClicked = (e) => {
         this.setState({selectedInterval: e});
         this.setState({showModal: true});
-        this.setState({students: this.getStudentsByClassId(e.classId)});
+        this.getStudentsByClassId(e.classId);
     };
 
     event = (params) => {
@@ -173,12 +173,13 @@ class TeacherCalendar extends Component {
     };
 
     studentItem = (item) => {
+        const fullName = item.firstName + " " + item.lastName;
         return (
             <Card className="card" elevation={0} raised={true}>
                 <CardContent>
                     <div>
                         <Typography display="inline" className="leftside">Student name: </Typography>
-                        <Typography display="inline">{item.firstName} {item.lastName}</Typography>
+                        <Typography display="inline">{fullName}</Typography>
                     </div>
                     <div>
                         <Typography display="inline" className="leftside">Group: </Typography>
@@ -196,18 +197,22 @@ class TeacherCalendar extends Component {
 
 
     render() {
-        let showList;
-        if (this.state.showModal) {
-            showList = (<div>
+        let showList = null;
+        if (this.state.showModal && this.state.students != null) {
+            console.log(this.state.students);
+            showList = <div>
                 {
-                    this.state.students.map((item, index) => {
-                            this.studentItem(item);
-                        }
+                    this.state.students.map((item, index) => (
+                            <div>
+                                {this.studentItem(item)}
+                            </div>
+                        )
                     )
                 }
 
-            </div>)
+            </div>
         }
+
         var {...config} = this.state;
 
         if (this.state.intervals != null) {

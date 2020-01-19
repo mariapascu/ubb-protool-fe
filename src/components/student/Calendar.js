@@ -81,7 +81,7 @@ class Calendar extends Component {
     }
 
     componentDidMount() {
-        getClassesForStudent(10).then((classes)=>{
+        getClassesForStudent(1).then((classes)=>{
             console.log(classes)
             var intv = []
             for (var i = 0; i < classes.length; i++) {

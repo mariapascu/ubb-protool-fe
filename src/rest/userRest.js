@@ -8,7 +8,7 @@ const baseUrl = "http://localhost:8080/"
 var url;
 
 function getDayNumber(dayString){
-    const days=["Monday","Tuesday","Wednesday","Thursday","Friday"]
+    const days=["monday","tuesday","wednesday","thursday","friday"]
     for (var i=1;i<6;i++ ){
         if (days[i-1]===dayString){
             return i;
@@ -30,14 +30,14 @@ export function getClassesForStudent(userId) {
         method:'GET'
     }).then((r)=>{return r.json()})
         .then((data)=>{
-            console.log(data[0]["courseId"])
-            var courses=[];
+            var courses=[]
             for (var c in data){
 
                 var co=new Course(data[c]["courseId"],data[c]["courseName"],data[c]["courseSemester"],data[c]["courseUniversity"],data[c]["courseFaculty"],data[c]["courseStartDate"],data[c]["courseEndDate"])
 
                 courses.push(co)
             }
+            console.log(courses)
 
             return fetch(url, {
                 method: 'POST',
@@ -45,15 +45,17 @@ export function getClassesForStudent(userId) {
                 return response.json();
             })
                 .then((data) => {
-
+                    console.log(data)
                     var cls=[]
                     for (var i in data){
 
-                            for (var i in courses){
-                                if (courses[i].courseId === data[i].courseId){
+                            for (var j in courses){
+                                if (courses[j].courseId === data[i].courseId){
+                                    console.log("add")
                                     const dayNr = getDayNumber(data[i].classDay)
+
                                     const hourr=Number(data[i].classHour.substring(0,2))
-                                    var c=new CourseClass(data[i].classId,classess[0].teacher,courses[i],classess[0].subgroup,"Laboratory",dayNr,data[i].classWeek,hourr,data[i].classLocation,data[i].classDuration)
+                                    var c=new CourseClass(data[i].classId,classess[0].teacher,courses[j],classess[0].subgroup,data[i].classType,dayNr,data[i].classWeek,hourr,data[i].classLocation,data[i].classDuration)
 
                                     cls.push(c)
                                 }
@@ -62,6 +64,7 @@ export function getClassesForStudent(userId) {
 
 
                     }
+                    console.log(cls)
                     return cls
                 })
                 .catch((err) => {

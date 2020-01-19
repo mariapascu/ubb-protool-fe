@@ -20,7 +20,8 @@
 
 .FormSide {
     background: #f7f7f7;
-    float: left;
+    display: flex;
+    flex-direction: column;
     width: 50%;
     height: 100%;
 }
@@ -108,4 +109,15 @@
     background-color: #f9f9f9 !important;
     border: 1px solid #0d2d4c !important;
     color: #0d2d4c !important;
+}
+
+.buttonWithErrorOnTheSide{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.snack {
+    padding-top: 2%;
+    color: red;
 }

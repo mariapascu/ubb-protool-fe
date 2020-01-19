@@ -10,3 +10,17 @@ export class Student{
         this.fac = fac;
     }
 }
+
+
+// public class StudentDTO {
+//     private Long studentId;
+//     private String firstName;
+//     private String lastName;
+//     private String email;
+//     private String password;
+//     private String major;
+//     private String university;
+//     private String faculty;
+//     private Long studentGroup;
+//     private Long studentSubGroup
+// }

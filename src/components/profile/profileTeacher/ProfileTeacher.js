@@ -12,12 +12,17 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import NavBarTeacher from "../../navbar/NavBarTeacher";
+import {Student} from "../../../model/Student";
+import {updateTeacher} from "../../../rest/userRest";
+import {Teacher} from "../../../model/Teacher";
+import NavbarStudent from "../../navbar/NavbarStudent";
 
 
 class ProfileTeacher extends React.Component {
 
     constructor(props) {
         super(props);
+        console.log(this.props.loggedUser);
         this.state = {
             showFields: true,
             showEdit: false,
@@ -36,7 +41,8 @@ class ProfileTeacher extends React.Component {
             errors: {
                 name: false,
                 surname: false
-            }
+            },
+            loggedUser: this.props.loggedUser
         }
     }
 
@@ -62,19 +68,50 @@ class ProfileTeacher extends React.Component {
             name: this.state.initialName,
             surname: this.state.initialSurname,
             site: this.state.initialSite,
+            thesisAvailability: this.state.initialThesisAvailability
         })
     };
 
+    logout = () => {
+        this.props.logout();
+        this.props.history.push('/login')
+    }
+
     onSaveButtonPressed = () => {
         console.log("I was pressed");
-        this.setState({
-            showFields: true,
-            showEdit: false,
-            initialName: this.state.name,
-            initialSurname: this.state.surname,
-            initialSite: this.state.site,
-            initialThesisAvailability: this.state.thesisAvailability
-        })
+        let updateJSON = JSON.stringify({
+            "teacherId": this.state.loggedUser.teacherId,
+            "teacherFirstName": this.state.surname,
+            "teacherLastName": this.state.name,
+            "teacherAvailability": this.state.thesisAvailability,
+            "teacherWebSite": this.state.site
+        });
+        updateTeacher(updateJSON).then((data) => {
+            if (data) {
+                this.setState({
+                    showFields: true,
+                    showEdit: false,
+                    initialName: this.state.name,
+                    initialSurname: this.state.surname,
+                    initialSite: this.state.site,
+                    initialThesisAvailability: this.state.thesisAvailability
+                });
+                this.props.addUser(new Teacher(this.state.loggedUser.teacherId,
+                    this.state.loggedUser.department,
+                    this.state.thesisAvailability,
+                    this.state.surname, this.state.name,
+                    this.state.loggedUser.teacherEmail,
+                    this.state.loggedUser.uni,
+                    this.state.loggedUser.fac,
+                    this.state.site));
+            } else {
+                this.setState({
+                    showFields: false,
+                    showEdit: true
+                })
+            }
+        });
+
     };
 
     handleChangeSite = event => {
@@ -146,7 +183,7 @@ class ProfileTeacher extends React.Component {
         };
         return (
             <div>
-                <NavBarTeacher/>
+                <NavBarTeacher loggedUser={this.props.loggedUser} logoutFct={this.logout}/>
                 <Container className="profileContainer">
                     <Paper className="profileCard" rounded={true} elevation={2}>
                         <Avatar className="Avatar">{this.state.initialName[0]}</Avatar>
@@ -154,12 +191,12 @@ class ProfileTeacher extends React.Component {
                             <Typography variant={"h4"}
                                         className="ContainerChild">{this.state.initialSurname} {this.state.initialName} {this.getColorAvailability(this.state.initialThesisAvailability)}</Typography>
                             <Typography variant={"h5"}
-                                        className="ContainerChild">{this.state.university} {this.state.faculty} {this.state.speciality}</Typography>
+                                        className="ContainerChild">{this.state.university} {this.state.faculty} {this.state.department}</Typography>
                             <Typography variant={"h5"}
                                         className="ContainerChild">Email: {this.state.email}</Typography>
                             <Typography variant={"h5"}
                                         className="ContainerChild">Website: <a
-                                href={this.state.initialSite}>{this.state.initialSite}</a></Typography>
+                                href={this.state.initialSite} target="_blank">{this.state.initialSite}</a></Typography>
                             <Button className={"ContainerChild"} variant={"contained"} hidden={!this.state.showFields}
                                     onClick={this.onEditButtonPressed}>Edit</Button>
                         </div>

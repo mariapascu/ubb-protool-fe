@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { logoutUser } from '../actions';
-import TeacherHome from "../components/teacher/TeacherHome";
+import MessagesPageStudent from "../components/message/MessagesPageStudent";
 
 export function mapStateToProps(state) {
     return { loggedUser: state.user.loggedUser }
@@ -12,4 +12,4 @@ export const mapDispatchToProps = dispatch => ({
     },
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(TeacherHome);
+export default connect(mapStateToProps, mapDispatchToProps)(MessagesPageStudent);

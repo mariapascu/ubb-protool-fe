@@ -62,36 +62,51 @@ class ProfileStudent extends React.Component {
         })
     };
 
+    logout = () => {
+        this.props.logout();
+        this.props.history.push('/login')
+    }
+
     onSaveButtonPressed = () => {
         console.log("I was pressed");
-        this.setState({
-            showFields: true,
-            showEdit: false,
-            initialGroup: this.state.group,
-            initialSubgroup: this.state.subgroup,
-            initialName: this.state.name,
-            initialSurname: this.state.surname
-        });
-        this.props.addUser(new Student(this.state.loggedUser.studentId,
-            this.state.subgroup,
-            this.state.surname,
-            this.state.name,
-            this.state.loggedUser.email,
-            this.state.speciality,
-            this.state.university,
-            this.state.faculty));
         let updateJSON = JSON.stringify({
             "studentId": this.state.loggedUser.studentId,
             "firstName": this.state.surname,
             "lastName": this.state.name,
- //           "email": this.state.loggedUser.email,
-            //         "major": this.state.speciality,
-            //"university": this.state.university,
-            //"faculty": this.state.faculty,
             "studentGroup": this.state.group,
             "studentSubGroup": this.state.subgroup
         });
-        updateStudent(updateJSON);
+        updateStudent(updateJSON).then((data) => {
+            console.log(data);
+            if (data === 1) {
+                console.log(data);
+                this.setState({
+                    showFields: true,
+                    showEdit: false,
+                    initialGroup: this.state.group,
+                    initialSubgroup: this.state.subgroup,
+                    initialName: this.state.name,
+                    initialSurname: this.state.surname
+                });
+                this.props.addUser(new Student(this.state.loggedUser.studentId,
+                    this.state.subgroup,
+                    this.state.surname,
+                    this.state.name,
+                    this.state.loggedUser.email,
+                    this.state.speciality,
+                    this.state.university,
+                    this.state.faculty));
+            } else {
+                this.setState({
+                    showFields: false,
+                    showEdit: true,
+                    errors: {
+                        group: true
+                    }
+                })
+            }
+        });
+
     };
 
 //     fetch('https://mywebsite.com/endpoint/', {
@@ -167,7 +182,7 @@ class ProfileStudent extends React.Component {
         };
         return (
             <div>
-                <NavbarStudent/>
+                <NavbarStudent loggedUser={this.props.loggedUser} logoutFct={this.logout}/>
                 <Container className="profileContainer">
                     <Paper className="profileCard" rounded={true} elevation={2}>
                         <Avatar className="Avatar">{this.state.initialName[0]}</Avatar>

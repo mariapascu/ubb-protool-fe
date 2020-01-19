@@ -8,6 +8,7 @@ import {Button} from "@material-ui/core";
 class NavbarStudent extends React.Component {
     constructor(props) {
         super(props);
+
     }
     logout=() =>{
         this.props.logoutFct();

@@ -76,18 +76,23 @@ class Calendar extends Component {
 
             intervals: null,
             showModal: false,
-            selectedInterval: null
+            selectedInterval: null,
+            loggedUser: this.props.loggedUser
         };
-        console.log(this.props.loggedUser);
+
 
     }
 
     componentDidMount() {
-        getClassesForStudent(1).then((classes)=>{
-            console.log(classes)
+        this.getClasses(this.state.currentDate);
+
+    }
+
+    getClasses = (aDate) =>{
+        getClassesForStudent(this.state.loggedUser.studentId,this.state.currentDate,aDate).then((classes)=>{
+
             var intv = []
             for (var i = 0; i < classes.length; i++) {
-                console.log(classes[i])
                 const c = {
                     classId: classes[i].classId,
                     title: classes[i].course.courseName,
@@ -108,8 +113,8 @@ class Calendar extends Component {
             }
             this.setState({intervals: intv})
         }).catch((err)=>{console.log("Something went wrong")})
-
     }
+
 
     exitt = () => {
 
@@ -126,7 +131,7 @@ class Calendar extends Component {
     showChangelist = () => {
         this.setState({showModal: false})
         this.changelistDialog = null;
-        this.changelistDialog = <ChangelistModal courseClass={this.state.selectedInterval}/>;
+        this.changelistDialog = <ChangelistModal courseClass={this.state.selectedInterval} student={this.state.loggedUser}/>;
     };
 
     event = (params) => {
@@ -138,13 +143,16 @@ class Calendar extends Component {
         const newDate = this.state.currentDate;
         newDate.setDate(newDate.getDate() - 7);
         this.setState({currentDate: newDate});
-        console.log(this.state.currentDate);
+        this.getClasses(newDate);
     };
 
     getNextWeek = () => {
         const newDate = this.state.currentDate;
         newDate.setDate(newDate.getDate() + 7);
         this.setState({currentDate: newDate});
+        this.getClasses(newDate);
+
+
     };
 
     render() {

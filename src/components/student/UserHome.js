@@ -21,8 +21,8 @@ class UserHome extends React.Component {
     }
     componentDidMount() {
         //Uncomment line at the end
-    if (this.props.loggedUser.firstname===undefined){
-        //this.props.history.push('/login')
+    if (this.props.loggedUser.firstName===undefined){
+        this.props.history.push('/login')
     }
     }
 
@@ -39,7 +39,7 @@ class UserHome extends React.Component {
 
                 <div className="pageContent">
 
-                      <Calendar></Calendar>
+                      <Calendar loggedUser={this.props.loggedUser}></Calendar>
 
                 </div>
             </div>

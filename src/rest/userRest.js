@@ -4,11 +4,12 @@ import {Class} from "@material-ui/icons";
 import CourseClass from "../model/CourseClass";
 import Course from "../model/Course";
 import {Subgroup} from "../model/Subgroup";
+import {baseHeader, baseUrlServer} from "../shared/NetworkSettings";
 
-const baseUrl = "http://localhost:8080/"
+const baseUrl = baseUrlServer;
 var url;
 
-function getTeacherById(tList, tId) {
+export function getTeacherById2(tList, tId) {
     for (var i in tList) {
         if (tList[i].teacherId === tId) {
             return new Teacher(tList[i].teacherId, tList[i].teacherDepartment, tList[i].teacherAvailability, tList[i].teacherFirstName, tList[i].teacherLastName,
@@ -25,8 +26,8 @@ function getSubgroupById(lista, id) {
     }
 }
 
-function getDayNumber(dayString) {
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+export function getDayNumber(dayString) {
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
     for (var i = 1; i < 6; i++) {
         if (days[i - 1] === dayString) {
             return i;
@@ -34,14 +35,14 @@ function getDayNumber(dayString) {
     }
 }
 
-export function getClassesForStudent(userId) {
-    var today = new Date();
+export function getClassesForStudent(userId,today) {
+
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
-    //const weekDate = yyyy + '-' + mm + '-' + dd;
-    const weekDate = "2019-11-12"
+    const weekDate = yyyy + '-' + mm + '-' + dd;
+    console.log(weekDate)
     url = baseUrl + "class/getScheduleStudent/" + userId + "/" + weekDate;
 
     return fetch(baseUrl + "course/list", {
@@ -71,7 +72,7 @@ export function getClassesForStudent(userId) {
                     })
                         .then((subgroups) => {
                             return fetch(url, {
-                                method: 'POST',
+                                method: 'GET',
                             }).then((response) => {
                                 return response.json();
                             })
@@ -84,7 +85,7 @@ export function getClassesForStudent(userId) {
                                             if (courses[j].courseId === data[i].courseId) {
                                                 console.log("add")
                                                 const dayNr = getDayNumber(data[i].classDay)
-                                                const teacher = getTeacherById(teachers, data[i].teacherId)
+                                                const teacher = getTeacherById2(teachers, data[i].teacherId)
                                                 const subgroup = getSubgroupById(subgroups, data[i].subgroupId)
 
                                                 const hourr = Number(data[i].classHour.substring(0, 2))
@@ -211,16 +212,14 @@ function getAllCourses() {
 }
 
 export function getAllTeachers() {
-    url = baseUrl + "teacher/list"
+    url = baseUrl + "teacher/list";
     return fetch(url, {
         method: 'GET',
     }).then((response) => {
         return response.json();
-    })
-        .then((data) => {
+    }).then((data) => {
             return data; //list of teachers
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.log(err.message)
         })
 
@@ -249,17 +248,6 @@ export function getChangesOfCourse(courseId) {
     })
 }
 
-export function getChangesOfUser(userId) {
-    url = baseUrl + userId
-    return fetch(url, {
-        method: 'GET'
-    }).then((response) => {
-        return response.json()
-    }).then((data) => {
-        return data; //lista de change-uri
-    })
-
-}
 
 export function getClassesWithChanges(userId, subgroupId, weekDate) {
     url = baseUrl + userId + "/" + subgroupId + "/" + weekDate
@@ -273,7 +261,7 @@ export function getClassesWithChanges(userId, subgroupId, weekDate) {
 }
 
 export function getStudentsForClass(classId) {
-    url = baseUrl + classId
+    url = baseUrl + classId;
     return fetch(url, {
         method: 'GET'
     }).then((response) => {
@@ -284,18 +272,34 @@ export function getStudentsForClass(classId) {
 }
 
 export function updateStudent(body) {
-    url = baseUrl;
+    url = baseUrl + "student/updateStudent";
     return fetch(url, {
-        method: 'UPDATE',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        method: 'POST',
+        headers: baseHeader,
         body: body
     }).then((response) => {
-        if (response.status === 200) {
-            return true
-        }
+        console.log(response.status);
+        if (response.status === 200 || response.status === 302) {
+            return 1
+        } else
+            return 0
+    }).then((data) => {
+        return data
+    })
+}
+
+export function updateTeacher(body) {
+    url = baseUrl + "/teacher/updateTeacher";
+    return fetch(url, {
+        method: 'POST',
+        headers: baseHeader,
+        body: body
+    }).then((response) => {
+        if (response.status === 200 || response.status === 302) {
+            return 1
+        } else return 0
+    }).then((data) => {
+        return data
     })
 }
 

@@ -80,7 +80,7 @@ class Register extends React.Component {
             faculty, studentGroup, studentSubGroup)
             .then((data) => console.log(data))
             .catch((err) => console.log(err));
-    }
+    };
 
     addTeacher = () => {
         const {formData} = this.state;
@@ -98,7 +98,7 @@ class Register extends React.Component {
             .then((data) => console.log("data")).catch((err) => console.log(err));
 
 
-    }
+    };
 
     registerMe = (e) => {
         console.log(this.state);

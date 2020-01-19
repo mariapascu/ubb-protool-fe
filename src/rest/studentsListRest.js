@@ -5,7 +5,7 @@ const baseUrl = "http://localhost:8080/";
 let url;
 
 export function getStudentsListForClass(classId) {
-    url = baseUrl + "class/getAllStudentsByClassId/" + courseId;
+    url = baseUrl + "class/getAllStudentsByClassId/" + classId;
 
     return fetch(url, {
         method: 'GET',

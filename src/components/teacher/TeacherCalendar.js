@@ -19,7 +19,8 @@ import CardContent from "@material-ui/core/CardContent";
 import {students} from "../../mockings/StudentMock";
 import Card from "@material-ui/core/Card";
 import {getClassesForTeacher} from "../../rest/userRest";
-
+import {connect} from "react-redux";
+import {getStudentsListForClass} from "../../rest/studentsListRest";
 
 
 const days = [1, 2, 3, 4, 5]
@@ -81,32 +82,54 @@ class Evvent extends React.Component {
     }
 }
 
+function convertDayToNumber(day) {
+    if (day === "Monday") {
+        return 1;
+    }
+    else if (day === "Tuesday") {
+        return 2;
+    }
+    else if (day === "Wednesday") {
+        return 3;
+    }
+    else if (day === "Thursday") {
+        return 4;
+    }
+    else if (day === "Friday") {
+        return 5;
+    }
+}
 
 class TeacherCalendar extends Component {
 
     constructor(props) {
+        console.log("hello");
         super(props);
         this.state = {
             intervals: null,
             showModal: false,
             selectedInterval: null,
-            attendingStudentsList: null
+            attendingStudentsList: null,
+            teacher: this.props.loggedUser,
+            students: null,
         };
-
+        console.log(this.state.teacher)
     }
 
     componentDidMount() {
-        getClassesForTeacher(2).then((classes)=>{
+        getClassesForTeacher(this.state.teacher).then((classes) => {
+            console.log(classes);
             var intv = []
             for (var i = 0; i < classes.length; i++) {
                 const c = {
+                    classId: classes[i].classId,
                     title: classes[i].course.courseName,
                     subgroup: classes[i].subgroup,
                     teacher: classes[i].teacher,
                     classType: classes[i].classType,
                     classLocation: classes[i].classLocation,
                     classDuration: classes[i].classDuration,
-                    start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
+                    start: moment({month: 6, day: days[convertDayToNumber(classes[i].classDay) - 1], year: 2019, h: classes[i].classHour}),
                     end: moment({
                         month: 6,
                         day: days[classes[i].classDay - 1],
@@ -114,23 +137,33 @@ class TeacherCalendar extends Component {
                         h: classes[i].classHour + classes[i].classDuration
                     })
                 }
+                console.log(c);
                 intv.push(c)
-                console.log(this.state.intervals);
+
             }
+
             this.setState({intervals: intv})
         })
 
     }
+
 
     exitt = () => {
 
         this.setState({showModal: false})
     };
 
+    getStudentsByClassId = (classId) => {
+        return getStudentsListForClass(classId).then((students) => {
+            return students
+        });
+
+    }
+
     eventClicked = (e) => {
         this.setState({selectedInterval: e});
         this.setState({showModal: true});
-        this.setState({attendingStudentsList: students});
+        this.setState({students: this.getStudentsByClassId(e.classId)});
     };
 
     event = (params) => {
@@ -149,7 +182,8 @@ class TeacherCalendar extends Component {
                     </div>
                     <div>
                         <Typography display="inline" className="leftside">Group: </Typography>
-                        <Typography display="inline">{item.subgroup.groupNumber}/{item.subgroup.subgroupNumber}</Typography>
+                        <Typography
+                            display="inline">{item.subgroup.groupNumber}/{item.subgroup.subgroupNumber}</Typography>
                     </div>
                     <div>
                         <Typography display="inline" className="leftside">Email: </Typography>
@@ -162,8 +196,21 @@ class TeacherCalendar extends Component {
 
 
     render() {
+        let showList;
+        if (this.state.showModal) {
+            showList = (<div>
+                {
+                    this.state.students.map((item, index) => {
+                            this.studentItem(item);
+                        }
+                    )
+                }
+
+            </div>)
+        }
         var {...config} = this.state;
-        if (this.state.intervals!=null) {
+
+        if (this.state.intervals != null) {
             return (
                 <div>
                     <div className={"calendar-wrapper"}>
@@ -198,11 +245,7 @@ class TeacherCalendar extends Component {
                                     Below you'll see information about the students attending this class
                                 </DialogContentText>
 
-                                <div>
-                                    {students.map((item, index) => (
-                                        this.studentItem(item)
-                                    ))}
-                                </div>
+                                {showList}
                             </DialogContent>
                             <DialogActions>
                                 <Button onClick={this.exitt} color="primary">
@@ -213,11 +256,11 @@ class TeacherCalendar extends Component {
                     </div>
                 </div>
             );
-        }else{
+        } else {
             return null;
         }
     }
 }
 
-export default TeacherCalendar;
+export default connect()(TeacherCalendar);
 

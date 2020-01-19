@@ -70,15 +70,17 @@ export function getClassesForStudent(userId) {
 
         })
 
-}export function getClassesForTeacher(teacherId) {
+}
+
+export function getClassesForTeacher(teacher) {
     var today = new Date();
     var dd = String(today.getDate()).padStart(2, '0');
     var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
     var yyyy = today.getFullYear();
 
     //const weekDate = yyyy + '-' + mm + '-' + dd;
-    const weekDate = "2019-11-12"
-    url = baseUrl + "class/getScheduleTeacher/" + teacherId + "/" + weekDate;
+    const weekDate = "2019-10-02"
+    url = baseUrl + "class/getScheduleTeacher/" + teacher.teacherId + "/" + weekDate;
 
     return fetch(baseUrl + "course/list", {
         method: 'GET'
@@ -105,19 +107,21 @@ export function getClassesForStudent(userId) {
                     var cls = []
                     for (var i in data) {
 
-                        for (var i in courses) {
-                            if (courses[i].courseId === data[i].courseId) {
+                        for (var j in courses) {
+                            if (courses[j].courseId === data[i].courseId) {
                                 const dayNr = getDayNumber(data[i].classDay)
                                 const hourr = Number(data[i].classHour.substring(0, 2))
-                                var c = new CourseClass(data[i].classId, classess[0].teacher, courses[i], classess[0].subgroup, "Laboratory", dayNr, data[i].classWeek, hourr, data[i].classLocation, data[i].classDuration)
+                                var c = new CourseClass(data[i].classId, teacher, courses[j], classess[0].subgroup, data[i].classType, dayNr, data[i].classWeek, hourr, data[i].classLocation, data[i].classDuration)
 
-                                cls.push(c)
+                                cls.push(c);
+                                break;
                             }
                         }
 
 
                     }
                     return cls
+                    //return classess
                 })
                 .catch((err) => {
                     console.log(err.message)

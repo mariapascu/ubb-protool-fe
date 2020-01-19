@@ -16,11 +16,11 @@ class MessageStudentComponent extends React.Component {
             <div className="card myCardHolder">
                 <div className="card-header">
                     {
-                        this.state.messageItem.status === "Declined" ? (
+                        this.state.messageItem.status === "declined" ? (
                             <b><span className="statusChangeRed">{this.state.messageItem.status}</span></b>
-                        ) : this.state.messageItem.status === "Accepted" ? (
+                        ) : this.state.messageItem.status === "accepted" ? (
                             <b><span className="statusChangeGreen">{this.state.messageItem.status}</span></b>
-                        ) : this.state.messageItem.status === "Pending" ? (
+                        ) : this.state.messageItem.status === "pending" ? (
                             <b>{this.state.messageItem.status}</b>
                         ) : <b>Something went wrong!</b>
                     }

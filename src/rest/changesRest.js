@@ -71,7 +71,7 @@ export function getChangesForStudent(student) {
                                         change.permanentChange = Date.parse(changes[i].endDate) - Date.parse(changes[i].startDate) > 518400000;
                                         var courseClass = getClassById(classes,changes[i].universityClassId,teachers,courses,student.subgroup)
                                         change.courseClass = courseClass
-                                        console.log(courseClass.classDay)
+                                        //console.log(courseClass.classDay)
                                         change.toTheDate= "Day: "+courseClass.classDay + " hour: " + courseClass.classHour;
                                         change.fromTheDate = ""; //ramane gol deocamdata, nu stim cum sa luam from date-ul.
                                         change.student = student

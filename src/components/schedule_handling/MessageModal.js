@@ -73,6 +73,7 @@ class MessageModal extends React.Component {
         }).catch((err) => {
             console.log(err)
         });
+        this.setState({showModal: false});
     }
 
     sendMessageAndChange = () => {

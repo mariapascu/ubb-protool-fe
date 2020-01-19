@@ -13,11 +13,13 @@ class MessageModal extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            formData: null,
+            formData: {},
             newClass: this.props.courseClass,
             student: this.props.student,
             showModal: true
         }
+        console.log(this.state.newClass)
+        console.log(this.student)
     }
 
     exitMessageModal = () => {
@@ -26,6 +28,7 @@ class MessageModal extends React.Component {
 
     handleInputChange = (event) => {
         const target = event.target;
+        console.log("target" + target.name + " " + target.value);
         const value = target.value;
         const name = target.name;
 
@@ -37,8 +40,10 @@ class MessageModal extends React.Component {
         });
     };
 
+
     getEndOfWeekDate = () => {
         var cDate = new Date();
+        console.log("Date " + this.state.newClass.classDay + " " + cDate.getDay());
         var difference = this.state.newClass.classDay - cDate.getDay();
         cDate.setDate(cDate.getDate() + difference);
         return cDate;
@@ -75,13 +80,16 @@ class MessageModal extends React.Component {
         const changeStatus = "pending";
         var startDate, endDate;
         startDate = new Date();
-        if (this.state.formData["type"] === "one-time") {
+
+        if (this.state.formData["type"] == "one-time") {
             endDate = this.getEndOfWeekDate();
         } else {
-            endDate = this.status.newClass.course.endDate;
+            endDate = this.state.newClass.course.endDate;
         }
         const startDateFormat = this.formatDate(startDate);
         const endDateFormat = this.formatDate(endDate);
+        //pending 2020-01-19 2020-01-24 16 2
+        console.log(changeStatus + " " + startDateFormat + " " + endDateFormat + " " + this.state.newClass.classId + " " + this.state.student.studentId);
         createChange(changeStatus, startDateFormat, endDateFormat, this.state.newClass.classId, this.state.student.studentId)
             .then((changeId) => {
                 this.sendMessage(changeId)
@@ -94,7 +102,7 @@ class MessageModal extends React.Component {
                 <DialogTitle>
                     <div>Write a message for your teacher!</div>
                 </DialogTitle>
-                <form onSubmit={this.sendMessageAndChange}>
+
                     <DialogContent>
                         <TextField fullWidth="true"
                                    id="standard-multiline-static"
@@ -103,27 +111,28 @@ class MessageModal extends React.Component {
                                    rows="4"
                                    defaultValue=""
                                    name="message-text"
+                                   onChange={this.handleInputChange}
                         />
-                        <RadioGroup defaultValue="one-time" name="type" className="radioGroup" aria-label="type"
-                                    name="type" required row>
-                            <FormControlLabel value="one-time" control={<Radio color="primary"/>}
+                        <RadioGroup defaultValue="one-time" className="radioGroup" aria-label="type"
+                                    name="type" required row onChange={this.handleInputChange} id="type">
+                            <FormControlLabel value="one-time" id="one-time" control={<Radio color="primary"/>}
                                               label="One time change"
-                                              name="one-time"/>
+                                              />
                             <FormControlLabel control={<Radio color="primary"/>}
                                               value="permanent"
+                                              id="permanent"
                                               label="Permanent change"
-                                              name="permanent"/>
+                                              />
                         </RadioGroup>
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.exitMessageModal}>
                             Cancel
                         </Button>
-                        <Button type="submit">
+                        <Button onClick={this.sendMessageAndChange}>
                             Send
                         </Button>
                     </DialogActions>
-                </form>
             </Dialog>
         );
     }

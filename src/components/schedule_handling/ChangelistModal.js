@@ -41,9 +41,13 @@ class ChangelistModal extends React.Component {
             showModal: true,
             newClasses: null
         }
+    }
 
+    componentDidMount() {
         getChangelistFromClass(this.state.oldClass.classId, this.formattedDate())
-            .then((data) => {this.setState(data)});
+            .then((data) => {this.setState({newClasses : data});
+                console.log("new classes " + this.data)
+            });
     }
 
     formatDate = (date) => {
@@ -57,7 +61,8 @@ class ChangelistModal extends React.Component {
         if (day.length < 2)
             day = '0' + day;
 
-        return [year, month, day].join('-');
+        //return [year, month, day].join('-');
+        return "2019-10-02";
     }
 
     formattedDate = () => {
@@ -97,7 +102,7 @@ class ChangelistModal extends React.Component {
 
     showMessageModal = (item) => {
         this.setState({showModal: false});
-        this.messageModal = <MessageModal courseClass={item}/>;
+        this.messageModal = <MessageModal courseClass={item} student={this.state.student}/>;
     }
 
     getDialogTitle = () => {
@@ -105,7 +110,17 @@ class ChangelistModal extends React.Component {
     }
 
     render() {
-
+        let changelistDiv = null;
+        if (this.state.newClasses != null) {
+            changelistDiv = <div>
+                {
+                    this.state.newClasses.map((item, index) => (
+                        <div onClick={() => this.showMessageModal(item)}>
+                            {this.changelistItem(item)}
+                        </div>
+                    ))}
+            </div>;
+        }
         return (<div>
                 <Dialog className="changelistDialog" fullWidth='true' maxWidth='xs' open={this.state.showModal}
                         onClose={this.exitChangelist}>
@@ -118,14 +133,7 @@ class ChangelistModal extends React.Component {
                         <DialogContentText>
                             Choose what class you want to attend instead!
                         </DialogContentText>
-                        <div>
-                            {
-                                newClassesList.map((item, index) => (
-                                    <div onClick={() => this.showMessageModal(item)}>
-                                        {this.changelistItem(item)}
-                                    </div>
-                                ))}
-                        </div>
+                        {changelistDiv}
                     </DialogContent>
                     <DialogActions>
                         <Button onClick={this.exitChangelist} color="primary">

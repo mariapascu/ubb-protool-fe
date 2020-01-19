@@ -15,6 +15,7 @@ export function createChange(changeStatus, startDate, endDate, classId, studentI
         })
     }).then((response) => {return response.json()})
         .then((data) => {
+            console.log(data);
             return data.changeId;
         })
         .catch((err) => console.log(err));

@@ -27,7 +27,7 @@ function getSubgroupById(lista, id) {
 }
 
 function getDayNumber(dayString) {
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
     for (var i = 1; i < 6; i++) {
         if (days[i - 1] === dayString) {
             return i;
@@ -212,16 +212,14 @@ function getAllCourses() {
 }
 
 export function getAllTeachers() {
-    url = baseUrl + "teacher/list"
+    url = baseUrl + "teacher/list";
     return fetch(url, {
         method: 'GET',
     }).then((response) => {
         return response.json();
-    })
-        .then((data) => {
+    }).then((data) => {
             return data; //list of teachers
-        })
-        .catch((err) => {
+        }).catch((err) => {
             console.log(err.message)
         })
 

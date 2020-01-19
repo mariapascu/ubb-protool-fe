@@ -131,7 +131,7 @@ class Calendar extends Component {
     showChangelist = () => {
         this.setState({showModal: false})
         this.changelistDialog = null;
-        this.changelistDialog = <ChangelistModal courseClass={this.state.selectedInterval}/>;
+        this.changelistDialog = <ChangelistModal courseClass={this.state.selectedInterval} student={this.state.loggedUser}/>;
     };
 
     event = (params) => {

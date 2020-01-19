@@ -20,6 +20,11 @@ class MessagesPageStudent extends React.Component {
 
     }
 
+    logout = () => {
+        this.props.logout();
+        this.props.history.push('/login')
+    }
+
     componentDidMount() {
         getChangesForStudent(this.props.loggedUser)
             .then((changes) => {
@@ -42,7 +47,7 @@ class MessagesPageStudent extends React.Component {
         if (this.state.messages != null) {
             return (
                 <div>
-                    <NavbarStudent/>
+                    <NavbarStudent loggedUser = {this.props.loggedUser} logoutFct={this.logout}/>
                     <div className="pageContent">
                         {this.state.messages.map((item, index) => (
                             <MessageStudentComponent item={item}/>

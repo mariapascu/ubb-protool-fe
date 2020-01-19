@@ -92,7 +92,7 @@ class Register extends React.Component {
         let password = formData.password;
         let teacherUniversity = formData.university;
         let teacherFaculty = formData.faculty;
-        let teacherWebSite = formData.teacher;
+        let teacherWebSite = formData.website;
         createTeacher(teacherDepartment, teacherAvailability, teacherFirstName, teacherLastName,
             email, password, teacherUniversity, teacherFaculty, teacherWebSite)
             .then((data) => console.log("data")).catch((err) => console.log(err));

@@ -6,8 +6,8 @@ export function createStudent(firstName, lastName, email, password, major, unive
     return fetch(url, {
         method: 'POST',
         headers: {
-            'Access-Control-Allow-Origin' : '*',
-            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            'Content-Type' : 'application/json'
         },
         body: JSON.stringify({
             firstName: firstName,
@@ -22,13 +22,15 @@ export function createStudent(firstName, lastName, email, password, major, unive
         })
 
     }).then((response) => {
-        return response.json()
+        console.log(response.status);
+        return response.status;
     })
         .then((data) => {
+            console.log(data);
             return data;
         })
         .catch((err) => {
-            console.log(err)
+            console.log(err.toString());
         });
 }
 
@@ -36,6 +38,10 @@ export function createTeacher(teacherDepartment, teacherAvailability, teacherFir
     const url = baseUrl + "teacher/saveTeacher";
     return fetch(url, {
         method: 'POST',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type' : 'application/json'
+        },
         body: JSON.stringify({
             teacherDepartment: teacherDepartment,
             teacherAvailability: teacherAvailability,
@@ -49,6 +55,7 @@ export function createTeacher(teacherDepartment, teacherAvailability, teacherFir
             teacherWebSite: teacherWebSite
         })
     }).then((response) => {
+        console.log(response);
         return response.json();
     })
         .then((data) => {

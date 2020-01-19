@@ -8,43 +8,48 @@ import {Teacher} from "../model/Teacher";
 import {Student} from "../model/Student";
 import {MessageTeacher} from "../model/MessageTeacher";
 
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "http://192.168.0.241:8080/";
 let url = "";
 
-export function getChangesForStudent(studentId) {
-    url = baseUrl + "change/get-changes-by-student-id" + studentId;
+export function getMessagesForStudent(studentId) {
+    url = baseUrl + "change/get-changes-by-student-id/" + studentId;
 
     return fetch(url, {
         method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     }).then((response) => {
         return response.json();
     })
         .then((data) => {
-            const changes = data;
-            let messageStudent = new MessageStudent();
-            let messagesStudent = [];
+            let changesList = [];
 
-            changes.forEach(myFunction);
+            data.forEach(myFunction);
 
             function myFunction(item, index) {
                 let change = new Change();
 
                 change.permanentChange = Date.parse(item.endDate) - Date.parse(item.startDate) > 518400000;
 
-                change.courseClass = getCourseClassById(item.universityClassId);
+                console.log(change.permanentChange);
                 change.toTheDate = change.courseClass.classDay + change.courseClass.classHour;
                 change.fromTheDate = ""; //ramane gol deocamdata, nu stim cum sa luam from date-ul.
-                change.student = getStudentById(studentId);
                 change.messageText = "";
                 change.changeId = item.changeId;
+                getCourseClassById(item.universityClassId).then((c) => {
+                        change.courseClass = c;
+                        getStudentById(studentId).then((s) => {
+                            change.student = s;
+                        })
+                    }
+                );
 
-                messageStudent.status = item.changeStatus;
-                messageStudent.messageId = item.changeId;
-                messageStudent.change = change;
-                messagesStudent.push(messageStudent)
+                changesList.push(change)
             }
 
-            return messagesStudent
+            return changesList;
         })
         .catch((err) => {
             console.log(err.message)
@@ -52,7 +57,7 @@ export function getChangesForStudent(studentId) {
 }
 
 export function getMessagesForTeacher(teacherId) {
-    url = baseUrl + "teacher/get-messages" + teacherId;
+    url = baseUrl + "message/getAllMessagesByTeacherId" + teacherId;
     return fetch(url, {
         method: 'GET',
     }).then((response) => {
@@ -86,6 +91,10 @@ export function getCourseClassById(courseClassId) {
     url = baseUrl + "class/get-by-id/" + courseClassId;
     return fetch(url, {
         method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
     }).then((response) => {
         return response.json();
     })

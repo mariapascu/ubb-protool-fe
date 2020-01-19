@@ -1,7 +1,7 @@
 import CourseClass from "../model/CourseClass";
 import {getCourseById, getSubgroupById, getTeacherById} from "./changesRest";
 
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "http://192.168.0.241:8080/";
 
 export function getChangelistFromClass(classId, date) {
     const url = url + "class/getPosiibleClassesForChanged/" + classId + "/" + date;

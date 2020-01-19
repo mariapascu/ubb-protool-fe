@@ -19,7 +19,6 @@ import ChangelistModal from "../schedule_handling/ChangelistModal";
 import {getClassesForStudent} from "../../rest/userRest";
 
 
-
 const days = [1, 2, 3, 4, 5]
 
 
@@ -68,6 +67,7 @@ class Evvent extends React.Component {
 
 class Calendar extends Component {
     changelistDialog;
+
     constructor(props) {
         super(props);
         this.state = {
@@ -77,14 +77,13 @@ class Calendar extends Component {
             showModal: false,
             selectedInterval: null
         };
-
     }
 
     componentDidMount() {
-        getClassesForStudent(10).then((classes)=>{
+        getClassesForStudent(2).then((classes) => {
             console.log(classes)
-            var intv = []
-            for (var i = 0; i < classes.length; i++) {
+            let intv = []
+            for (let i = 0; i < classes.length; i++) {
                 console.log(classes[i])
                 const c = {
                     classId: classes[i].classId,
@@ -105,7 +104,9 @@ class Calendar extends Component {
                 intv.push(c)
             }
             this.setState({intervals: intv})
-        }).catch((err)=>{console.log("Something went wrong")})
+        }).catch((err) => {
+            console.log("Something went wrong")
+        })
 
     }
 
@@ -147,138 +148,139 @@ class Calendar extends Component {
 
     render() {
         var {...config} = this.state;
-        if (this.state.intervals!=null){
-        return (
-            <div>
+        if (this.state.intervals != null) {
+            return (
+                <div>
 
-                <div className="arrowNavigator">
-                    <img className="calendarArrow" id="leftArrow" onClick={this.getPreviousWeek}/>
-                    <img className="calendarArrow" id="rightArrow" onClick={this.getNextWeek}/>
+                    <div className="arrowNavigator">
+                        <img className="calendarArrow" id="leftArrow" onClick={this.getPreviousWeek}/>
+                        <img className="calendarArrow" id="rightArrow" onClick={this.getNextWeek}/>
+                    </div>
+                    <div className={"calendar-wrapper"}>
+                        <WeekCalendar
+                            id="wk"
+                            dayFormat="dddd"
+                            firstDay={moment({month: 6, day: 1, year: 2019})}
+                            startTime={moment({h: 8})}
+                            endTime={moment({h: 20})}
+                            numberOfDays={5}
+                            scaleUnit={60}
+                            cellHeight={75}
+                            selectedIntervals={this.state.intervals}
+                            eventComponent={this.event}
+                            useModal={false}
+
+                            onEventClick={this.eventClicked}
+                        />
+
+                        {/* The dialog which opens when an interval is clicked*/}
+                        <Dialog open={this.state.showModal} onClose={this.exitt} aria-labelledby="form-dialog-title">
+                            <DialogTitle id="form-dialog-title">Class</DialogTitle>
+                            <DialogContent>
+                                <DialogContentText>
+                                    Below you'll see information about the class. If seminar/laboratory, you can try to
+                                    reschedule by
+                                    clicking "Change".
+                                </DialogContentText>
+
+                                <Box fontWeight="fontWeightBold">
+                                    <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
+                                        Subject:
+                                    </Typography>
+                                </Box>
+                                <Box m={2}>
+                                    <Typography variant="h8" component="h8">
+                                        {this.state.selectedInterval != null ?
+                                            this.state.selectedInterval.title : ""
+                                        }
+                                    </Typography>
+                                </Box>
+
+                                <Box fontWeight="fontWeightBold">
+                                    <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
+                                        Teacher:
+                                    </Typography>
+                                </Box>
+                                <Box m={2}>
+                                    <Typography variant="h8" component="h8">
+                                        {this.state.selectedInterval != null ?
+                                            this.state.selectedInterval.teacher.firstname + " " + this.state.selectedInterval.teacher.lastname : ""
+                                        }
+                                    </Typography>
+                                </Box>
+
+                                <Box fontWeight="fontWeightBold">
+                                    <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
+                                        Type:
+                                    </Typography>
+                                </Box>
+                                <Box m={2}>
+                                    <Typography variant="h8" component="h8">
+                                        {this.state.selectedInterval != null ?
+                                            this.state.selectedInterval.classType : ""
+                                        }
+                                    </Typography>
+                                </Box>
+                                <Box fontWeight="fontWeightBold">
+                                    <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
+                                        Location:
+                                    </Typography>
+                                </Box>
+                                <Box m={2}>
+                                    <Typography variant="h8" component="h8">
+                                        {this.state.selectedInterval != null ?
+                                            this.state.selectedInterval.classLocation : ""
+                                        }
+                                    </Typography>
+                                </Box>
+                                <Box fontWeight="fontWeightBold">
+                                    <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
+                                        Interval:
+                                    </Typography>
+                                </Box>
+                                <Box m={2}>
+                                    <Typography variant="h8" component="h8">
+                                        {this.state.selectedInterval != null ?
+                                            this.state.selectedInterval.start.format('hh:mm') : ""
+                                        }
+                                    </Typography>
+
+                                    -
+                                    <Typography variant="h8" component="h8">
+                                        {this.state.selectedInterval != null ?
+                                            this.state.selectedInterval.end.format('hh:mm') : ""
+                                        }
+                                    </Typography>
+
+                                </Box>
+
+                                <Box fontWeight="fontWeightBold">
+                                    <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
+                                        Duration:
+                                    </Typography>
+                                </Box>
+                                <Box m={2}>
+                                    <Typography variant="h8" component="h8">
+                                        {this.state.selectedInterval != null ?
+                                            this.state.selectedInterval.classDuration : ""
+                                        }
+                                    </Typography>
+                                </Box>
+                            </DialogContent>
+                            <DialogActions>
+                                <Button onClick={this.exitt} color="primary">
+                                    Back
+                                </Button>
+                                <Button onClick={this.showChangelist} color="primary">
+                                    Change
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                        {this.changelistDialog}
+                    </div>
                 </div>
-                <div className={"calendar-wrapper"}>
-                    <WeekCalendar
-                        id="wk"
-                        dayFormat="dddd"
-                        firstDay={moment({month: 6, day: 1, year: 2019})}
-                        startTime={moment({h: 8})}
-                        endTime={moment({h: 20})}
-                        numberOfDays={5}
-                        scaleUnit={60}
-                        cellHeight={75}
-                        selectedIntervals={this.state.intervals}
-                        eventComponent={this.event}
-                        useModal={false}
-
-                        onEventClick={this.eventClicked}
-                    />
-
-                    {/* The dialog which opens when an interval is clicked*/}
-                    <Dialog open={this.state.showModal} onClose={this.exitt} aria-labelledby="form-dialog-title">
-                        <DialogTitle id="form-dialog-title">Class</DialogTitle>
-                        <DialogContent>
-                            <DialogContentText>
-                                Below you'll see information about the class. If seminar/laboratory, you can try to
-                                reschedule by
-                                clicking "Change".
-                            </DialogContentText>
-
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Subject:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.title : ""
-                                    }
-                                </Typography>
-                            </Box>
-
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Teacher:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.teacher.firstname + " " + this.state.selectedInterval.teacher.lastname : ""
-                                    }
-                                </Typography>
-                            </Box>
-
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Type:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.classType : ""
-                                    }
-                                </Typography>
-                            </Box>
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Location:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.classLocation : ""
-                                    }
-                                </Typography>
-                            </Box>
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Interval:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.start.format('hh:mm') : ""
-                                    }
-                                </Typography>
-
-                                -
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.end.format('hh:mm') : ""
-                                    }
-                                </Typography>
-
-                            </Box>
-
-                            <Box fontWeight="fontWeightBold">
-                                <Typography fontWeight="fontWeightBold" variant="h8" component="h8">
-                                    Duration:
-                                </Typography>
-                            </Box>
-                            <Box m={2}>
-                                <Typography variant="h8" component="h8">
-                                    {this.state.selectedInterval != null ?
-                                        this.state.selectedInterval.classDuration : ""
-                                    }
-                                </Typography>
-                            </Box>
-                        </DialogContent>
-                        <DialogActions>
-                            <Button onClick={this.exitt} color="primary">
-                                Back
-                            </Button>
-                            <Button onClick={this.showChangelist} color="primary">
-                                Change
-                            </Button>
-                        </DialogActions>
-                    </Dialog>
-                    {this.changelistDialog}
-                </div>
-            </div>
-        );}else{
+            );
+        } else {
             return null;
         }
     }

@@ -4,7 +4,7 @@ import {Class} from "@material-ui/icons";
 import CourseClass from "../model/CourseClass";
 import Course from "../model/Course";
 
-const baseUrl = "http://localhost:8080/"
+const baseUrl = "http://192.168.0.241:8080/";
 var url;
 
 function getDayNumber(dayString){
@@ -49,15 +49,15 @@ export function getClassesForStudent(userId) {
                     var cls=[]
                     for (var i in data){
 
-                            for (var i in courses){
-                                if (courses[i].courseId === data[i].courseId){
-                                    const dayNr = getDayNumber(data[i].classDay)
-                                    const hourr=Number(data[i].classHour.substring(0,2))
-                                    var c=new CourseClass(data[i].classId,classess[0].teacher,courses[i],classess[0].subgroup,"Laboratory",dayNr,data[i].classWeek,hourr,data[i].classLocation,data[i].classDuration)
+                        for (var i in courses){
+                            if (courses[i].courseId === data[i].courseId){
+                                const dayNr = getDayNumber(data[i].classDay)
+                                const hourr=Number(data[i].classHour.substring(0,2))
+                                var c=new CourseClass(data[i].classId,classess[0].teacher,courses[i],classess[0].subgroup,"Laboratory",dayNr,data[i].classWeek,hourr,data[i].classLocation,data[i].classDuration)
 
-                                    cls.push(c)
-                                }
+                                cls.push(c)
                             }
+                        }
 
 
 
@@ -131,17 +131,17 @@ function getAllCourses(){
     return fetch(url,{
         method:'GET'
     }).then((r)=>{return r.json()})
-    .then((data)=>{
-        console.log(data[0]["courseId"])
-        var courses=[];
-        for (var c in data){
+        .then((data)=>{
+            console.log(data[0]["courseId"])
+            var courses=[];
+            for (var c in data){
 
-            var co=new Course(data[c]["courseId"],data[c]["courseName"],data[c]["courseSemester"],data[c]["courseUniversity"],data[c]["courseFaculty"],data[c]["courseStartDate"],data[c]["courseEndDate"])
+                var co=new Course(data[c]["courseId"],data[c]["courseName"],data[c]["courseSemester"],data[c]["courseUniversity"],data[c]["courseFaculty"],data[c]["courseStartDate"],data[c]["courseEndDate"])
 
-            courses.push(co)
-        }
-        return courses;
-    })
+                courses.push(co)
+            }
+            return courses;
+        })
 }
 
 export function getAllTeachers() {
@@ -222,8 +222,8 @@ export function updateStudent(body){
     return fetch(url, {
         method: 'UPDATE',
         headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'},
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'},
         body: body
     }).then((response) => {
         if(response.status === 200){
@@ -240,6 +240,3 @@ export function addChange(studentId, firstName, lastName, groupId, subgroupId) {
 export function registerStudent(firstName, lastName, email, password, uni, fac, spec, group, subgroup) {
     //post
 }
-
-
-

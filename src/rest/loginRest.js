@@ -1,7 +1,7 @@
 import {students} from "../mockings/StudentMock";
 
 
-const baseUrl = "http://localhost:8080/"
+const baseUrl = "http://192.168.0.241:8080/"
 
 export function getUserByUsernameAndPassword(username, password) {
     const url = baseUrl + "login/email-and-password";

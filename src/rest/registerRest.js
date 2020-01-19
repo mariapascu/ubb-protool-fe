@@ -1,4 +1,4 @@
-const baseUrl = "http://localhost:8080/"
+const baseUrl = "http://192.168.0.241:8080/"
 
 export function createStudent(firstName, lastName, email, password, major, university,
                               faculty, studentGroup, studentSubGroup) {

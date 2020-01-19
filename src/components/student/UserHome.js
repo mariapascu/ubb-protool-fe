@@ -21,8 +21,8 @@ class UserHome extends React.Component {
     }
     componentDidMount() {
         //Uncomment line at the end
-    if (this.props.loggedUser.firstname===undefined){
-        //this.props.history.push('/login')
+    if (this.props.loggedUser.firstName===undefined){
+        this.props.history.push('/login')
     }
     }
 

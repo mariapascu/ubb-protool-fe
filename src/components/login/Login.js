@@ -73,21 +73,21 @@ class Login extends React.Component {
             getUserByUsernameAndPassword(formData.email, formData.password).then((data) => {
                 console.log(data);
                 if (data == null) {
-                    // error
+                    return;
                 }
-                else if (data.studentId != null) {
-                    this.setState({student: data});
-                    console.log(this.state.student.firstName);
-
+                // else if (data.studentId != null) {
+                //     this.setState({student: data});
+                //     console.log(this.state.student.firstName);
+                //
                     this.props.addUser(this.state.student);
                     this.props.history.push('/user');
-                }
-                else {
-                    this.setState({teacher: data});
-                    console.log(this.state.teacher);
-                    this.props.addUser(t);
-                    this.props.history.push('/teacher');
-                }
+                // }
+                // else {
+                //     this.setState({teacher: data});
+                //     console.log(this.state.teacher);
+                //     this.props.addUser(t);
+                //     this.props.history.push('/teacher');
+                //}
 
             }).catch((err) => console.log(err));
         } else {

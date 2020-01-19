@@ -18,7 +18,7 @@ import Typography from "@material-ui/core/Typography";
 import CardContent from "@material-ui/core/CardContent";
 import CardHeader from "@material-ui/core/CardHeader";
 import DialogContentText from "@material-ui/core/DialogContentText";
-
+import {getChangelistFromClass} from "../../rest/ChangelistRest";
 let newClassesList = classess;
 
 class ChangelistModal extends React.Component {
@@ -38,8 +38,32 @@ class ChangelistModal extends React.Component {
         this.state = {
             student: this.props.student,
             oldClass: this.props.courseClass,
-            showModal: true
+            showModal: true,
+            newClasses: null
         }
+
+        getChangelistFromClass(this.state.oldClass.classId, this.formattedDate())
+            .then((data) => {this.setState(data)});
+    }
+
+    formatDate = (date) => {
+        let d = new Date(date),
+            month = '' + (d.getMonth() + 1),
+            day = '' + d.getDate(),
+            year = d.getFullYear();
+
+        if (month.length < 2)
+            month = '0' + month;
+        if (day.length < 2)
+            day = '0' + day;
+
+        return [year, month, day].join('-');
+    }
+
+    formattedDate = () => {
+        let d = new Date();
+        let f = this.formatDate(d);
+        return f;
     }
 
     changelistItem = (item) => {

@@ -29,17 +29,6 @@ export function getChangesForStudent(studentId) {
             function myFunction(item, index) {
                 let change = new Change();
 
-                // [
-                //     {
-                //         "changeId": 1,
-                //         "changeStatus": "pending",
-                //         "startDate": "2019-10-01",
-                //         "endDate": "2019-10-09",
-                //         "universityClassId": 1,
-                //         "studentId": 1
-                //     }
-                // ]
-
                 change.permanentChange = Date.parse(item.endDate) - Date.parse(item.startDate) > 518400000;
 
                 change.courseClass = getCourseClassById(item.universityClassId);
@@ -78,7 +67,7 @@ export function getMessagesForTeacher(teacherId) {
             function myFunction(item, index) {
                 let messageTeacher = new MessageTeacher();
 
-                messageTeacher.change = getChangeById(item.changeId);
+                //messageTeacher.change = getChangeById(item.changeId);
                 messageTeacher.messageId = item.messageId;
                 messageTeacher.status = messageTeacher.change.status;
                 messageTeacher.messageText = item.messageText;
@@ -208,7 +197,7 @@ export function getStudentById(studentId) {
 
             student.studentId = data.studentId;
             student.firstName = data.firstName;
-            student.subgroup = getStudentById(data.subgroupId);
+            student.subgroup = getSubgroupById(data.subgroupId);
             student.lastName = data.lastName;
             student.email = data.email;
             student.fac = data.faculty;
@@ -221,59 +210,4 @@ export function getStudentById(studentId) {
             console.log(err.message)
         })
 }
-
-
-
-//
-// export function getChangesForStudent(studentId) {
-//     url = baseUrl + "change/get-changes-by-student-id" + studentId;
-//
-//     return fetch(url, {
-//         method: 'GET',
-//     }).then((response) => {
-//         return response.json();
-//     })
-//         .then((data) => {
-//             const changes = data;
-//             let messageStudent = new MessageStudent();
-//             let messagesStudent = [];
-//
-//             changes.forEach(myFunction);
-//
-//             function myFunction(item, index) {
-//                 let change = new Change();
-//
-//                 // [
-//                 //     {
-//                 //         "changeId": 1,
-//                 //         "changeStatus": "pending",
-//                 //         "startDate": "2019-10-01",
-//                 //         "endDate": "2019-10-09",
-//                 //         "universityClassId": 1,
-//                 //         "studentId": 1
-//                 //     }
-//                 // ]
-//
-//                 change.permanentChange = item.toDate - item.fromDate > 7;
-//
-//                 change.courseClass = getCourseClassById(item.courseClassId);
-//                 change.toTheDate = change.courseClass.classDay + change.courseClass.classHour;
-//                 change.fromTheDate = ""; //ramane gol deocamdata, nu stim cum sa luam from date-ul.
-//                 change.student = getStudentById(studentId);
-//                 change.messageText = "";
-//                 change.changeId = item.id;
-//
-//                 messageStudent.status = item.status;
-//                 messageStudent.messageId = item.id;
-//                 messageStudent.change = change;
-//                 messagesStudent.push(messageStudent)
-//             }
-//
-//             return messagesStudent
-//         })
-//         .catch((err) => {
-//             console.log(err.message)
-//         })
-// }
-
 

@@ -68,16 +68,15 @@ class Login extends React.Component {
         const {formData} = this.state;
 
         if (errors === true) {
-            let t = new Teacher(1, "fd", "dfgdfsg", "dsfd", "efd", "frgdg", "gferg", "efeg", "ersgserhg");
 
             getUserByUsernameAndPassword(formData.email, formData.password).then((data) => {
                 console.log(data);
                 if (data == null) {
-                    // error
+                    return;
                 }
                 else if (data.studentId != null) {
                     this.setState({student: data});
-                    console.log(this.state.student.firstName);
+                    console.log(this.state.student);
 
                     this.props.addUser(this.state.student);
                     this.props.history.push('/user');
@@ -85,7 +84,7 @@ class Login extends React.Component {
                 else {
                     this.setState({teacher: data});
                     console.log(this.state.teacher);
-                    this.props.addUser(t);
+                    this.props.addUser(this.state.teacher);
                     this.props.history.push('/teacher');
                 }
 

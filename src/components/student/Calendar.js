@@ -16,7 +16,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import {classess} from "../../mockings/ClassMock"
 import ChangelistModal from "../schedule_handling/ChangelistModal";
-import {getClassesForWeek} from "../../rest/userRest";
+import {getClassesForStudent} from "../../rest/userRest";
 
 
 
@@ -40,6 +40,7 @@ class Evvent extends React.Component {
 
     constructor(props) {
         super(props);
+
     }
 
     render() {
@@ -77,20 +78,22 @@ class Calendar extends Component {
             showModal: false,
             selectedInterval: null
         };
+        console.log(this.props.loggedUser);
 
     }
 
     componentDidMount() {
-        getClassesForWeek("1","1").then((classes)=>{
-            console.log("here")
+        getClassesForStudent(1).then((classes)=>{
+            console.log(classes)
             var intv = []
             for (var i = 0; i < classes.length; i++) {
+                console.log(classes[i])
                 const c = {
                     classId: classes[i].classId,
                     title: classes[i].course.courseName,
                     teacher: classes[i].teacher,
                     classType: classes[i].classType,
-                    classLocation: classess[i].classLocation,
+                    classLocation: classes[i].classLocation,
                     classDuration: classes[i].classDuration,
                     start: moment({month: 6, day: days[classes[i].classDay - 1], year: 2019, h: classes[i].classHour}),
                     end: moment({
@@ -100,6 +103,7 @@ class Calendar extends Component {
                         h: classes[i].classHour + classes[i].classDuration
                     })
                 }
+                console.log(c)
                 intv.push(c)
             }
             this.setState({intervals: intv})

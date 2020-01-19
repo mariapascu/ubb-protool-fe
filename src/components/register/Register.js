@@ -8,6 +8,7 @@ import '@material-ui/core'
 import TextField from '@material-ui/core/TextField';
 import './Register.css';
 import {isEmail, isEmpty, isContainWhiteSpace} from '../../shared/validator';
+import {createStudent, createTeacher} from "../../rest/registerRest";
 
 
 class Register extends React.Component {
@@ -37,8 +38,7 @@ class Register extends React.Component {
         }
         if (formData.password.length < 6) {
             errors.password = "Password must contain at least 6 characters!";
-        }
-        else if (isContainWhiteSpace(formData.password)) {
+        } else if (isContainWhiteSpace(formData.password)) {
             errors.password = "Password can't contain white spaces!";
         }
         if (!(formData.password === formData.confirmPassword)) {
@@ -64,14 +64,55 @@ class Register extends React.Component {
 
     };
 
+    addStudent = () => {
+        const {formData} = this.state;
+        console.log(formData);
+        let firstName = formData.firstName;
+        let lastName = formData.lastName;
+        let email = formData.email;
+        let password = formData.password;
+        let major = formData.specialization;
+        let university = formData.university;
+        let faculty = formData.faculty;
+        let studentGroup = formData.group;
+        let studentSubGroup = formData.subgroup;
+        createStudent(firstName, lastName, email, password, major, university,
+            faculty, studentGroup, studentSubGroup)
+            .then((data) => console.log(data))
+            .catch((err) => console.log(err));
+    }
+
+    addTeacher = () => {
+        const {formData} = this.state;
+        let teacherDepartment = formData.department;
+        let teacherAvailability = (formData.available === "yes")
+        let teacherFirstName = formData.firstName;
+        let teacherLastName = formData.lastName;
+        let email = formData.email;
+        let password = formData.password;
+        let teacherUniversity = formData.university;
+        let teacherFaculty = formData.faculty;
+        let teacherWebSite = formData.website;
+        createTeacher(teacherDepartment, teacherAvailability, teacherFirstName, teacherLastName,
+            email, password, teacherUniversity, teacherFaculty, teacherWebSite)
+            .then((data) => console.log("data")).catch((err) => console.log(err));
+
+
+    }
+
     registerMe = (e) => {
         console.log(this.state);
         e.preventDefault();
         let errors = this.validateRegistration();
         if (errors === true) {
+            if (this.state.formData['type'] === 'student') {
+                this.addStudent();
+            }
+            else {
+                this.addTeacher();
+            }
             this.props.history.push('/login');
-        }
-        else {
+        } else {
             this.setState({
                 localErrors: errors
             });
@@ -118,8 +159,8 @@ class Register extends React.Component {
                         label="Group"
                         autoFocus
                         name="group"
-                        error = {!(this.state.localErrors.group == null)}
-                        helperText= {this.state.localErrors.group}
+                        error={!(this.state.localErrors.group == null)}
+                        helperText={this.state.localErrors.group}
                         onChange={this.handleInputChange}
                     />
                     <TextField
@@ -132,8 +173,8 @@ class Register extends React.Component {
                         label="Subgroup"
                         autoFocus
                         name="subgroup"
-                        error = {!(this.state.localErrors.subgroup == null)}
-                        helperText= {this.state.localErrors.subgroup}
+                        error={!(this.state.localErrors.subgroup == null)}
+                        helperText={this.state.localErrors.subgroup}
                         onChange={this.handleInputChange}
                     />
                 </div>;
@@ -151,8 +192,21 @@ class Register extends React.Component {
                         name="department"
                         onChange={this.handleInputChange}
                     />
+                    <TextField
+                        className="GroupTextField"
+                        variant="outlined"
+                        margin="normal"
+                        required
+                        fullWidth
+                        id="website"
+                        label="Website"
+                        autoFocus
+                        name="website"
+                        onChange={this.handleInputChange}
+                    />
                     <div>Are you available for Bachelor's Thesis?</div>
-                    <RadioGroup aria-label="available" defaultValue="yes" name="available" required row onChange={this.handleInputChange}>
+                    <RadioGroup aria-label="available" defaultValue="yes" name="available" required row
+                                onChange={this.handleInputChange}>
                         <FormControlLabel value="yes" control={<Radio color="primary"/>} label="Yes"/>
                         <FormControlLabel value="no" control={<Radio color="primary"/>} label="No"/>
                     </RadioGroup>
@@ -182,7 +236,7 @@ class Register extends React.Component {
 
                 <div className="RegisterFormSide">
                     <div className="RegisterTitle">Register</div>
-                    <div className="RegisterForm" >
+                    <div className="RegisterForm">
                         <form onSubmit={this.registerMe}>
                             <TextField
                                 className="GroupTextField"
@@ -219,8 +273,8 @@ class Register extends React.Component {
                                 autoComplete="email"
                                 autoFocus
                                 name="email"
-                                error = {!(this.state.localErrors.email == null)}
-                                helperText= {this.state.localErrors.email}
+                                error={!(this.state.localErrors.email == null)}
+                                helperText={this.state.localErrors.email}
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -235,8 +289,8 @@ class Register extends React.Component {
                                 autoComplete="email"
                                 autoFocus
                                 name="password"
-                                error = {!(this.state.localErrors.password == null)}
-                                helperText= {this.state.localErrors.password}
+                                error={!(this.state.localErrors.password == null)}
+                                helperText={this.state.localErrors.password}
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -250,8 +304,8 @@ class Register extends React.Component {
                                 label="Confirm Password"
                                 autoFocus
                                 name="confirmPassword"
-                                error = {!(this.state.localErrors.confirmPassword == null)}
-                                helperText= {this.state.localErrors.confirmPassword}
+                                error={!(this.state.localErrors.confirmPassword == null)}
+                                helperText={this.state.localErrors.confirmPassword}
                                 onChange={this.handleInputChange}
                             />
                             <TextField
@@ -288,8 +342,11 @@ class Register extends React.Component {
                             </RadioGroup>
                             {studentOrTeacher}
                             <div>
-                                <button type="submit" className="btn btn-secondary myButton" style={{float:"left"}}>Submit</button>
-                                <div style={{float:"left", marginTop: "6%", marginLeft: "5%"}}>Already have an account? <a href="/login">Login </a></div>
+                                <button type="submit" className="btn btn-secondary myButton"
+                                        style={{float: "left"}}>Submit
+                                </button>
+                                <div style={{float: "left", marginTop: "6%", marginLeft: "5%"}}>Already have an
+                                    account? <a href="/login">Login </a></div>
                             </div>
                         </form>
                     </div>

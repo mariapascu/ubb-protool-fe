@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@material-ui/core'
 import './Message.css';
 
-class MessageStudent extends React.Component {
+class MessageCompStudent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -43,4 +43,4 @@ class MessageStudent extends React.Component {
     }
 }
 
-export default MessageStudent;
+export default MessageCompStudent;

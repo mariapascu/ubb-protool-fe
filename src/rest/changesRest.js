@@ -7,7 +7,7 @@ import {Subgroup} from "../model/Subgroup";
 import {Teacher} from "../model/Teacher";
 import {Student} from "../model/Student";
 
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "http://192.168.3.4:8080/";
 let url = "";
 
 export function getChangesForStudent(studentId) {

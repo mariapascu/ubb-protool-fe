@@ -12,6 +12,9 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import NavBarTeacher from "../../navbar/NavBarTeacher";
+import {Student} from "../../../model/Student";
+import {updateTeacher} from "../../../rest/userRest";
+import {Teacher} from "../../../model/Teacher";
 
 
 class ProfileTeacher extends React.Component {
@@ -36,7 +39,8 @@ class ProfileTeacher extends React.Component {
             errors: {
                 name: false,
                 surname: false
-            }
+            },
+            loggedUser: this.props.loggedUser
         }
     }
 
@@ -62,6 +66,7 @@ class ProfileTeacher extends React.Component {
             name: this.state.initialName,
             surname: this.state.initialSurname,
             site: this.state.initialSite,
+            thesisAvailability: this.state.initialThesisAvailability
         })
     };
 
@@ -74,7 +79,24 @@ class ProfileTeacher extends React.Component {
             initialSurname: this.state.surname,
             initialSite: this.state.site,
             initialThesisAvailability: this.state.thesisAvailability
-        })
+        });
+        this.props.addUser(new Teacher(this.state.loggedUser.teacherId,
+            this.state.loggedUser.department,
+            this.state.thesisAvailability,
+            this.state.surname, this.state.name,
+            this.state.loggedUser.teacherEmail,
+            this.state.loggedUser.uni,
+            this.state.loggedUser.fac,
+            this.state.site));
+        let updateJSON = JSON.stringify({
+            "teacherId": this.state.loggedUser.studentId,
+            "firstName": this.state.surname,
+            "lastName": this.state.name,
+            "teacherAvailability": this.state.thesisAvailability,
+            "teacherWebSite": this.state.site
+        });
+        updateTeacher(updateJSON).then(r => {
+        });
     };
 
     handleChangeSite = event => {

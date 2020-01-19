@@ -1,7 +1,7 @@
 import {classess} from "../mockings/ClassMock"
 import {Teacher} from "../model/Teacher";
 
-const baseUrl = "http://localhost:8080/";
+const baseUrl = "http://192.168.3.4:8080/";
 var url;
 
 export function getClassesForWeek(userId, weekDate) {
@@ -101,6 +101,21 @@ export function updateStudent(body){
         headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'},
+        body: body
+    }).then((response) => {
+        if(response.status === 200){
+            return true
+        }
+    })
+}
+
+export function updateTeacher(body){
+    url = baseUrl;
+    return fetch(url, {
+        method: 'UPDATE',
+        headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'},
         body: body
     }).then((response) => {
         if(response.status === 200){

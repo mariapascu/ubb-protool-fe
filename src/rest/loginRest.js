@@ -1,21 +1,30 @@
 import {students} from "../mockings/StudentMock";
 
 
-const baseUrl = "http://localhost:8080/"
+const baseUrl = "http://192.168.3.26:8080/";
 
 export function getUserByUsernameAndPassword(username, password) {
-    //const url = baseUrl + "login/username+password;
-    const url = "http://httpbin.org/post";
+    const url = baseUrl + "login/email-and-password";
+    const j = JSON.stringify({
+        email: username,
+        password: password
+    });
+    console.log(j);
+    console.log(username + password);
     return fetch(url, {
-        method: 'POST',
-        body: JSON.stringify({
-            email: username,
-            password: password
-        })
+        method: "POST",
+        headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: j
     }).then((response) => {
-        return response.json();
+        // if(response.status === 200){
+            return response.json()
+        // }
+        // else return null;
     }).then((data) => {
-        console.log(data);
+        console.log(JSON.stringify(data) + "   AICICICICICICICI");
         // if (data.studentId == null) {
         //     //transform data in teacher
         // }
@@ -24,6 +33,6 @@ export function getUserByUsernameAndPassword(username, password) {
         // }
         return students[0];
     }).catch((err) => {
-        console.log(err.message)
+        console.log(err)
     });
 }

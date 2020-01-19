@@ -68,41 +68,40 @@ class ProfileStudent extends React.Component {
             "studentId": this.state.loggedUser.studentId,
             "firstName": this.state.surname,
             "lastName": this.state.name,
-            //           "email": this.state.loggedUser.email,
-            //         "major": this.state.speciality,
-            //"university": this.state.university,
-            //"faculty": this.state.faculty,
             "studentGroup": this.state.group,
             "studentSubGroup": this.state.subgroup
         });
-        let updateStatus = updateStudent(updateJSON);
-        if (updateStatus === 1) {
-            console.log(updateStatus);
-            this.setState({
-                showFields: true,
-                showEdit: false,
-                initialGroup: this.state.group,
-                initialSubgroup: this.state.subgroup,
-                initialName: this.state.name,
-                initialSurname: this.state.surname
-            });
-            this.props.addUser(new Student(this.state.loggedUser.studentId,
-                this.state.subgroup,
-                this.state.surname,
-                this.state.name,
-                this.state.loggedUser.email,
-                this.state.speciality,
-                this.state.university,
-                this.state.faculty));
-        } else {
-            this.setState({
-                showFields: false,
-                showEdit: true,
-                errors: {
-                    group: true
-                }
-            })
-        }
+        updateStudent(updateJSON).then((data) => {
+            console.log(data);
+            if (data === 1) {
+                console.log(data);
+                this.setState({
+                    showFields: true,
+                    showEdit: false,
+                    initialGroup: this.state.group,
+                    initialSubgroup: this.state.subgroup,
+                    initialName: this.state.name,
+                    initialSurname: this.state.surname
+                });
+                this.props.addUser(new Student(this.state.loggedUser.studentId,
+                    this.state.subgroup,
+                    this.state.surname,
+                    this.state.name,
+                    this.state.loggedUser.email,
+                    this.state.speciality,
+                    this.state.university,
+                    this.state.faculty));
+            } else {
+                this.setState({
+                    showFields: false,
+                    showEdit: true,
+                    errors: {
+                        group: true
+                    }
+                })
+            }
+        });
+
     };
 
 //     fetch('https://mywebsite.com/endpoint/', {

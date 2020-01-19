@@ -251,7 +251,7 @@ export function getChangesOfCourse(courseId) {
 }
 
 export function getChangesOfUser(userId) {
-    url = baseUrl + userId
+    url = baseUrl + userId;
     return fetch(url, {
         method: 'GET'
     }).then((response) => {
@@ -291,6 +291,7 @@ export function updateStudent(body) {
         headers: baseHeader,
         body: body
     }).then((response) => {
+        console.log(response.status);
         if (response.status === 200 || response.status === 302) {
             return 1
         } else

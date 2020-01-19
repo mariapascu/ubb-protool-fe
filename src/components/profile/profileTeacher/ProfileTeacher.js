@@ -80,30 +80,32 @@ class ProfileTeacher extends React.Component {
             "teacherAvailability": this.state.thesisAvailability,
             "teacherWebSite": this.state.site
         });
-        let updateStatus = updateTeacher(updateJSON);
-        if (updateStatus) {
-            this.setState({
-                showFields: true,
-                showEdit: false,
-                initialName: this.state.name,
-                initialSurname: this.state.surname,
-                initialSite: this.state.site,
-                initialThesisAvailability: this.state.thesisAvailability
-            });
-            this.props.addUser(new Teacher(this.state.loggedUser.teacherId,
-                this.state.loggedUser.department,
-                this.state.thesisAvailability,
-                this.state.surname, this.state.name,
-                this.state.loggedUser.teacherEmail,
-                this.state.loggedUser.uni,
-                this.state.loggedUser.fac,
-                this.state.site));
-        } else {
-            this.setState({
-                showFields: false,
-                showEdit: true
-            })
-        }
+        updateTeacher(updateJSON).then((data) => {
+            if (data) {
+                this.setState({
+                    showFields: true,
+                    showEdit: false,
+                    initialName: this.state.name,
+                    initialSurname: this.state.surname,
+                    initialSite: this.state.site,
+                    initialThesisAvailability: this.state.thesisAvailability
+                });
+                this.props.addUser(new Teacher(this.state.loggedUser.teacherId,
+                    this.state.loggedUser.department,
+                    this.state.thesisAvailability,
+                    this.state.surname, this.state.name,
+                    this.state.loggedUser.teacherEmail,
+                    this.state.loggedUser.uni,
+                    this.state.loggedUser.fac,
+                    this.state.site));
+            } else {
+                this.setState({
+                    showFields: false,
+                    showEdit: true
+                })
+            }
+        });
+
     };
 
     handleChangeSite = event => {

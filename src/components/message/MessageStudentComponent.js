@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@material-ui/core'
 import './Message.css';
 
-class MessageStudent extends React.Component {
+class MessageStudentComponent extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -20,6 +20,8 @@ class MessageStudent extends React.Component {
                             <b><span className="statusChangeRed">{this.state.messageItem.status}</span></b>
                         ) : this.state.messageItem.status === "Accepted" ? (
                             <b><span className="statusChangeGreen">{this.state.messageItem.status}</span></b>
+                        ) : this.state.messageItem.status === "Pending" ? (
+                            <b>{this.state.messageItem.status}</b>
                         ) : <b>Something went wrong!</b>
                     }
                 </div>
@@ -35,7 +37,7 @@ class MessageStudent extends React.Component {
                         ) : <b>One time change</b>
                     }
                     </p>
-                    <p className="card-text">From: <b>{this.state.messageItem.change.fromTheDate}</b> To: <b>{this.state.messageItem.change.toTheDate}</b>
+                    <p className="card-text"> To: <b>{this.state.messageItem.change.toTheDate}</b>
                     </p>
                 </div>
             </div>
@@ -43,4 +45,4 @@ class MessageStudent extends React.Component {
     }
 }
 
-export default MessageStudent;
+export default MessageStudentComponent;

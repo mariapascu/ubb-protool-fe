@@ -51,13 +51,13 @@
     background-image: linear-gradient(to top right, #0a1b31, #7d80ce) !important;
 }
 
-.Seminar {
+.Seminary {
     /*background-color: rgb(179, 81, 79) !important;*/
     background-image: linear-gradient(to top right, #fb7ca4, #fbc691) !important;
     border-radius: 20px;
 }
 
-.Seminar:hover {
+.Seminary:hover {
     /*background-color: rgb(179, 81, 79) !important;*/
     background-image: linear-gradient(to top right, #f76f97, #fbc691) !important;
     margin-bottom: 10px;

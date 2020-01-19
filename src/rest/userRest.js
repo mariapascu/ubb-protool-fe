@@ -9,7 +9,7 @@ import {baseHeader, baseUrlServer} from "../shared/NetworkSettings";
 const baseUrl = baseUrlServer;
 var url;
 
-function getTeacherById(tList, tId) {
+export function getTeacherById2(tList, tId) {
     for (var i in tList) {
         if (tList[i].teacherId === tId) {
             return new Teacher(tList[i].teacherId, tList[i].teacherDepartment, tList[i].teacherAvailability, tList[i].teacherFirstName, tList[i].teacherLastName,
@@ -26,8 +26,8 @@ function getSubgroupById(lista, id) {
     }
 }
 
-function getDayNumber(dayString) {
-    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+export function getDayNumber(dayString) {
+    const days = ["monday", "tuesday", "wednesday", "thursday", "friday"]
     for (var i = 1; i < 6; i++) {
         if (days[i - 1] === dayString) {
             return i;
@@ -85,7 +85,7 @@ export function getClassesForStudent(userId) {
                                             if (courses[j].courseId === data[i].courseId) {
                                                 console.log("add")
                                                 const dayNr = getDayNumber(data[i].classDay)
-                                                const teacher = getTeacherById(teachers, data[i].teacherId)
+                                                const teacher = getTeacherById2(teachers, data[i].teacherId)
                                                 const subgroup = getSubgroupById(subgroups, data[i].subgroupId)
 
                                                 const hourr = Number(data[i].classHour.substring(0, 2))
@@ -250,17 +250,6 @@ export function getChangesOfCourse(courseId) {
     })
 }
 
-export function getChangesOfUser(userId) {
-    url = baseUrl + userId;
-    return fetch(url, {
-        method: 'GET'
-    }).then((response) => {
-        return response.json()
-    }).then((data) => {
-        return data; //lista de change-uri
-    })
-
-}
 
 export function getClassesWithChanges(userId, subgroupId, weekDate) {
     url = baseUrl + userId + "/" + subgroupId + "/" + weekDate

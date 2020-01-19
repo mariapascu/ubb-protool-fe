@@ -4,25 +4,57 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '@material-ui/core'
 import {messagesStudent} from "../../mockings/MessageStudentMock";
 import NavbarStudent from "../navbar/NavbarStudent";
-import MessageStudent from "./MessageStudent"
+import MessageStudentComponent from "./MessageStudentComponent"
+import {getChangesForStudent} from "../../rest/changesRest";
+import {MessageStudent} from "../../model/MessageStudent";
+
 
 class MessagesPageStudent extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props)
+        console.log(this.props.loggedUser)
+        this.state = {
+            messages: null
+        }
+
+    }
+
+    componentDidMount() {
+        getChangesForStudent(this.props.loggedUser)
+            .then((changes) => {
+                var res = [];
+                var m = new MessageStudent();
+                for (var i in changes) {
+                    m.change = changes[i];
+                    m.status = changes[i].status;
+                    m.messageId = changes[i].changeId;
+                    res.push(m);
+                }
+                this.setState({
+                    messages: res
+                })
+            })
     }
 
     render() {
-        return (
-            <div>
-                <NavbarStudent/>
-                <div className="pageContent">
-                    {messagesStudent.map((item, index) => (
-                        <MessageStudent item = {item}/>
-                    ))}
+
+        if (this.state.messages != null) {
+            return (
+                <div>
+                    <NavbarStudent/>
+                    <div className="pageContent">
+                        {this.state.messages.map((item, index) => (
+                            <MessageStudentComponent item={item}/>
+                        ))}
+                    </div>
                 </div>
-            </div>
-        )
+            )
+        } else {
+            return (
+                null
+            )
+        }
     }
 }
 

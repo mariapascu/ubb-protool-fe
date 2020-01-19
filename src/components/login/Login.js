@@ -10,8 +10,6 @@ import {Teacher} from "../../model/Teacher";
 import {getUserByUsernameAndPassword} from "../../rest/loginRest";
 import {Student} from "../../model/Student";
 import {Subgroup} from "../../model/Subgroup";
-import Snackbar from "@material-ui/core/Snackbar";
-import Alert from "@material-ui/lab/Alert";
 import Typography from "@material-ui/core/Typography";
 
 class Login extends React.Component {

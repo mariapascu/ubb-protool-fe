@@ -8,50 +8,90 @@ import {Teacher} from "../model/Teacher";
 import {Student} from "../model/Student";
 import {MessageTeacher} from "../model/MessageTeacher";
 import {baseUrlServer} from "../shared/NetworkSettings";
+import {getDayNumber, getTeacherById2} from "./userRest";
 
 
 const baseUrl = baseUrlServer;
 let url = "";
 
-export function getChangesForStudent(studentId) {
-    url = baseUrl + "change/get-changes-by-student-id" + studentId;
-
-    return fetch(url, {
-        method: 'GET',
-    }).then((response) => {
-        return response.json();
-    })
-        .then((data) => {
-            const changes = data;
-            let messageStudent = new MessageStudent();
-            let messagesStudent = [];
-
-            changes.forEach(myFunction);
-
-            function myFunction(item, index) {
-                let change = new Change();
-
-                change.permanentChange = Date.parse(item.endDate) - Date.parse(item.startDate) > 518400000;
-
-                change.courseClass = getCourseClassById(item.universityClassId);
-                change.toTheDate = change.courseClass.classDay + change.courseClass.classHour;
-                change.fromTheDate = ""; //ramane gol deocamdata, nu stim cum sa luam from date-ul.
-                change.student = getStudentById(studentId);
-                change.messageText = "";
-                change.changeId = item.changeId;
-
-                messageStudent.status = item.changeStatus;
-                messageStudent.messageId = item.changeId;
-                messageStudent.change = change;
-                messagesStudent.push(messageStudent)
-            }
-
-            return messagesStudent
-        })
-        .catch((err) => {
-            console.log(err.message)
-        })
+function getCourseById2(lista,id){
+    for (var i in lista){
+        if (lista[i].courseId === id){
+            var co=new Course(lista[i].courseId,lista[i].courseName,lista[i].courseUniversity,lista[i].courseFaculty,
+                lista[i].courseStartDate,lista[i].courseEndDate);
+            return co;
+        }
+    }
 }
+
+function getClassById(lista,id,teacherL,courseL,sub){
+    for (var i in lista){
+        if (lista[i].classId === id ){
+            console.log(lista[i])
+            var c = new CourseClass();
+            c.classId=lista[i].classId
+            c.classType=lista[i].classType
+            c.classWeek=lista[i].classWeek
+            c.classDay = getDayNumber(lista[i].classDay)
+            c.classHour = Number(lista[i].classHour.substring(0, 2))
+            c.classLocation=lista[i].classLocation
+            c.teacher = getTeacherById2(teacherL,lista[i].teacherId)
+            c.subgroup = sub
+            c.course = getCourseById2(courseL,lista[i].courseId)
+            return c;
+        }
+    }
+}
+
+
+export function getChangesForStudent(student) {
+    let urlForChanges = baseUrl + "change/get-changes-by-student-id/" + student.studentId;
+    return fetch(baseUrl + "class/list", {
+        method: "GET"
+    }).then((r)=>{return r.json()})
+        .then((classes)=>{
+            return fetch(baseUrl+"course/list",{
+                method:'GET'
+            }).then((r) => {return r.json()})
+                .then((courses)=>{
+                    return fetch(baseUrl+"teacher/list",{
+                        method:'GET'
+                    }).then((r)=>{return r.json()})
+                        .then((teachers)=>{
+                            return fetch(urlForChanges,{
+                                method:'GET'
+                            }).then((r)=>{return r.json()})
+                                .then((changes)=>{
+                                    var result=[]
+                                    for (var i in changes){
+                                        console.log(changes)
+                                        console.log(classes)
+                                        var change=new Change()
+
+                                        change.permanentChange = Date.parse(changes[i].endDate) - Date.parse(changes[i].startDate) > 518400000;
+                                        var courseClass = getClassById(classes,changes[i].universityClassId,teachers,courses,student.subgroup)
+                                        change.courseClass = courseClass
+                                        console.log(courseClass.classDay)
+                                        change.toTheDate= "Day: "+courseClass.classDay + " hour: " + courseClass.classHour;
+                                        change.fromTheDate = ""; //ramane gol deocamdata, nu stim cum sa luam from date-ul.
+                                        change.student = student
+                                        change.messageText = "";
+                                        change.status = changes[i].changeStatus;
+                                        change.changeId = changes[i].changeId;
+                                        result.push(change)
+                                    }
+                                    return result;
+
+
+                                })
+                        })
+                })
+        })
+
+
+}
+
+
 
 export function getMessagesForTeacher(teacherId) {
     url = baseUrl + "teacher/get-messages" + teacherId;

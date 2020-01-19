@@ -34,14 +34,13 @@ class TeacherHome extends React.Component {
         return (
             <div>
                 <NavBarTeacher logoutFct={this.logout}/>
-                <Container>
-                </Container>
+                <TeacherCalendar></TeacherCalendar>
             </div>
         )
     }
 
 }
-//<TeacherCalendar loggedUser = {this.state.loggedUser}></TeacherCalendar>
+
 
 export default connect()(TeacherHome);
 

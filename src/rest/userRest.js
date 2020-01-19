@@ -72,7 +72,7 @@ export function getClassesForStudent(userId) {
                     })
                         .then((subgroups) => {
                             return fetch(url, {
-                                method: 'POST',
+                                method: 'GET',
                             }).then((response) => {
                                 return response.json();
                             })

@@ -9,6 +9,7 @@ import TextField from '@material-ui/core/TextField';
 import {Teacher} from "../../model/Teacher";
 import {getUserByUsernameAndPassword} from "../../rest/loginRest";
 import {Student} from "../../model/Student";
+import {Subgroup} from "../../model/Subgroup";
 
 class Login extends React.Component {
 
@@ -68,26 +69,32 @@ class Login extends React.Component {
         const {formData} = this.state;
 
         if (errors === true) {
-
             getUserByUsernameAndPassword(formData.email, formData.password).then((data) => {
-                console.log(data);
+                console.log(data + "Data from login");
                 if (data == null) {
-                    return;
-                }
-                else if (data.studentId != null) {
-                    this.setState({student: data});
-                    console.log(this.state.student);
 
+                } else if (data.studentId != null) {
+                    console.log(data + "I am a student");
+                    this.setState({student: data});
+                    console.log(this.state.student.firstName);
+                    this.setState({
+                        student: new Student(data.studentId,
+                            new Subgroup(0,data.studentGroup,data.studentSubGroup),
+                            data.firstName,data.lastName,data.email,data.major,data.university,data.faculty)
+                    });
                     this.props.addUser(this.state.student);
                     this.props.history.push('/user');
-                }
-                else {
+                } else {
+                    console.log(data + "I am a teacher");
                     this.setState({teacher: data});
                     console.log(this.state.teacher);
+                    this.setState({teacher: new Teacher(data.teacherId,data.teacherDepartment,
+                        data.teacherAvailability,data.teacherFirstName,
+                        data.teacherLastName,data.email,data.teacherUniversity,
+                        data.teacherFaculty,data.teacherWebSite)});
                     this.props.addUser(this.state.teacher);
                     this.props.history.push('/teacher');
                 }
-
             }).catch((err) => console.log(err));
         } else {
             this.setState({
@@ -95,6 +102,7 @@ class Login extends React.Component {
                 formSubmitted: true
             });
         }
+
         console.log("errors " + this.state.localErrors);
     };
 

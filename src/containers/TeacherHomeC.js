@@ -3,7 +3,6 @@ import { logoutUser } from '../actions';
 import TeacherHome from "../components/teacher/TeacherHome";
 
 export function mapStateToProps(state) {
-    console.log(state.user)
     return { loggedUser: state.user.loggedUser }
 }
 

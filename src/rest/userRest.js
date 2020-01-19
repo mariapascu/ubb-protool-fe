@@ -4,8 +4,9 @@ import {Class} from "@material-ui/icons";
 import CourseClass from "../model/CourseClass";
 import Course from "../model/Course";
 import {Subgroup} from "../model/Subgroup";
+import {baseHeader, baseUrlServer} from "../shared/NetworkSettings";
 
-const baseUrl = "http://localhost:8080/"
+const baseUrl = baseUrlServer;
 var url;
 
 function getTeacherById(tList, tId) {
@@ -250,7 +251,7 @@ export function getChangesOfCourse(courseId) {
 }
 
 export function getChangesOfUser(userId) {
-    url = baseUrl + userId
+    url = baseUrl + userId;
     return fetch(url, {
         method: 'GET'
     }).then((response) => {
@@ -273,7 +274,7 @@ export function getClassesWithChanges(userId, subgroupId, weekDate) {
 }
 
 export function getStudentsForClass(classId) {
-    url = baseUrl + classId
+    url = baseUrl + classId;
     return fetch(url, {
         method: 'GET'
     }).then((response) => {
@@ -284,18 +285,34 @@ export function getStudentsForClass(classId) {
 }
 
 export function updateStudent(body) {
-    url = baseUrl;
+    url = baseUrl + "student/updateStudent";
     return fetch(url, {
-        method: 'UPDATE',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json'
-        },
+        method: 'POST',
+        headers: baseHeader,
         body: body
     }).then((response) => {
-        if (response.status === 200) {
-            return true
-        }
+        console.log(response.status);
+        if (response.status === 200 || response.status === 302) {
+            return 1
+        } else
+            return 0
+    }).then((data) => {
+        return data
+    })
+}
+
+export function updateTeacher(body) {
+    url = baseUrl + "/teacher/updateTeacher";
+    return fetch(url, {
+        method: 'POST',
+        headers: baseHeader,
+        body: body
+    }).then((response) => {
+        if (response.status === 200 || response.status === 302) {
+            return 1
+        } else return 0
+    }).then((data) => {
+        return data
     })
 }
 

@@ -12,9 +12,8 @@ import Register from "../containers/Register";
 import MessagesPageTeacher from "./message/MessagesPageTeacher";
 import TeachersTab from "./student/teacherTab/TeachersTab";
 import Calendar from "./student/Calendar";
-import TeacherHome from "../containers/TeacherHomeC"
+import TeacherHomeC from "../containers/TeacherHomeC"
 import MessagesPageStudent from "./message/MessagesPageStudent";
-import ProfileStudent from "./profile/profileStudent/ProfileStudent";
 import ProfileStudentC from "../containers/ProfileStudentC";
 import ProfileTeacherC from "../containers/ProfileTeacherC";
 
@@ -29,7 +28,7 @@ const App = () => (
                 <Route exact path="/profileTeacher" component={ProfileTeacherC}/>
                 <Route exact path="/teachersStudent" component={TeachersTab}/>
                 <Route exact path="/register" component={Register}/>
-                <Route exact path="/teacher" component={TeacherHome}/>
+                <Route exact path="/teacher" component={TeacherHomeC}/>
                 <Route exact path="/cal" component={Calendar}/>
                 <Route exact path="/messagesTeacher" component={MessagesPageTeacher}/>
                 <Route exact path="/messagesStudent" component={MessagesPageStudent}/>

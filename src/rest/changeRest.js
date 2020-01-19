@@ -1,4 +1,6 @@
-const baseUrl = "http://localhost:8080/";
+import {baseUrlServer} from "../shared/NetworkSettings";
+
+const baseUrl = baseUrlServer;
 
 export function createChange(changeStatus, startDate, endDate, classId, studentId) {
     const url = baseUrl + "change/saveChange";

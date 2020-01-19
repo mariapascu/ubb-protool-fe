@@ -76,14 +76,15 @@ class Calendar extends Component {
 
             intervals: null,
             showModal: false,
-            selectedInterval: null
+            selectedInterval: null,
+            loggedUser: this.props.loggedUser
         };
         console.log(this.props.loggedUser);
 
     }
 
     componentDidMount() {
-        getClassesForStudent(1).then((classes)=>{
+        getClassesForStudent(this.state.loggedUser.studentId).then((classes)=>{
             console.log(classes)
             var intv = []
             for (var i = 0; i < classes.length; i++) {

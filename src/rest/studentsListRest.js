@@ -11,7 +11,7 @@ export function getStudentsListForClass(classId) {
         method: 'GET',
         headers: {
             'Accept': 'application/json',
-            'Content-Type' : 'application/json'
+            'Content-Type': 'application/json'
         },
     }).then((r) => {
         return r.json();
@@ -21,7 +21,7 @@ export function getStudentsListForClass(classId) {
             method: 'GET',
             headers: {
                 'Accept': 'application/json',
-                'Content-Type' : 'application/json'
+                'Content-Type': 'application/json'
             },
         }).then((response) => {
             console.log("response " + JSON.stringify(response));
@@ -34,7 +34,7 @@ export function getStudentsListForClass(classId) {
                 for (let i = 0; i < data.length; i++) {
                     var item = data[i];
                     console.log("obj" + item);
-                    var student = new Student(item.studentId, data[i].firstName, getSubgroupById(subgroups, item.subgroupId), item.lastName,
+                    var student = new Student(item.studentId, getSubgroupById(subgroups, item.subgroupId), data[i].firstName, item.lastName,
                         item.email, item.faculty, item.major, item.university);
 
                     // student.studentId = item.studentId;

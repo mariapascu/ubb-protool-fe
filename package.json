@@ -11,7 +11,7 @@
     "@material-ui/core": "latest",
     "@material-ui/lab": "^4.0.0-alpha.39",
     "@material/textfield": "^4.0.0",
-    "axios": "^0.19.1",
+    "axios": "^0.21.1",
     "bootstrap": "^4.4.1",
     "daypilot-pro-react": "https://npm.daypilot.org/daypilot-pro-react/trial/2019.3.4012.tar.gz",
     "material-ui": "^0.20.2",
